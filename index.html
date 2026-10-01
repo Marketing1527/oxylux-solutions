@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OxyLux Solutions | Hyperbaric Oxygen Therapy — Opening Soon</title>
+<meta name="description" content="OxyLux Solutions is opening soon: private hyperbaric oxygen sessions in a calm, clinical setting. Join the list to hear when bookings open.">
+<link rel="canonical" href="https://www.oxyluxsolutions.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OxyLux Solutions — Opening Soon">
+<meta property="og:description" content="Private hyperbaric oxygen sessions. Join the list to hear when bookings open.">
+<meta property="og:url" content="https://www.oxyluxsolutions.com/">
+<meta property="og:image" content="https://www.oxyluxsolutions.com/assets/icon-512.png">
+<meta name="theme-color" content="#101a5c">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Libre+Caslon+Text:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  body { min-height: 100vh; display: flex; flex-direction: column; background: var(--white); }
+  .soon { flex: 1; display: flex; align-items: center; position: relative; overflow: hidden; padding: 48px 0 160px; }
+  .soon .wrap { position: relative; z-index: 1; width: 100%; }
+  .soon-logo { width: clamp(150px, 22vw, 220px); margin-bottom: 28px; }
+  .soon h1 { max-width: 15ch; }
+  .notify { display: flex; gap: 10px; flex-wrap: wrap; max-width: 520px; margin-top: 28px; }
+  .notify input { flex: 1 1 240px; border-radius: 999px; padding: 14px 20px; }
+  .notify-msg { min-height: 1.6em; margin-top: 12px; color: var(--ink-soft); }
+  .soon-foot { padding: 24px 0; border-top: 1px solid var(--line); font-size: .9rem; color: var(--ink-soft); position: relative; z-index: 1; background: var(--white); }
+  .soon-foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "OxyLux Solutions",
+  "url": "https://www.oxyluxsolutions.com/",
+  "logo": "https://www.oxyluxsolutions.com/assets/icon-512.png",
+  "email": "hello@oxyluxsolutions.com",
+  "description": "Private hyperbaric oxygen therapy sessions."
+}
+</script>
+</head>
+<body>
+<main class="soon" id="main">
+  <div class="wrap">
+    <img class="soon-logo" src="/assets/logo.webp" alt="OxyLux Solutions logo" width="220" height="220">
+    <h1>Hyperbaric oxygen sessions, opening soon.</h1>
+    <p class="lede">OxyLux Solutions is preparing private, comfortable hyperbaric oxygen therapy with trained staff at every session. Leave your email and we’ll tell you the day bookings open.</p>
+    <form class="notify" id="notify" novalidate>
+      <label class="skip" for="notify-email">Email address</label>
+      <input id="notify-email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+      <button class="btn" type="submit">Notify me</button>
+    </form>
+    <p class="notify-msg" id="notify-msg" role="status"></p>
+  </div>
+  <svg class="waves" viewBox="0 0 780 300" aria-hidden="true">
+    <defs>
+      <linearGradient id="g" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#b8862a"/><stop offset=".6" stop-color="#e2b955"/><stop offset="1" stop-color="#f3dc8f"/>
+      </linearGradient>
+    </defs>
+    <path d="M20 280 C 90 150, 220 110, 380 170 S 640 220, 770 70" stroke="url(#g)" stroke-width="14"/>
+    <path d="M60 290 C 130 190, 250 160, 400 215 S 650 255, 770 140" stroke="url(#g)" stroke-width="11"/>
+    <path d="M100 298 C 170 235, 280 215, 420 255 S 660 285, 770 210" stroke="url(#g)" stroke-width="8"/>
+  </svg>
+</main>
+<footer class="soon-foot">
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> OxyLux Solutions</span>
+    <a href="mailto:hello@oxyluxsolutions.com">hello@oxyluxsolutions.com</a>
+  </div>
+</footer>
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.getElementById('notify').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var input = document.getElementById('notify-email');
+    var msg = document.getElementById('notify-msg');
+    if (!input.checkValidity() || !input.value) {
+      msg.textContent = 'Enter a full email address, like name@email.com.';
+      input.focus();
+      return;
+    }
+    var body = 'Please add me to the OxyLux Solutions opening list: ' + input.value;
+    window.location.href = 'mailto:hello@oxyluxsolutions.com?subject=' + encodeURIComponent('Opening list') + '&body=' + encodeURIComponent(body);
+    msg.textContent = 'Your email app is opening. Send the message and you’re on the list.';
+  });
+</script>
+</body>
+</html>
