@@ -27,7 +27,7 @@
       var d = new FormData(form);
       var body = 'Name: ' + d.get('name') + '\nPhone: ' + d.get('phone') + '\nEmail: ' + d.get('email') +
         '\nInterested in: ' + d.get('interest') + '\nAvailability: ' + d.get('message');
-      window.location.href = 'mailto:hello@oxyluxsolutions.com?subject=' + encodeURIComponent('Booking request from ' + d.get('name')) + '&body=' + encodeURIComponent(body);
+      window.location.href = 'mailto:frontdesk@oxyluxsolutions.com?subject=' + encodeURIComponent('Booking request from ' + d.get('name')) + '&body=' + encodeURIComponent(body);
       msg.textContent = 'Your email app is opening with your request. Send it and we’ll reply within one business day.';
     });
   }

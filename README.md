@@ -15,7 +15,7 @@ Search the project for `[` placeholders:
 - [ ] `[PRICE]`, `[PACKAGE OPTIONS AND PRICES]`, `[MEMBERSHIP DETAILS]` on services.html
 - [ ] `[FOUNDER STORY]`, `[CERTIFICATIONS / TRAINING DETAILS]` on about.html
 - [ ] `[INSURANCE POLICY]` on faq.html
-- [ ] Confirm hello@oxyluxsolutions.com exists. The notify and booking forms open an email to it.
+- [ ] Confirm frontdesk@oxyluxsolutions.com exists. The notify and booking forms open an email to it.
   Recommended: swap the forms to a real form backend (Formspree, Basin, etc.) so leads aren't lost.
 - [ ] Real photos of the chambers and space
 
