@@ -133,3 +133,5 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); outl
   .nav.open { display: flex; }
   .waves { opacity: .55; }
 }
+
+.credit { font-size: .85rem; margin: 12px 0 0; max-width: none; }
