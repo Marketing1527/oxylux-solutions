@@ -273,3 +273,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--o
 }
 @media (prefers-reduced-motion: reduce) { .hero-chamber { animation: none; } }
 .svc-img { width: 100%; max-width: 520px; filter: drop-shadow(0 24px 28px rgba(46, 35, 25, .28)); }
+.brand { white-space: nowrap; }
+.brand-sub { font-weight: 400; margin-left: -2px; }
+@media (max-width: 1280px) and (min-width: 1141px) { .brand { font-size: 1.45rem; } .nav { gap: 18px; } }
+@media (max-width: 400px) { .brand { font-size: 1.4rem; gap: 8px; } .brand img { width: 44px; } }
