@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hyperbaric Oxygen Therapy Consent Form | OxyLux Solutions</title>
+<meta name="description" content="Complete your OxyLux Solutions hyperbaric oxygen therapy consent form online before your visit.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f3eee6">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/consent.css">
+</head>
+<body class="consent-page">
+<a class="skip" href="#form-start">Skip to the form</a>
+
+<header class="c-top">
+  <div class="c-top-inner">
+    <a href="/home.html" class="c-back">OxyLux Solutions</a>
+    <div class="c-progress" aria-hidden="true"><span id="progress-bar"></span></div>
+    <span class="c-progress-label" id="progress-label">0% complete</span>
+  </div>
+</header>
+
+<main class="c-main">
+  <div class="c-paper" id="paper">
+    <div class="c-head">
+      <img src="/assets/logo-clear.webp" alt="OxyLux Solutions" width="200" height="205" class="c-logo">
+      <h1>Hyperbaric Oxygen Therapy Consent Form</h1>
+      <p class="lede">Please complete every section before your first session. It takes about 10 minutes. Your answers are only shared with the OxyLux care team.</p>
+    </div>
+
+    <nav class="c-steps" aria-label="Form sections">
+      <a href="#s-info">Your information</a>
+      <a href="#s-health">Health history</a>
+      <a href="#s-ack">Acknowledgments</a>
+      <a href="#s-contra">Contraindications</a>
+      <a href="#s-sign">Consent and signature</a>
+    </nav>
+
+    <form id="consent" novalidate autocomplete="on">
+      <span id="form-start"></span>
+
+      <!-- 1. Information -->
+      <fieldset class="c-section" id="s-info">
+        <legend><span class="c-num">1</span>Your information</legend>
+        <div class="c-grid">
+          <label class="c-span-8">Full legal name<input name="name" id="f-name" autocomplete="name" required></label>
+          <label class="c-span-4">Today’s date<input name="date" id="f-date" type="date" required></label>
+          <label class="c-span-12">Home address<input name="address" autocomplete="street-address" required></label>
+          <label class="c-span-5">City<input name="city" autocomplete="address-level2" required></label>
+          <label class="c-span-3">State<input name="state" autocomplete="address-level1" maxlength="20" required></label>
+          <label class="c-span-4">ZIP code<input name="zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" required></label>
+          <label class="c-span-6">Phone<input name="phone" type="tel" autocomplete="tel" required></label>
+          <label class="c-span-6">Email<input name="email" type="email" autocomplete="email" required></label>
+          <label class="c-span-4">Date of birth<input name="dob" id="f-dob" type="date" autocomplete="bday" required></label>
+          <label class="c-span-2">Age<input name="age" id="f-age" inputmode="numeric" maxlength="3" required></label>
+          <label class="c-span-3">Height<input name="height" placeholder="5 ft 8 in" required></label>
+          <label class="c-span-3">Weight<input name="weight" placeholder="160 lb" required></label>
+          <label class="c-span-6"><span>Referred by <span class="c-opt">(if any)</span></span><input name="referral"></label>
+          <label class="c-span-6">If no referral, how did you hear about us?<input name="heard" list="heard-list"></label>
+          <datalist id="heard-list"><option value="Google"><option value="Instagram"><option value="Facebook"><option value="Friend or family"><option value="My physician"><option value="Drove by"></datalist>
+          <label class="c-span-7">Emergency contact name<input name="ec_name" required></label>
+          <label class="c-span-5">Emergency contact phone<input name="ec_phone" type="tel" required></label>
+        </div>
+      </fieldset>
+
+      <!-- 2. Health -->
+      <fieldset class="c-section" id="s-health">
+        <legend><span class="c-num">2</span>Health history</legend>
+        <label>Medications you are taking now, the condition each is for, and the dose
+          <textarea name="medications" rows="3" placeholder="For example: Lisinopril, blood pressure, 10 mg daily. Write “None” if none." required></textarea></label>
+        <label>Allergies to drugs, food or anything else
+          <textarea name="allergies" rows="2" placeholder="Write “None” if none." required></textarea></label>
+
+        <div class="c-q" data-group="care">
+          <p class="c-q-title">Are you currently under medical care for any reason?</p>
+          <div class="c-choices c-inline">
+            <label class="c-choice"><input type="radio" name="care" value="Yes" required><span>Yes</span></label>
+            <label class="c-choice"><input type="radio" name="care" value="No"><span>No</span></label>
+          </div>
+          <label class="c-reveal" id="care-explain" hidden>Please explain<textarea name="care_detail" rows="2"></textarea></label>
+        </div>
+
+        <div class="c-q" data-group="rx" data-exclusive>
+          <p class="c-q-title">Are you currently prescribed or taking any of these medications? <span class="c-opt">Select all that apply.</span></p>
+          <div class="c-choices">
+            <label class="c-choice"><input type="checkbox" name="rx" value="Bleomycin"><span>Bleomycin</span></label>
+            <label class="c-choice"><input type="checkbox" name="rx" value="Disulfiram"><span>Disulfiram</span></label>
+            <label class="c-choice"><input type="checkbox" name="rx" value="Mafenide acetate"><span>Mafenide acetate</span></label>
+            <label class="c-choice c-none"><input type="checkbox" name="rx" value="None of these"><span>None of these</span></label>
+          </div>
+        </div>
+
+        <div class="c-q" data-group="dx" data-exclusive>
+          <p class="c-q-title">Have you been diagnosed with, or are you suspected of having, any of the following? <span class="c-opt">Select all that apply.</span></p>
+          <div class="c-choices">
+            <label class="c-choice"><input type="checkbox" name="dx" value="Hereditary spherocytosis"><span>Hereditary spherocytosis</span></label>
+            <label class="c-choice"><input type="checkbox" name="dx" value="Sickle cell anemia"><span>Sickle cell anemia</span></label>
+            <label class="c-choice"><input type="checkbox" name="dx" value="COPD"><span>COPD</span></label>
+            <label class="c-choice c-none"><input type="checkbox" name="dx" value="None of these"><span>None of these</span></label>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- 3. Acknowledgments -->
+      <fieldset class="c-section" id="s-ack">
+        <legend><span class="c-num">3</span>Acknowledgments</legend>
+        <p class="c-help">Read each statement and type your initials to confirm you understand it.</p>
+
+        <div class="c-ack">
+          <h3>About hyperbaric oxygen therapy</h3>
+          <p>Hyperbaric Oxygen Therapy (HBOT) is a therapy that increases the amount of oxygen the body can absorb at a cellular level. The treatment supplies oxygen in a sealed chamber at a higher-than-normal atmospheric pressure, which allows the oxygen to dissolve more easily into liquids such as blood plasma and cerebrospinal fluid. The body’s absorption of the increased oxygen is reported to be beneficial for a wide range of ailments. However, the FDA only approves HBOT for certain specific conditions. Other conditions for which HBOT is often used are considered “off-label.” Although many off-label conditions have been studied with positive results, I understand that no treatment outcome is guaranteed, and the fees I pay are for services rendered, not for any benefits I may receive or expect or hope to receive. I understand it is possible that I may not observe or realize any benefit from the treatment, and that HBOT is not intended as a cure for any condition or disease. I further understand the treatment is not a substitute for other treatment suggested or prescribed by my physician.</p>
+          <label class="c-initial">Initials<input name="i_about" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+
+        <div class="c-ack">
+          <h3>Ear pressure (otic barotrauma)</h3>
+          <p>Possible side effects of HBOT include otic barotrauma: ear pain or damage to the eardrum caused by rapid changes in pressure, such as when a plane descends to land. To keep pressure equal on both sides of the eardrum, air must move freely between the nasopharynx and middle ear. When the chamber is pressurized, I understand that I must be able to equalize the pressure in my ears to avoid possible severe ear discomfort. The most effective method is to hold the nose, close the mouth, and blow gently through the nose. Other methods include yawning, swallowing, and holding the nose while swallowing.</p>
+          <p><strong>If the pressure in my ears fails to equalize using any of these methods, I agree to tell the attendant about any discomfort immediately.</strong> The attendant will adjust the pressure to try to relieve the discomfort, but if the pressure in my ears cannot be equalized, the treatment will be stopped promptly. In that event, I understand no further sessions will be scheduled for me until I have obtained a release from my physician.</p>
+          <label class="c-initial">Initials<input name="i_ear" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+
+        <div class="c-ack">
+          <h3>Gastrointestinal effects</h3>
+          <p>I understand that HBOT may assist my body in detoxifying digestive flora. As a result, I may experience some discomfort within the first 36 hours following a session. Symptoms may include loss of appetite, stomachache, constipation or diarrhea, headache, body aches, irritability, or other emotional upset. I understand that although this is a normal process, if symptoms persist beyond 36 hours, I must consult a physician for evaluation.</p>
+          <label class="c-initial">Initials<input name="i_gi" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+
+        <div class="c-ack">
+          <h3>Drop in blood sugar</h3>
+          <p>Insulin-dependent diabetics may experience a drop in blood sugar while in the chamber. If I take insulin, I understand that I must test my blood sugar before my session and eat a snack if my level is under 150. I must test again when I leave the chamber and eat a snack before leaving the facility if my level is under 150. I agree to tell the attendant immediately if I feel uncomfortable at any time during the session.</p>
+          <label class="c-initial">Initials<input name="i_sugar" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+
+        <div class="c-ack">
+          <h3>Other side effects</h3>
+          <p>Other side effects may include headache, nausea, drowsiness, hyperactivity, dizziness, claustrophobia, or blurred vision.</p>
+          <label class="c-initial">Initials<input name="i_other" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+
+        <div class="c-ack">
+          <h3>Jewelry and sharp objects</h3>
+          <p>Piercings and jewelry will need to be removed where possible. No sharp objects are allowed in the HBOT chamber.</p>
+          <label class="c-initial">Initials<input name="i_jewelry" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+
+        <div class="c-ack">
+          <h3>No guarantee of results</h3>
+          <p>Although hyperbaric therapy has been reported to be beneficial for a wide range of conditions, this therapy is not meant as a cure for any condition or disease, and no therapeutic outcome can be guaranteed. OxyLux Solutions does not in any way recommend HBOT as a substitute for any medical treatment prescribed or suggested by a physician, and makes no guarantee of any results an individual may experience. OxyLux Solutions does not accept health insurance for its services.</p>
+          <label class="c-initial">Initials<input name="i_guarantee" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+      </fieldset>
+
+      <!-- 4. Contraindications -->
+      <fieldset class="c-section" id="s-contra">
+        <legend><span class="c-num">4</span>Contraindications</legend>
+        <div class="c-q" data-group="contra" data-exclusive>
+          <p class="c-q-title">I understand I should not undergo treatment if I have any of the following diagnoses or symptoms. Select any that apply to you.</p>
+          <div class="c-choices c-two">
+            <label class="c-choice"><input type="checkbox" name="contra" value="High fever"><span>High fever</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Flown in the last 24 hours"><span>Have flown in the last 24 hours</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Ear infection or blocked ear canal"><span>Ear infection or blocked ear canal</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Optic neuritis"><span>Optic neuritis</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Severe lung or heart disease"><span>Severe lung or heart disease</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Full or partial pneumothorax"><span>Full or partial pneumothorax (collapsed lung)</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Seizure disorder"><span>Seizure disorder</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Emphysema"><span>Emphysema</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Sinus or upper respiratory infection"><span>Sinus or upper respiratory infection</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Glaucoma"><span>Glaucoma</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Aneurysm"><span>Aneurysm</span></label>
+            <label class="c-choice"><input type="checkbox" name="contra" value="Untreated asthma or asthma attack in last 24 hours"><span>Untreated asthma, or an asthma attack in the last 24 hours</span></label>
+            <label class="c-choice c-none c-full"><input type="checkbox" name="contra" value="None of the above apply to me"><span>None of the above apply to me</span></label>
+          </div>
+          <p class="c-warn" id="contra-warn" hidden>Thank you for letting us know. You can still submit this form. A member of our team will contact you before your session to talk through whether HBOT is right for you.</p>
+        </div>
+        <div class="c-ack c-ack-plain">
+          <label class="c-initial">Initials<input name="i_contra" maxlength="4" autocapitalize="characters" required></label>
+        </div>
+      </fieldset>
+
+      <!-- 5. Consent + signature -->
+      <fieldset class="c-section" id="s-sign">
+        <legend><span class="c-num">5</span>Waiver and consent to treatment</legend>
+        <div class="c-legal">
+          <p>I, <strong class="c-fill" id="waiver-name">[your name]</strong>, acknowledge that I have read the above information completely. I have received answers to any questions I may have about the treatment. I am fully informed of the possible side effects and complications that may arise from the treatment. Being fully informed, I agree to obtain this treatment, and I hereby release and hold harmless OxyLux Solutions, its employees, agents, representatives, lessees, and assigns from liability for any and all effects or lack thereof, side effects, or complications that may arise as a result of the HBOT treatment.</p>
+          <p>I hereby authorize OxyLux Solutions or its employees to take medical photographs for the purpose of teaching or publication. I understand that I will not be identified by name and that my anonymity will be preserved in any presentation or publication.</p>
+          <p>I consent to the release of information and/or disclosure of any part of my medical record by any physician, hospital, accreditation, or regulatory organization responsible for monitoring or evaluating health facilities, as well as any other facility of which I have been a client.</p>
+        </div>
+
+        <div class="c-sign">
+          <div class="c-sign-head">
+            <p class="c-q-title" id="sig-label">Sign below with your finger, stylus or mouse</p>
+            <button type="button" class="c-link" id="sig-clear">Clear signature</button>
+          </div>
+          <div class="c-pad" id="sig-wrap">
+            <canvas id="sig" aria-labelledby="sig-label" role="img"></canvas>
+            <span class="c-pad-line" aria-hidden="true"></span>
+          </div>
+          <div class="c-grid">
+            <label class="c-span-8">Type your full legal name<input name="sig_name" id="f-signame" required></label>
+            <label class="c-span-4">Date<input name="sig_date" id="f-sigdate" type="date" required></label>
+          </div>
+          <label class="c-choice c-agree"><input type="checkbox" name="esign" value="yes" required><span>I confirm the information on this form is accurate, and I agree that my electronic signature is the legal equivalent of my handwritten signature.</span></label>
+        </div>
+
+        <p class="c-error" id="form-error" role="alert" hidden></p>
+        <div class="c-submit">
+          <button class="btn" type="submit">Sign and submit consent form</button>
+        </div>
+      </fieldset>
+    </form>
+
+    <!-- Completed state -->
+    <section class="c-done" id="done" hidden tabindex="-1">
+      <img src="/assets/emblem.webp" alt="" width="96" height="74">
+      <h2>Consent form complete</h2>
+      <p class="lede">Thank you, <span id="done-name"></span>. Your signed form is ready. Download a copy for your records and our front desk.</p>
+      <div class="hero-actions c-done-actions">
+        <button class="btn" type="button" id="dl-pdf">Download signed PDF</button>
+        <button class="btn btn-ghost" type="button" id="print">Print</button>
+      </div>
+      <p class="c-help" id="pdf-status" role="status"></p>
+      <button type="button" class="c-link" id="new-form">Start a new form for another client</button>
+    </section>
+  </div>
+  <p class="c-foot">© <span class="yr">2026</span> OxyLux Solutions · <a href="mailto:frontdesk@oxyluxsolutions.com">frontdesk@oxyluxsolutions.com</a></p>
+</main>
+
+<!-- Signed record used for the PDF and for printing -->
+<div id="record" class="c-record" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="/consent.js" defer></script>
+</body>
+</html>

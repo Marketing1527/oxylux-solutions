@@ -9,6 +9,15 @@ Static site (plain HTML/CSS/JS, no build step). Hosted on Vercel, domain at GoDa
 `index.html` is the coming-soon page. The full site is built and reachable at
 `/home.html`, `/services.html`, etc., but marked `noindex` so Google doesn't list it yet.
 
+## Consent form (/consent.html)
+Digital version of the HBOT consent form (rebranded from the Moreau PT template). Works on desktop, iPad and phone.
+- Typed fields, typed initials per section, drawn signature, auto date/age.
+- On submit it creates a signed PDF the client or front desk downloads (or prints). Nothing is stored or emailed.
+- "Start a new form" clears everything for the next client on a shared iPad.
+- Before going live: have the owner's attorney review the wording (several typos in the original were corrected).
+- To receive submissions automatically, use a HIPAA-compliant form service that signs a BAA
+  (e.g. Jotform HIPAA, IntakeQ). Do not route this form through Formspree or plain email.
+
 ## Fill in before launch
 Search the project for `[` placeholders:
 - [ ] `[PHONE]`, `[ADDRESS]`, `[HOURS]` in the footer and on contact.html (edit the generator or every page)
