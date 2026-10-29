@@ -120,15 +120,9 @@
      "closes": "17:00"
     }
    ],
-   "availableLanguage": [
-    {
-     "@type": "Language",
-     "name": "English"
-    },
-    {
-     "@type": "Language",
-     "name": "Spanish"
-    }
+   "knowsLanguage": [
+    "English",
+    "Spanish"
    ],
    "currenciesAccepted": "USD",
    "paymentAccepted": "Health insurance, credit card, cash",
@@ -179,7 +173,10 @@
    }
   },
   {
-   "@type": "Physician",
+   "@type": [
+    "Person",
+    "Physician"
+   ],
    "@id": "https://www.oxyluxsolutions.com/about.html#dr-morales",
    "name": "Fermin Morales, MD, FACS",
    "givenName": "Fermin",
@@ -258,10 +255,7 @@
      "@type": "MedicalEntity",
      "name": "Temporary headache or fatigue"
     }
-   ],
-   "provider": {
-    "@id": "https://www.oxyluxsolutions.com/#clinic"
-   }
+   ]
   }
  ]
 }
