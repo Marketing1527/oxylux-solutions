@@ -1,0 +1,25 @@
+# OxyLux Solutions
+
+> OxyLux Solutions is a hyperbaric oxygen therapy (HBOT) clinic in Hialeah, Florida. Patients receive private sessions in a modern Oxycell OxyPro Genesis hard-shell chamber with a trained attendant at every visit. Most major insurance plans are accepted, and Spanish is spoken. The Founder and Medical Director is Dr. Fermin Morales, MD, FACS.
+
+- Address: 14361 Commerce Way, Suite 201, Hialeah, FL 33016, United States
+- Phone: (305) 205-2738
+- Email: frontdesk@oxyluxsolutions.com
+- Hours: Monday to Friday, 8 AM to 5 PM (Eastern). Closed Saturday and Sunday.
+- Languages: English and Spanish
+- Booking: online at https://www.oxyluxsolutions.com/reserve (choose a time, then sign the consent form), or by phone
+- Insurance: most major plans accepted; coverage depends on the patient's plan and diagnosis
+
+## Pages
+
+- [Home](https://www.oxyluxsolutions.com/): overview of HBOT, who it may help, Dr. Morales, insurance, location and hours
+- [Treatment](https://www.oxyluxsolutions.com/services.html): the chamber, first session, treatment plans, surgical and cosmetic recovery, wound care, sports recovery, insurance
+- [What to expect](https://www.oxyluxsolutions.com/what-to-expect.html): step-by-step session walkthrough and safety screening
+- [Dr. Fermin Morales](https://www.oxyluxsolutions.com/about.html): biography and credentials of the Founder and Medical Director
+- [FAQ](https://www.oxyluxsolutions.com/faq.html): common questions about safety, session length, insurance and what to wear
+- [Contact](https://www.oxyluxsolutions.com/contact.html): address, map, hours, phone and email
+
+## Optional
+
+- [Full text for AI assistants](https://www.oxyluxsolutions.com/llms-full.txt)
+- [Privacy policy](https://www.oxyluxsolutions.com/privacy.html)

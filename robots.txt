@@ -1,6 +1,22 @@
+# OxyLux Solutions — https://www.oxyluxsolutions.com
+# Search engines and AI assistants are welcome to read the public site.
+# Forms and the admin dashboard carry noindex tags; the API is not for crawling.
+
 User-agent: *
 Allow: /
-Disallow: /admin
+Disallow: /api/
+
+# AI crawlers (explicitly allowed so assistants can answer questions about the clinic)
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
 Disallow: /api/
 
 Sitemap: https://www.oxyluxsolutions.com/sitemap.xml

@@ -53,6 +53,12 @@ vercel --prod
 `setup-admin` asks for the email and password (hidden) and sets `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH` and `SESSION_SECRET`.
 Run it again any time to change the password.
 
+## SEO and search files
+- Structured data (JSON-LD `@graph`) on every public page: MedicalClinic (address, geo, hours, phone, Google Maps link, languages, reserve action), WebSite, Physician (Dr. Morales), MedicalTherapy (HBOT), FAQPage, ContactPage, ProfilePage, BreadcrumbList. Generated once; edit the JSON in each page's `<head>`.
+- `sitemap.xml` (with image entries), `robots.txt` (search engines and AI crawlers allowed, `/api/` blocked), `llms.txt` and `llms-full.txt` (summaries for AI assistants), `site.webmanifest`, `favicon.ico`, custom `404.html`.
+- noindex: `/admin`, `/reserve`, `/consent.html`, 404.
+- Google Analytics: add the GA4 tag to every page's `<head>` (not yet installed).
+
 ## Local development
 ```
 npm install
