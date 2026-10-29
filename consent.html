@@ -7,7 +7,8 @@
 <meta name="description" content="Complete your OxyLux Solutions hyperbaric oxygen therapy consent form online before your visit.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f3eee6">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/assets/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,8 +31,31 @@
   <div class="c-paper" id="paper">
     <div class="c-head">
       <img src="/assets/logo-clear.webp" alt="OxyLux Solutions" width="200" height="205" class="c-logo">
-      <h1>Hyperbaric Oxygen Therapy Consent Form</h1>
-      <p class="lede">Please complete every section before your first session. It takes about 10 minutes. Your answers are only shared with the OxyLux care team.</p>
+      <h1 id="c-title">Hyperbaric Oxygen Therapy Consent Form</h1>
+      <p class="lede" id="c-lede">Please complete every section before your first session. It takes about 10 minutes. Your answers are only shared with the OxyLux care team.</p>
+    </div>
+
+    <section class="c-book" id="s-time" hidden aria-labelledby="time-title">
+      <div class="c-stepper" aria-hidden="true"><span class="is-on">1 Choose a time</span><span>2 Consent form</span></div>
+      <h2 id="time-title">Choose your appointment</h2>
+      <p class="c-help">Sessions last 60 to 90 minutes. Times are Eastern. Plan to arrive 15 minutes early for your first visit.</p>
+      <div class="c-days-head">
+        <button type="button" class="c-arrow" id="days-prev" aria-label="Earlier dates">‹</button>
+        <p class="c-month" id="days-month" aria-live="polite"></p>
+        <button type="button" class="c-arrow" id="days-next" aria-label="Later dates">›</button>
+      </div>
+      <div class="c-days" id="days" role="listbox" aria-label="Date"></div>
+      <div class="c-times" id="times" role="listbox" aria-label="Time"></div>
+      <p class="c-help" id="slots-msg" role="status"></p>
+      <div class="c-book-foot">
+        <p class="c-picked" id="picked">Select a date and time.</p>
+        <button type="button" class="btn" id="to-consent" disabled>Continue to consent form</button>
+      </div>
+    </section>
+
+    <div class="c-apptbar" id="apptbar" hidden>
+      <span>Your appointment: <strong id="apptbar-text"></strong></span>
+      <button type="button" class="c-link" id="change-time">Change time</button>
     </div>
 
     <nav class="c-steps" aria-label="Form sections">
@@ -44,6 +68,7 @@
 
     <form id="consent" novalidate autocomplete="on">
       <span id="form-start"></span>
+      <label class="c-hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
 
       <!-- 1. Information -->
       <fieldset class="c-section" id="s-info">
@@ -151,7 +176,7 @@
 
         <div class="c-ack">
           <h3>No guarantee of results</h3>
-          <p>Although hyperbaric therapy has been reported to be beneficial for a wide range of conditions, this therapy is not meant as a cure for any condition or disease, and no therapeutic outcome can be guaranteed. OxyLux Solutions does not in any way recommend HBOT as a substitute for any medical treatment prescribed or suggested by a physician, and makes no guarantee of any results an individual may experience. OxyLux Solutions does not accept health insurance for its services.</p>
+          <p>Although hyperbaric therapy has been reported to be beneficial for a wide range of conditions, this therapy is not meant as a cure for any condition or disease, and no therapeutic outcome can be guaranteed. OxyLux Solutions does not in any way recommend HBOT as a substitute for any medical treatment prescribed or suggested by a physician, and makes no guarantee of any results an individual may experience.</p>
           <label class="c-initial">Initials<input name="i_guarantee" maxlength="4" autocapitalize="characters" required></label>
         </div>
       </fieldset>
@@ -210,7 +235,7 @@
 
         <p class="c-error" id="form-error" role="alert" hidden></p>
         <div class="c-submit">
-          <button class="btn" type="submit">Sign and submit consent form</button>
+          <button class="btn" type="submit" id="submit-btn">Sign and submit consent form</button>
         </div>
       </fieldset>
     </form>
@@ -218,10 +243,15 @@
     <!-- Completed state -->
     <section class="c-done" id="done" hidden tabindex="-1">
       <img src="/assets/emblem.webp" alt="" width="96" height="74">
-      <h2>Consent form complete</h2>
-      <p class="lede">Thank you, <span id="done-name"></span>. Your signed form is ready. Download a copy for your records and our front desk.</p>
+      <h2 id="done-title">Consent form complete</h2>
+      <p class="lede" id="done-text">Thank you, <span id="done-name"></span>. Your signed form has been sent to OxyLux. You can download a copy for your records.</p>
+      <div class="c-appt" id="done-appt" hidden>
+        <p class="c-appt-when" id="done-when"></p>
+        <p>OxyLux Solutions<br>14361 Commerce Way, Suite 201, Hialeah, FL 33016<br><a href="tel:+13052052738">(305) 205-2738</a></p>
+      </div>
       <div class="hero-actions c-done-actions">
         <button class="btn" type="button" id="dl-pdf">Download signed PDF</button>
+        <button class="btn btn-ghost" type="button" id="ics" hidden>Add to calendar</button>
         <button class="btn btn-ghost" type="button" id="print">Print</button>
       </div>
       <p class="c-help" id="pdf-status" role="status"></p>

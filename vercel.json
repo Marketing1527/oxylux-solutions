@@ -1,8 +1,15 @@
 {
+  "rewrites": [
+    { "source": "/reserve", "destination": "/consent.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ],
   "redirects": [
-    { "source": "/book", "destination": "/contact.html", "permanent": false }
+    { "source": "/book", "destination": "/reserve", "permanent": false }
   ],
   "headers": [
-    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/admin(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }, { "key": "Cache-Control", "value": "no-store" }, { "key": "X-Frame-Options", "value": "DENY" }] },
+    { "source": "/api/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }, { "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }, { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }] }
   ]
 }

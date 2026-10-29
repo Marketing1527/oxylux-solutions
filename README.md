@@ -1,36 +1,72 @@
 # OxyLux Solutions website
 
-Static site (plain HTML/CSS/JS, no build step). Hosted on Vercel, domain at GoDaddy.
+Static site plus a few Vercel serverless functions for booking. No build step.
 
 - Live: https://www.oxyluxsolutions.com (bare domain redirects to www)
-- Repo: Marketing1527/oxylux-solutions, and every push to `main` deploys automatically
+- Repo: Marketing1527/oxylux-solutions. Every push to `main` deploys automatically.
+- Clinic: 14361 Commerce Way, Suite 201, Hialeah, FL 33016 · (305) 205-2738 · frontdesk@oxyluxsolutions.com · Mon–Fri 8–5
 
-## Current mode: coming soon
-`index.html` is the coming-soon page. The full site is built and reachable at
-`/home.html`, `/services.html`, etc., but marked `noindex` so Google doesn't list it yet.
+## Pages
+| Path | What it is |
+|---|---|
+| `/` | Coming-soon page (current public homepage) |
+| `/home.html` and the other pages | Full site, hidden from Google until launch (`noindex`) |
+| `/reserve` | Booking: choose a day and time, then sign the consent form |
+| `/consent.html` | Consent form on its own (already-booked clients, in-clinic iPad) |
+| `/admin` | Front-desk dashboard: appointments, patient info, signed PDFs |
 
-## Consent form (/consent.html)
-Digital version of the HBOT consent form (rebranded from the Moreau PT template). Works on desktop, iPad and phone.
-- Typed fields, typed initials per section, drawn signature, auto date/age.
-- On submit it creates a signed PDF the client or front desk downloads (or prints). Nothing is stored or emailed.
-- "Start a new form" clears everything for the next client on a shared iPad.
-- Before going live: have the owner's attorney review the wording (several typos in the original were corrected).
-- To receive submissions automatically, use a HIPAA-compliant form service that signs a BAA
-  (e.g. Jotform HIPAA, IntakeQ). Do not route this form through Formspree or plain email.
+## How booking works
+1. Patient picks a slot on `/reserve` (`/api/availability`). Schedule lives in `api/_lib/schedule.js`:
+   Mon–Fri 8 AM–5 PM, 90-minute slots, 1 chamber, 2-hour minimum notice, 60 days ahead.
+2. They complete and sign the consent form. The browser builds the signed PDF.
+3. `/api/book` reserves the slot (no double booking), stores the PDF and a JSON record.
+4. The front desk sees it in `/admin`, can download the PDF, mark completed / no-show, or cancel (frees the slot).
 
-## Fill in before launch
-Search the project for `[` placeholders:
-- [ ] `[PHONE]`, `[ADDRESS]`, `[HOURS]` in the footer and on contact.html (edit the generator or every page)
-- [ ] `[PRICE]`, `[PACKAGE OPTIONS AND PRICES]`, `[MEMBERSHIP DETAILS]` on services.html
-- [ ] `[FOUNDER STORY]`, `[CERTIFICATIONS / TRAINING DETAILS]` on about.html
-- [ ] `[INSURANCE POLICY]` on faq.html
-- [ ] Confirm frontdesk@oxyluxsolutions.com exists. The notify and booking forms open an email to it.
-  Recommended: swap the forms to a real form backend (Formspree, Basin, etc.) so leads aren't lost.
-- [ ] Real photos of the chambers and space
+## Storage (`api/_lib/storage.js`)
+Chosen automatically from environment variables:
+- **Google Drive** (production): set `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GOOGLE_DRIVE_FOLDER_ID`.
+- **Vercel Blob, private** (demo only): `BLOB_READ_WRITE_TOKEN`, from the `oxylux-demo-bookings` store. **Test data only.**
+- Local files in `.data/` when running `npm run dev`.
+
+Google Drive wins when its variables are set, so connecting Drive switches over automatically.
+
+### Connect Google Drive (do this before real patients book)
+Patient health information must be stored with a provider that has signed a BAA.
+1. In Google Workspace Admin, accept Google's HIPAA BAA (Account settings → Legal and compliance).
+2. In Google Drive, create a **Shared drive** named "OxyLux Patient Records". A Shared drive is required, because service accounts can't own files in My Drive.
+3. In Google Cloud Console (logged in as an OxyLux Workspace admin): create a project, enable the **Google Drive API**,
+   create a **service account**, and add a JSON key.
+4. Add the service account's email to the Shared drive as **Content manager**.
+5. Copy the Shared drive's folder ID from its URL (`drive.google.com/drive/folders/<ID>`).
+6. Add the three variables in Vercel → Project → Settings → Environment Variables (Production):
+   `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY` (the `private_key` value from the JSON), `GOOGLE_DRIVE_FOLDER_ID`.
+7. Redeploy. Files land in `slots/`, `bookings/` and `consents/` folders inside the Shared drive.
+8. Remove the demo store: `vercel blob delete-store` (after deleting any test bookings).
+
+## Admin login
+The login is stored only as a hash in Vercel environment variables. It is never in the code, which is public.
+```
+npm install
+npm run setup-admin
+vercel --prod
+```
+`setup-admin` asks for the email and password (hidden) and sets `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH` and `SESSION_SECRET`.
+Run it again any time to change the password.
+
+## Local development
+```
+npm install
+npm run dev        # http://localhost:3010, uses .data/ and .env.dev (both gitignored)
+```
 
 ## Launch day (switch from coming soon to the full site)
 1. `git mv index.html coming-soon.html && git mv home.html index.html`
-2. Replace `/home.html` links with `/` in every page (`sed -i '' 's#/home.html#/#g' *.html`)
-3. Remove the `<meta name="robots" content="noindex, follow">` lines from every page except 404.html
-4. Add all pages to `sitemap.xml`
-5. Commit and push. Vercel deploys automatically.
+2. Replace `/home.html` links with `/` (`sed -i '' 's#/home.html#/#g' *.html`)
+3. Remove the `noindex` robots tag from every page except 404, consent and admin
+4. Add the pages to `sitemap.xml`
+5. Commit and push
+
+## Still to confirm with the owner
+- Attorney review of the consent form wording (rebranded from the Moreau PT template; the "no insurance" line was removed because OxyLux accepts insurance)
+- Which insurance plans are accepted (site says "most major insurance plans")
+- Real photos of the space (only the chamber and Dr. Morales are photos today)

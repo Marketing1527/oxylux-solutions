@@ -12,7 +12,7 @@
     });
   }
 
-  // Booking form: no backend yet, so compose an email to the business.
+  // Contact form: composes an email to the front desk (no health details).
   var form = document.getElementById('booking');
   if (form) {
     form.addEventListener('submit', function (e) {
@@ -26,9 +26,9 @@
       }
       var d = new FormData(form);
       var body = 'Name: ' + d.get('name') + '\nPhone: ' + d.get('phone') + '\nEmail: ' + d.get('email') +
-        '\nInterested in: ' + d.get('interest') + '\nAvailability: ' + d.get('message');
-      window.location.href = 'mailto:frontdesk@oxyluxsolutions.com?subject=' + encodeURIComponent('Booking request from ' + d.get('name')) + '&body=' + encodeURIComponent(body);
-      msg.textContent = 'Your email app is opening with your request. Send it and we’ll reply within one business day.';
+        '\nTopic: ' + d.get('interest') + '\nMessage: ' + d.get('message');
+      window.location.href = 'mailto:frontdesk@oxyluxsolutions.com?subject=' + encodeURIComponent('Website message from ' + d.get('name')) + '&body=' + encodeURIComponent(body);
+      msg.textContent = 'Your email app is opening with your message. Send it and we’ll reply within one business day.';
     });
   }
 })();

@@ -1,0 +1,13 @@
+{
+  "name": "oxylux-solutions",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "setup-admin": "node scripts/setup-admin.mjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.2"
+  }
+}

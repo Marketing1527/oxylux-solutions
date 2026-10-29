@@ -138,8 +138,131 @@
     return bad;
   }
 
+  // ---------- Booking step (/reserve) ----------
+  var bookingMode = /^\/reserve/.test(location.pathname) || /[?&]book=1/.test(location.search);
+  var slot = null, dayData = [], dayStart = 0, DAYS_SHOWN = 7;
+  function fmtTime(t) { var p = t.split(':'), h = +p[0]; return (h % 12 || 12) + ':' + p[1] + (h < 12 ? ' AM' : ' PM'); }
+  function fmtLong(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
+  function slotText() { return slot ? fmtLong(slot.date) + ' at ' + fmtTime(slot.time) : ''; }
+
+  function renderDays() {
+    var box = $('days'); box.innerHTML = '';
+    var view = dayData.slice(dayStart, dayStart + DAYS_SHOWN);
+    view.forEach(function (d) {
+      var open = d.times.some(function (t) { return t.open; });
+      var dt = new Date(d.date + 'T12:00:00');
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'c-day'; b.setAttribute('role', 'option');
+      b.disabled = !open; b.dataset.date = d.date;
+      b.setAttribute('aria-selected', slot && slot.date === d.date ? 'true' : 'false');
+      b.innerHTML = '<span>' + dt.toLocaleDateString('en-US', { weekday: 'short' }) + '</span><strong>' + dt.getDate() + '</strong><span>' + (open ? dt.toLocaleDateString('en-US', { month: 'short' }) : 'Full') + '</span>';
+      b.addEventListener('click', function () { selectDay(d.date); });
+      box.appendChild(b);
+    });
+    var first = view[0], last = view[view.length - 1];
+    $('days-month').textContent = first ? new Date(first.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) + (last && last.date.slice(5, 7) !== first.date.slice(5, 7) ? ' – ' + new Date(last.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long' }) : '') : '';
+    $('days-prev').disabled = dayStart === 0;
+    $('days-next').disabled = dayStart + DAYS_SHOWN >= dayData.length;
+  }
+  function selectDay(date) {
+    var d = dayData.filter(function (x) { return x.date === date; })[0];
+    if (!d) return;
+    if (!slot || slot.date !== date) slot = { date: date, time: null };
+    renderDays();
+    var box = $('times'); box.innerHTML = '';
+    d.times.forEach(function (t) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'c-time'; b.setAttribute('role', 'option');
+      b.disabled = !t.open; b.textContent = fmtTime(t.time);
+      b.setAttribute('aria-selected', slot.time === t.time ? 'true' : 'false');
+      if (!t.open) b.title = 'Booked';
+      b.addEventListener('click', function () { slot = { date: date, time: t.time }; selectDay(date); });
+      box.appendChild(b);
+    });
+    var ready = slot && slot.time;
+    $('picked').textContent = ready ? slotText() : 'Now choose a time on ' + fmtLong(date) + '.';
+    $('to-consent').disabled = !ready;
+  }
+  function loadSlots(keepSlot) {
+    $('slots-msg').textContent = 'Loading available times…';
+    return fetch('/api/availability?days=42').then(function (r) { if (!r.ok) throw r; return r.json(); }).then(function (data) {
+      // Hide today once its remaining times have passed
+      dayData = data.days.filter(function (d, i) { return i > 0 || d.times.some(function (t) { return t.open; }); });
+      $('slots-msg').textContent = dayData.some(function (d) { return d.times.some(function (t) { return t.open; }); }) ? '' : 'No times are open right now. Please call (305) 205-2738.';
+      if (!keepSlot) slot = null;
+      var firstOpen = dayData.findIndex(function (d) { return d.times.some(function (t) { return t.open; }); });
+      dayStart = Math.max(0, Math.floor(Math.max(firstOpen, 0) / DAYS_SHOWN) * DAYS_SHOWN);
+      renderDays();
+      if (slot) selectDay(slot.date);
+      else if (firstOpen >= 0) selectDay(dayData[firstOpen].date);
+    }).catch(function () {
+      $('slots-msg').textContent = 'Online booking is not available right now. Please call (305) 205-2738 to book.';
+    });
+  }
+  function showTimeStep() {
+    $('s-time').hidden = false; form.hidden = true; $('apptbar').hidden = true;
+    document.querySelector('.c-steps').hidden = true;
+    $('s-time').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function showFormStep() {
+    $('s-time').hidden = true; form.hidden = false; $('apptbar').hidden = false;
+    document.querySelector('.c-steps').hidden = false;
+    $('apptbar-text').textContent = slotText();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  if (bookingMode) {
+    document.title = 'Reserve a Session | OxyLux Solutions';
+    $('c-title').textContent = 'Reserve your session';
+    $('c-lede').textContent = 'Choose a day and time, then complete your consent form. It takes about 10 minutes, and your appointment is confirmed as soon as you sign.';
+    $('days-prev').addEventListener('click', function () { dayStart = Math.max(0, dayStart - DAYS_SHOWN); renderDays(); });
+    $('days-next').addEventListener('click', function () { dayStart += DAYS_SHOWN; renderDays(); });
+    $('to-consent').addEventListener('click', showFormStep);
+    $('change-time').addEventListener('click', showTimeStep);
+    form.hidden = true; document.querySelector('.c-steps').hidden = true; $('s-time').hidden = false;
+    loadSlots();
+  }
+
+  // ---------- Validation and submit ----------
+  var submitting = false;
+  function formData() {
+    var out = {};
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.name === 'website' || el.type === 'button' || el.type === 'submit') return;
+      if (el.type === 'checkbox') { if (el.name === 'esign') out.esign = el.checked; else if (el.checked) (out[el.name] = out[el.name] || []).push(el.value); }
+      else if (el.type === 'radio') { if (el.checked) out[el.name] = el.value; }
+      else out[el.name] = el.value;
+    });
+    ['rx', 'dx', 'contra'].forEach(function (g) { out[g] = out[g] || []; });
+    return out;
+  }
+  function pdfOptions() {
+    return {
+      margin: [12, 12, 14, 12], filename: fileName(),
+      image: { type: 'jpeg', quality: 0.9 },
+      html2canvas: { scale: 1.8, useCORS: true, backgroundColor: '#ffffff' },
+      jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'] }
+    };
+  }
+  function showDone(sent) {
+    form.hidden = true; $('apptbar').hidden = true;
+    document.querySelector('.c-steps').hidden = true;
+    $('done-name').textContent = form.name.value.trim().split(/\s+/)[0];
+    if (bookingMode) {
+      $('done-title').textContent = 'You’re booked';
+      $('done-text').innerHTML = 'Thank you, ' + esc(form.name.value.trim().split(/\s+/)[0]) + '. Your appointment is confirmed and your signed consent form is on file with OxyLux.';
+      $('done-when').textContent = slotText();
+      $('done-appt').hidden = false; $('ics').hidden = false;
+    } else if (!sent) {
+      $('done-text').innerHTML = 'Thank you, ' + esc(form.name.value.trim().split(/\s+/)[0]) + '. We could not send your form online, so please download it and bring it to your visit, or email it to <a href="mailto:frontdesk@oxyluxsolutions.com">frontdesk@oxyluxsolutions.com</a>.';
+    }
+    $('done').hidden = false; $('done').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (submitting) return;
     var bad = validate(), err = $('form-error');
     if (bad.length) {
       err.hidden = false;
@@ -149,14 +272,34 @@
       if (focusable) setTimeout(function () { focusable.focus({ preventScroll: true }); }, 400);
       return;
     }
+    if (bookingMode && !(slot && slot.time)) { showTimeStep(); return; }
     err.hidden = true;
     buildRecord();
-    form.hidden = true;
-    document.querySelector('.c-steps').hidden = true;
-    $('done-name').textContent = form.name.value.trim().split(/\s+/)[0];
-    $('done').hidden = false;
-    $('done').focus();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    var btn = $('submit-btn'), label = btn.textContent;
+    submitting = true; btn.disabled = true; btn.textContent = 'Submitting your signed form…';
+    var finish = function () { submitting = false; btn.disabled = false; btn.textContent = label; };
+    if (!window.html2pdf) { finish(); err.hidden = false; err.textContent = 'The page did not finish loading. Check your connection and try again.'; return; }
+    window.html2pdf().set(pdfOptions()).from($('record').firstElementChild).outputPdf('datauristring').then(function (pdf) {
+      return fetch('/api/book', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slot: bookingMode ? slot : null, form: formData(), pdf: pdf, website: form.website.value })
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
+    }).then(function (res) {
+      finish();
+      if (res.status === 201) return showDone(true);
+      if (res.status === 409 && bookingMode) {
+        err.hidden = false; err.textContent = res.body.error;
+        loadSlots(false).then(showTimeStep);
+        return;
+      }
+      if (!bookingMode) return showDone(false);
+      err.hidden = false;
+      err.textContent = (res.body && res.body.error) || 'We could not complete your booking. Please try again or call (305) 205-2738.';
+    }).catch(function () {
+      finish();
+      if (!bookingMode) return showDone(false);
+      err.hidden = false; err.textContent = 'We could not reach OxyLux. Check your connection and try again, or call (305) 205-2738.';
+    });
   });
 
   // ---------- Signed record (PDF + print) ----------
@@ -168,13 +311,14 @@
     signedAt = new Date();
     var rows = [
       ['Full legal name', v('name')], ['Date', fmtDate(f.date.value)],
+    ].concat(bookingMode && slot ? [['Appointment', esc(slotText())]] : []).concat([
       ['Address', v('address') + ', ' + v('city') + ', ' + v('state') + ' ' + v('zip')],
       ['Phone', v('phone')], ['Email', v('email')],
       ['Date of birth / age', fmtDate(f.dob.value) + ' / ' + v('age')],
       ['Height / weight', v('height') + ' / ' + v('weight')],
       ['Referred by', v('referral') || '—'], ['How they heard about us', v('heard') || '—'],
       ['Emergency contact', v('ec_name') + ', ' + v('ec_phone')]
-    ];
+    ]);
     var health = [
       ['Current medications', v('medications')], ['Allergies', v('allergies')],
       ['Under medical care', esc(f.care.value) + (f.care.value === 'Yes' ? ': ' + v('care_detail') : '')],
@@ -214,26 +358,36 @@
     if (!window.html2pdf) { status.textContent = 'The PDF tool did not load. Use Print and choose “Save as PDF” instead.'; return; }
     btn.disabled = true; status.textContent = 'Preparing your PDF…';
     var el = $('record').firstElementChild;
-    window.html2pdf().set({
-      margin: [12, 12, 14, 12], filename: fileName(),
-      image: { type: 'jpeg', quality: 0.95 },
-      html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-      jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'] }
-    }).from(el).save().then(function () {
+    window.html2pdf().set(pdfOptions()).from(el).save().then(function () {
       status.textContent = 'Downloaded ' + fileName() + '.'; btn.disabled = false;
     }).catch(function () {
       status.textContent = 'The PDF could not be created. Use Print and choose “Save as PDF” instead.'; btn.disabled = false;
     });
   });
   $('print').addEventListener('click', function () { window.print(); });
+  $('ics').addEventListener('click', function () {
+    if (!slot) return;
+    var start = slot.date.replace(/-/g, '') + 'T' + slot.time.replace(':', '') + '00';
+    var endMin = (+slot.time.slice(0, 2)) * 60 + (+slot.time.slice(3)) + 90;
+    var end = slot.date.replace(/-/g, '') + 'T' + String(Math.floor(endMin / 60)).padStart(2, '0') + String(endMin % 60).padStart(2, '0') + '00';
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//OxyLux Solutions//Booking//EN', 'BEGIN:VEVENT',
+      'UID:' + start + '-' + Math.random().toString(36).slice(2) + '@oxyluxsolutions.com',
+      'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
+      'DTSTART;TZID=America/New_York:' + start, 'DTEND;TZID=America/New_York:' + end,
+      'SUMMARY:Hyperbaric oxygen session at OxyLux', 'LOCATION:14361 Commerce Way\\, Suite 201\\, Hialeah\\, FL 33016',
+      'DESCRIPTION:Please arrive 15 minutes early. Questions? Call (305) 205-2738.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    a.download = 'OxyLux-appointment.ics'; document.body.appendChild(a); a.click(); a.remove();
+  });
 
   // Clears everything so the next client starts fresh on a shared iPad
   $('new-form').addEventListener('click', function () {
     form.reset(); strokes = []; sigTouched = false; $('record').innerHTML = '';
     $('waiver-name').textContent = '[your name]'; $('care-explain').hidden = true; $('contra-warn').hidden = true;
     form.care_detail.required = false; setDates();
-    $('done').hidden = true; form.hidden = false; document.querySelector('.c-steps').hidden = false; $('pdf-status').textContent = '';
+    $('done').hidden = true; $('done-appt').hidden = true; $('ics').hidden = true; $('pdf-status').textContent = '';
+    if (bookingMode) { slot = null; loadSlots(); showTimeStep(); } else { form.hidden = false; document.querySelector('.c-steps').hidden = false; }
     resize(); update(); window.scrollTo({ top: 0 });
   });
 })();
