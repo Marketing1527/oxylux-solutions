@@ -283,3 +283,4 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--o
 .brand-sub { font-weight: 700; }
 @media (max-width: 1280px) and (min-width: 1141px) { .brand { font-size: 1.18rem; } .nav { gap: 18px; } }
 @media (max-width: 400px) { .brand { font-size: 1.12rem; gap: 8px; } .brand img { width: 44px; } }
+.brand-name { word-spacing: -0.12em; }
