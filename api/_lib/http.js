@@ -45,7 +45,7 @@ export function cookies(req) {
 export function fail(res, err) {
   const status = err.status || 500;
   if (status >= 500) console.error(err);
-  send(res, status, { error: status >= 500 ? 'Something went wrong on our side. Please try again or call (305) 205-2738.' : err.message });
+  send(res, status, { error: status >= 500 && status !== 503 ? 'Something went wrong on our side. Please try again or call (305) 205-2738.' : err.message });
 }
 
 export function httpError(status, message) {

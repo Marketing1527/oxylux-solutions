@@ -18,7 +18,7 @@ function configured() {
 }
 
 export function checkLogin(email, password) {
-  if (!configured()) throw Object.assign(new Error('Admin login is not set up yet. Run npm run setup-admin.'), { status: 503 });
+  if (!configured()) throw Object.assign(new Error('Admin login is not set up yet. Ask Essential Marketing to finish setup.'), { status: 503 });
   const okEmail = String(email || '').trim().toLowerCase() === process.env.ADMIN_EMAIL.trim().toLowerCase();
   const [, salt, hash] = process.env.ADMIN_PASSWORD_HASH.split('$');
   const expected = Buffer.from(hash || '', 'base64');
