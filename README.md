@@ -9,8 +9,8 @@ Static site plus a few Vercel serverless functions for booking. No build step.
 ## Pages
 | Path | What it is |
 |---|---|
-| `/` | Coming-soon page (current public homepage) |
-| `/home.html` and the other pages | Full site, hidden from Google until launch (`noindex`) |
+| `/` | Homepage (full site, launched Oct 29, 2026) |
+| Other pages | Treatment, What to expect, Dr. Morales, FAQ, Contact, Privacy |
 | `/reserve` | Booking: choose a day and time, then sign the consent form |
 | `/consent.html` | Consent form on its own (already-booked clients, in-clinic iPad) |
 | `/admin` | Front-desk dashboard: appointments, patient info, signed PDFs |
@@ -59,12 +59,8 @@ npm install
 npm run dev        # http://localhost:3010, uses .data/ and .env.dev (both gitignored)
 ```
 
-## Launch day (switch from coming soon to the full site)
-1. `git mv index.html coming-soon.html && git mv home.html index.html`
-2. Replace `/home.html` links with `/` (`sed -i '' 's#/home.html#/#g' *.html`)
-3. Remove the `noindex` robots tag from every page except 404, consent and admin
-4. Add the pages to `sitemap.xml`
-5. Commit and push
+## Launch
+The site launched on Oct 29, 2026: the coming-soon page was removed (it is in git history) and the full site is `index.html`. `/home.html` redirects to `/`.
 
 ## Still to confirm with the owner
 - Attorney review of the consent form wording (rebranded from the Moreau PT template; the "no insurance" line was removed because OxyLux accepts insurance)
