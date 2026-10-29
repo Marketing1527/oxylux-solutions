@@ -20,7 +20,7 @@ if (!email || pw.length < 10 || pw !== pw2) {
   console.error('Passwords must match and be at least 10 characters.'); process.exit(1);
 }
 const vars = { ADMIN_EMAIL: email, ADMIN_PASSWORD_HASH: hashPassword(pw), SESSION_SECRET: randomBytes(32).toString('base64url') };
-for (const env of ['production', 'preview']) {
+for (const env of ['production']) {
   for (const [k, v] of Object.entries(vars)) {
     spawnSync('vercel', ['env', 'rm', k, env, '--yes'], { stdio: 'ignore' });
     const r = spawnSync('vercel', ['env', 'add', k, env], { input: v, stdio: ['pipe', 'ignore', 'inherit'] });
