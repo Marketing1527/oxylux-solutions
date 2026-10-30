@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{if(sessionStorage.getItem('oxl-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('no-intro')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hyperbaric Oxygen Treatment in Hialeah, FL | OxyLux Solutions</title>
-<meta name="description" content="Hyperbaric oxygen therapy in a private Oxycell hard-shell chamber in Hialeah, FL. Surgical recovery, wound care and sports recovery. Insurance accepted.">
+<title>Services in Hialeah, FL | OxyLux Solutions</title>
+<meta name="description" content="OxyLux Solutions services in Hialeah, FL: hyperbaric oxygen therapy, IV therapy, massage, infrared therapy, Venus Legacy and Botox. Reserve online.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://www.oxyluxsolutions.com/services.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OxyLux Solutions">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Hyperbaric Oxygen Treatment in Hialeah, FL | OxyLux Solutions">
-<meta property="og:description" content="Hyperbaric oxygen therapy in a private Oxycell hard-shell chamber in Hialeah, FL. Surgical recovery, wound care and sports recovery. Insurance accepted.">
+<meta property="og:title" content="Services in Hialeah, FL | OxyLux Solutions">
+<meta property="og:description" content="OxyLux Solutions services in Hialeah, FL: hyperbaric oxygen therapy, IV therapy, massage, infrared therapy, Venus Legacy and Botox. Reserve online.">
 <meta property="og:url" content="https://www.oxyluxsolutions.com/services.html">
 <meta property="og:image" content="https://www.oxyluxsolutions.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -32,11 +33,11 @@
  "@context": "https://schema.org",
  "@graph": [
   {
-   "@type": "MedicalWebPage",
+   "@type": "CollectionPage",
    "@id": "https://www.oxyluxsolutions.com/services.html#webpage",
    "url": "https://www.oxyluxsolutions.com/services.html",
-   "name": "Hyperbaric Oxygen Treatment in Hialeah, FL | OxyLux Solutions",
-   "description": "Hyperbaric oxygen therapy in a private Oxycell hard-shell chamber in Hialeah, FL. Surgical recovery, wound care and sports recovery. Insurance accepted.",
+   "name": "Services",
+   "description": "OxyLux Solutions services in Hialeah, FL: hyperbaric oxygen therapy, IV therapy, massage, infrared therapy, Venus Legacy and Botox. Reserve online.",
    "isPartOf": {
     "@id": "https://www.oxyluxsolutions.com/#website"
    },
@@ -44,12 +45,6 @@
     "@id": "https://www.oxyluxsolutions.com/#clinic"
    },
    "inLanguage": "en-US",
-   "primaryImageOfPage": {
-    "@type": "ImageObject",
-    "url": "https://www.oxyluxsolutions.com/assets/og-image.jpg"
-   },
-   "audience": "https://schema.org/Patient",
-   "lastReviewed": "2026-10-29",
    "breadcrumb": {
     "@id": "https://www.oxyluxsolutions.com/services.html#breadcrumb"
    }
@@ -67,7 +62,7 @@
     {
      "@type": "ListItem",
      "position": 2,
-     "name": "Treatment",
+     "name": "Services",
      "item": "https://www.oxyluxsolutions.com/services.html"
     }
    ]
@@ -89,27 +84,44 @@
    "image": "https://www.oxyluxsolutions.com/assets/og-image.jpg"
   },
   {
-   "@type": "MedicalTherapy",
-   "@id": "https://www.oxyluxsolutions.com/services.html#hbot",
-   "name": "Hyperbaric oxygen therapy",
-   "alternateName": "HBOT",
-   "description": "Breathing concentrated oxygen inside a pressurized hard-shell chamber, which lets more oxygen dissolve into the blood plasma to support healing.",
-   "url": "https://www.oxyluxsolutions.com/services.html",
-   "contraindication": [
-    "Untreated pneumothorax",
-    "High fever",
-    "Ear infection or blocked ear canal",
-    "Sinus or upper respiratory infection",
-    "Air travel in the last 24 hours"
-   ],
-   "adverseOutcome": [
+   "@type": "ItemList",
+   "name": "OxyLux Solutions services",
+   "itemListElement": [
     {
-     "@type": "MedicalEntity",
-     "name": "Ear pressure or barotrauma"
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Hyperbaric Oxygen Therapy",
+     "url": "https://www.oxyluxsolutions.com/hyperbaric-oxygen-therapy.html"
     },
     {
-     "@type": "MedicalEntity",
-     "name": "Temporary headache or fatigue"
+     "@type": "ListItem",
+     "position": 2,
+     "name": "IV Therapy",
+     "url": "https://www.oxyluxsolutions.com/iv-therapy.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Massage Therapy",
+     "url": "https://www.oxyluxsolutions.com/massage-therapy.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 4,
+     "name": "Infrared Therapy",
+     "url": "https://www.oxyluxsolutions.com/infrared-therapy.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 5,
+     "name": "Venus Legacy",
+     "url": "https://www.oxyluxsolutions.com/venus-legacy.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 6,
+     "name": "Botox",
+     "url": "https://www.oxyluxsolutions.com/botox.html"
     }
    ]
   }
@@ -118,6 +130,7 @@
 </script>
 </head>
 <body>
+<div class="intro" id="intro" aria-hidden="true"><div class="intro-logo"><img class="intro-emblem" src="/assets/emblem-lg.webp" alt="" width="520" height="409"><img class="intro-word" src="/assets/wordmark.webp" alt="" width="568" height="150"></div></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
@@ -125,7 +138,7 @@
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="/">Home</a>
-      <a href="/services.html" aria-current="page">Treatment</a>
+      <a href="/services.html" aria-current="page">Services</a>
       <a href="/what-to-expect.html">What to expect</a>
       <a href="/about.html">Dr. Morales</a>
       <a href="/faq.html">FAQ</a>
@@ -137,72 +150,19 @@
 </header>
 <main id="main">
 <div class="page-head"><div class="wrap">
-  <h1>Hyperbaric oxygen treatment</h1>
-  <p class="lede">Private sessions in a hard-shell chamber, with a trained attendant every visit. Insurance accepted.</p>
+  <h1>Our services</h1>
+  <p class="lede">Recovery, wellness and aesthetic care under one roof in Hialeah. We open Monday, November 2.</p>
 </div></div>
 <section>
-  <div class="wrap split">
-    <div><img src="/assets/chamber-640.webp" alt="The Oxycell OxyPro Genesis hyperbaric chamber at OxyLux" width="640" height="590" loading="lazy" class="svc-img"></div>
-    <div>
-      <h2>Our chamber</h2>
-      <p class="lede">OxyLux uses an Oxycell OxyPro Genesis hard-shell chamber. You sit in a padded reclining seat with a wide window, soft lighting and an intercom to your attendant, who controls pressure and oxygen from the touchscreen outside.</p>
-      <ul class="facts">
-        <li><strong>Seated and reclining</strong><span>Room to relax, read or nap. No lying flat in a tube.</span></li>
-        <li><strong>Attended every session</strong><span>Your attendant watches the controls and checks on you throughout.</span></li>
-        <li><strong>Cleaned between patients</strong><span>Surfaces are disinfected after every session.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-<section class="band curve-top">
   <div class="wrap">
-    <div class="service">
-      <h2>Your first session</h2>
-      <div>
-        <p>A health screening, vitals check and your first 60–90 minute session. Plan on about two hours. We review your history and recommend how many sessions may help.</p>
-        <a class="btn btn-ghost" href="/reserve">Reserve now</a>
-      </div>
-    </div>
-    <div class="service">
-      <h2>Treatment plans</h2>
-      <div>
-        <p>Most protocols call for a series of sessions over several weeks. We schedule your series up front so you keep your preferred times.</p>
-      </div>
-    </div>
-    <div class="service">
-      <h2>Surgical and cosmetic recovery</h2>
-      <div>
-        <p>Sessions before and after surgery or cosmetic procedures to support healing, swelling and bruising recovery, coordinated with your surgeon’s plan.</p>
-      </div>
-    </div>
-    <div class="service">
-      <h2>Wound care</h2>
-      <div>
-        <p>HBOT is FDA-cleared for diabetic and other non-healing wounds, as well as tissue damage after radiation. Bring any records from your treating physician to your first visit.</p>
-      </div>
-    </div>
-    <div class="service">
-      <h2>Athletes and active adults</h2>
-      <div>
-        <p>Sessions scheduled around training and competition to support recovery from strain and injury.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section>
-  <div class="wrap split">
-    <div><h2>Insurance</h2></div>
-    <div>
-      <p class="lede">OxyLux works with most major insurance plans. Coverage for HBOT depends on your plan and diagnosis.</p>
-      <p>Call <a href="tel:+13052052738">(305) 205-2738</a> before your first visit and our front desk will help you understand your coverage. Bring your insurance card and photo ID to your appointment.</p>
-    </div>
+    <div class="svc-grid"><a class="svc-card" href="/hyperbaric-oxygen-therapy.html"><img src="/assets/chamber-640.webp" alt="The OxyLux hard-shell hyperbaric chamber" width="700" height="500" loading="lazy"><span class="svc-card-body"><strong>Hyperbaric Oxygen Therapy</strong><span>Pressurized oxygen in a private hard-shell chamber to support healing and recovery.</span></span></a><a class="svc-card" href="/iv-therapy.html"><img src="/assets/services/iv-therapy-700.webp" alt="IV fluid bag hanging on a stand" width="700" height="500" loading="lazy"><span class="svc-card-body"><strong>IV Therapy</strong><span>Fluids and nutrients delivered directly through an IV while you relax.</span></span></a><a class="svc-card" href="/massage-therapy.html"><img src="/assets/services/massage-700.webp" alt="Massage therapist performing a hot stone massage" width="700" height="500" loading="lazy"><span class="svc-card-body"><strong>Massage Therapy</strong><span>Therapeutic massage to ease tension, in a quiet private suite.</span></span></a><a class="svc-card" href="/infrared-therapy.html"><img src="/assets/services/infrared-700.webp" alt="Warmly lit wooden sauna" width="700" height="500" loading="lazy"><span class="svc-card-body"><strong>Infrared Therapy</strong><span>Gentle infrared heat for relaxation and comfort.</span></span></a><a class="svc-card" href="/venus-legacy.html"><img src="/assets/services/venus-legacy-700.webp" alt="Provider using a handheld device on a client’s face" width="700" height="500" loading="lazy"><span class="svc-card-body"><strong>Venus Legacy</strong><span>Non-invasive radio frequency treatment for facial wrinkles and the look of cellulite.</span></span></a><a class="svc-card" href="/botox.html"><img src="/assets/services/botox-700.webp" alt="Gloved hands holding a syringe near a client’s face" width="700" height="500" loading="lazy"><span class="svc-card-body"><strong>Botox</strong><span>Injections from a licensed medical professional to soften facial lines.</span></span></a></div>
   </div>
 </section>
 <section class="band-wood">
   <div class="wrap split">
-    <div><h2>Ready to reserve?</h2></div>
+    <div><h2>Not sure where to start?</h2></div>
     <div>
-      <p class="lede" style="color:#e6d9c6">Choose a time online and sign your consent form in one step, or call us and we will book it for you.</p>
+      <p class="lede" style="color:#e6d9c6">Call us and we will help you choose. Se habla español.</p>
       <div class="hero-actions" style="margin-top:20px">
         <a class="btn" href="/reserve" style="background:var(--plaster);color:var(--navy);border-color:var(--plaster)">Reserve now</a>
         <a class="btn btn-ghost" href="tel:+13052052738">Call (305) 205-2738</a>
@@ -216,7 +176,7 @@
     <div class="footer-grid">
       <div>
         <h3>OxyLux Solutions</h3>
-        <p>Hyperbaric oxygen therapy in Hialeah, Florida. Se habla español.</p>
+        <p>Hyperbaric oxygen, wellness and aesthetic care in Hialeah, Florida. Se habla español.</p>
         <p><a href="https://maps.google.com/?q=OxyLux+Solutions,+14361+Commerce+Way+Suite+201,+Hialeah,+FL+33016" target="_blank" rel="noopener">14361 Commerce Way, Suite 201<br>Hialeah, FL 33016</a></p>
         <p><a href="tel:+13052052738">(305) 205-2738</a><br><a href="mailto:frontdesk@oxyluxsolutions.com">frontdesk@oxyluxsolutions.com</a></p>
       </div>
@@ -224,7 +184,7 @@
         <h3>Visit</h3>
         <ul>
           <li><a href="/reserve">Reserve a session</a></li>
-          <li><a href="/services.html">Treatment</a></li>
+          <li><a href="/services.html">Services</a></li>
           <li><a href="/what-to-expect.html">What to expect</a></li>
           <li><a href="/consent.html">Consent form</a></li>
           <li><a href="/faq.html">FAQ</a></li>

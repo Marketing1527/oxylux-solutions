@@ -57,6 +57,7 @@
   }
   $('refresh').addEventListener('click', load);
   $('search').addEventListener('input', render);
+  $('service-filter').addEventListener('change', render);
   document.querySelectorAll('.a-tabs button').forEach(function (b) {
     b.addEventListener('click', function () {
       tab = b.dataset.tab;
@@ -66,9 +67,10 @@
   });
 
   function filtered() {
-    var today = clinicToday(), q = $('search').value.trim().toLowerCase();
+    var today = clinicToday(), q = $('search').value.trim().toLowerCase(), svc = $('service-filter').value;
     return records.filter(function (r) {
       var isBooking = r.type === 'booking';
+      if (svc && (r.service || 'hbot') !== svc) return false;
       if (tab === 'consent' && isBooking) return false;
       if (tab !== 'consent' && !isBooking) return false;
       if (tab === 'cancelled' && r.status !== 'cancelled') return false;
@@ -106,7 +108,7 @@
       badges += '<span class="a-status ' + esc(r.status) + '">' + esc(r.status.replace('-', ' ')) + '</span>';
       html += '<button class="a-row" type="button" data-id="' + esc(r.id) + '">' +
         '<span class="a-time">' + (r.slot ? esc(fmtTime(r.slot.time)) : esc(fmtStamp(r.createdAt).split(', ').pop())) + '</span>' +
-        '<span class="a-who"><strong>' + esc(r.patient.name) + '</strong><span>' + (r.patient.dob ? 'DOB ' + esc(fmtDate(r.patient.dob)) : '') + '</span></span>' +
+        '<span class="a-who"><strong>' + esc(r.patient.name) + '</strong><span>' + esc(r.serviceName || 'Hyperbaric Oxygen Therapy') + (r.patient.dob ? ', DOB ' + esc(fmtDate(r.patient.dob)) : '') + '</span></span>' +
         '<span class="a-contact">' + esc(r.patient.phone) + '<br>' + esc(r.patient.email) + '</span>' +
         '<span class="a-badges">' + badges + '</span></button>';
     });
@@ -116,32 +118,47 @@
 
   // ---------- Detail drawer ----------
   function dl(rows) { return '<dl class="a-dl">' + rows.filter(function (r) { return r[1]; }).map(function (r) { return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('') + '</dl>'; }
+  function screenRows(r) {
+    if (r.screening && r.screening.length) return r.screening.map(function (g) { return [g.title.replace(/<[^>]+>/g, ''), g.selected.join(', ')]; });
+    var f = r.form || {};
+    return [['Bleomycin / Disulfiram / Mafenide', (f.rx || []).join(', ')], ['Spherocytosis / sickle cell / COPD', (f.dx || []).join(', ')], ['Contraindications', (f.contra || []).join(', ')]];
+  }
+  function printPdf(id) {
+    var old = document.getElementById('print-frame');
+    if (old) old.remove();
+    var fr = document.createElement('iframe');
+    fr.id = 'print-frame'; fr.hidden = true; fr.src = '/api/admin/file?inline=1&id=' + encodeURIComponent(id);
+    fr.onload = function () { try { fr.hidden = false; fr.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0'; fr.contentWindow.focus(); fr.contentWindow.print(); } catch (e) { window.open(fr.src, '_blank'); } };
+    document.body.appendChild(fr);
+  }
   var lastFocus;
   function openDrawer(id) {
     var r = records.filter(function (x) { return x.id === id; })[0];
     if (!r) return closeDrawer();
     openId = id; lastFocus = document.activeElement;
     var f = r.form || {};
-    $('d-when').textContent = r.slot ? fmtDay(r.slot.date) + ' at ' + fmtTime(r.slot.time) : 'Consent form submitted ' + fmtStamp(r.createdAt);
+    $('d-when').textContent = (r.serviceName || 'Hyperbaric Oxygen Therapy') + ', ' + (r.slot ? fmtDay(r.slot.date) + ' at ' + fmtTime(r.slot.time) : 'consent form submitted ' + fmtStamp(r.createdAt));
     $('d-name').textContent = r.patient.name;
     $('d-status').className = 'a-status ' + r.status; $('d-status').textContent = r.status.replace('-', ' ');
     var body = '';
     if ((r.flags || []).length) body += '<p class="a-alert"><strong>Review before session:</strong> ' + esc(r.flags.join(', ')) + '</p>';
     body += '<h3>Contact</h3>' + dl([['Phone', f.phone], ['Email', f.email], ['Address', [f.address, f.city, f.state, f.zip].filter(Boolean).join(', ')], ['Emergency contact', [f.ec_name, f.ec_phone].filter(Boolean).join(', ')]]);
     body += '<h3>Patient</h3>' + dl([['Date of birth', fmtDate(f.dob) + (f.age ? ' (age ' + f.age + ')' : '')], ['Height / weight', [f.height, f.weight].filter(Boolean).join(' / ')], ['Referred by', f.referral], ['Heard about us', f.heard]]);
-    body += '<h3>Health history</h3>' + dl([['Medications', f.medications], ['Allergies', f.allergies], ['Under medical care', f.care + (f.care === 'Yes' && f.care_detail ? ': ' + f.care_detail : '')], ['Bleomycin / Disulfiram / Mafenide', (f.rx || []).join(', ')], ['Spherocytosis / sickle cell / COPD', (f.dx || []).join(', ')], ['Contraindications', (f.contra || []).join(', ')]]);
+    body += '<h3>Health history</h3>' + dl([['Medications', f.medications], ['Allergies', f.allergies], ['Under medical care', f.care + (f.care === 'Yes' && f.care_detail ? ': ' + f.care_detail : '')]].concat(screenRows(r)));
     body += '<h3>Consent</h3>' + dl([['Signed by', f.sig_name], ['Signed on', fmtDate(f.sig_date)], ['E-signature agreement', f.esign === 'true' || f.esign === true ? 'Accepted' : '']]);
+    body += '<p class="a-note">Practice Fusion: download the PDF, then upload it to the patient’s chart.</p>';
     body += '<h3>History</h3><ul class="a-history">' + (r.history || []).map(function (h) { return '<li>' + esc(fmtStamp(h.at)) + ' · ' + esc(h.action) + (h.by ? ' by ' + esc(h.by) : '') + '</li>'; }).join('') + '</ul>';
     $('d-body').innerHTML = body;
 
     var acts = '<a class="btn" href="/api/admin/file?id=' + encodeURIComponent(r.id) + '">Download consent PDF</a>' +
-      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a>';
+      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a><button class="btn btn-ghost" data-print="1">Print</button>';
     if (r.type === 'booking') {
       if (r.status === 'confirmed') acts += '<button class="btn btn-ghost" data-act="complete">Mark completed</button><button class="btn btn-ghost" data-act="noshow">No-show</button><button class="btn btn-danger" data-act="cancel">Cancel appointment</button>';
       else if (r.status === 'cancelled') acts += '<button class="btn btn-ghost" data-act="confirm">Restore appointment</button>';
       else acts += '<button class="btn btn-ghost" data-act="confirm">Mark as confirmed</button>';
     }
     $('d-actions').innerHTML = acts;
+    $('d-actions').querySelector('[data-print]').addEventListener('click', function () { printPdf(r.id); });
     $('d-actions').querySelectorAll('[data-act]').forEach(function (b) {
       b.addEventListener('click', function () {
         var act = b.dataset.act;

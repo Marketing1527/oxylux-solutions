@@ -11,13 +11,15 @@ Static site plus a few Vercel serverless functions for booking. No build step.
 |---|---|
 | `/` | Homepage (full site, launched Oct 29, 2026) |
 | Other pages | Treatment, What to expect, Dr. Morales, FAQ, Contact, Privacy |
-| `/reserve` | Booking: choose a day and time, then sign the consent form |
-| `/consent.html` | Consent form on its own (already-booked clients, in-clinic iPad) |
+| `/services.html` | Services hub; each service has its own page (hyperbaric-oxygen-therapy, iv-therapy, massage-therapy, infrared-therapy, venus-legacy, botox) |
+| `/reserve` | Booking: choose a day and time, then a service, then sign that service's consent form. `?service=botox` preselects a service |
+| `/consent.html` | Consent form on its own: pick a service first (already-booked clients, in-clinic iPad) |
 | `/admin` | Front-desk dashboard: appointments, patient info, signed PDFs |
 
 ## How booking works
 1. Patient picks a slot on `/reserve` (`/api/availability`). Schedule lives in `api/_lib/schedule.js`:
-   Mon–Fri 8 AM–5 PM, 90-minute slots, 1 chamber, 2-hour minimum notice, 60 days ahead.
+   Mon–Fri 8 AM–5 PM, 90-minute slots, one appointment per service per slot, first bookable day Nov 2, 2026.
+   Services are in `api/_lib/services.js`; consent text is in `consent-forms.js`.
 2. They complete and sign the consent form. The browser builds the signed PDF.
 3. `/api/book` reserves the slot (no double booking), stores the PDF and a JSON record.
 4. The front desk sees it in `/admin`, can download the PDF, mark completed / no-show, or cancel (frees the slot).
@@ -53,6 +55,10 @@ vercel --prod
 `setup-admin` asks for the email and password (hidden) and sets `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH` and `SESSION_SECRET`.
 Run it again any time to change the password.
 
+## Opening popup and logo intro
+- Popup: in `site.js`; stops showing automatically after Nov 2, 2026 (Eastern).
+- Logo intro: `.intro` in `styles.css`, plays once per browser session on public pages.
+
 ## SEO and search files
 - Structured data (JSON-LD `@graph`) on every public page: MedicalClinic (address, geo, hours, phone, Google Maps link, languages, reserve action), WebSite, Physician (Dr. Morales), MedicalTherapy (HBOT), FAQPage, ContactPage, ProfilePage, BreadcrumbList. Generated once; edit the JSON in each page's `<head>`.
 - `sitemap.xml` (with image entries), `robots.txt` (search engines and AI crawlers allowed, `/api/` blocked), `llms.txt` and `llms-full.txt` (summaries for AI assistants), `site.webmanifest`, `favicon.ico`, custom `404.html`.
@@ -71,4 +77,7 @@ The site launched on Oct 29, 2026: the coming-soon page was removed (it is in gi
 ## Still to confirm with the owner
 - Attorney review of the consent form wording (rebranded from the Moreau PT template; the "no insurance" line was removed because OxyLux accepts insurance)
 - Which insurance plans are accepted (site says "most major insurance plans")
+- Medical Director and attorney review of the IV, massage, infrared, Venus Legacy and Botox consent drafts in `consent-forms.js`
+- Florida massage establishment (MM) and therapist (MA) license numbers must appear in massage advertising
+- Replace stock photos (Pexels license) with real photos; `assets/services/`
 - Real photos of the space (only the chamber and Dr. Morales are photos today)

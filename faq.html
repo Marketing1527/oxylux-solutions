@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{if(sessionStorage.getItem('oxl-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('no-intro')}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hyperbaric Oxygen Therapy FAQ | OxyLux Solutions</title>
 <meta name="description" content="Answers to common questions about hyperbaric oxygen therapy at OxyLux Solutions: safety, session length, what to wear and more.">
@@ -51,6 +52,22 @@
    "mainEntity": [
     {
      "@type": "Question",
+     "name": "What services do you offer?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Hyperbaric oxygen therapy, IV therapy, massage therapy, infrared therapy, Venus Legacy and Botox. Each one has its own consent form, which you sign when you reserve."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "When do you open?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "We open Monday, November 2. You can reserve your first visit now."
+     }
+    },
+    {
+     "@type": "Question",
      "name": "Who is Dr. Morales?",
      "acceptedAnswer": {
       "@type": "Answer",
@@ -62,7 +79,7 @@
      "name": "How do I book?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Use Reserve now to choose a day and time, then sign your consent form online. Your appointment is confirmed when you submit. You can also call (305) 205-2738."
+      "text": "Use Reserve now to choose a day, time and service, then sign the consent form for that service online. Your appointment is confirmed when you submit. You can also call (305) 205-2738."
      }
     },
     {
@@ -126,7 +143,7 @@
      "name": "Do you take insurance?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Yes. OxyLux accepts most major insurance plans. Coverage for hyperbaric oxygen therapy depends on your plan and diagnosis, so call (305) 205-2738 before your first visit and we will help you check."
+      "text": "Yes, for eligible services. OxyLux accepts most major insurance plans. Coverage depends on your plan and diagnosis, and cosmetic services are usually not covered, so call (305) 205-2738 before your first visit and we will help you check."
      }
     }
    ],
@@ -173,6 +190,7 @@
 </script>
 </head>
 <body>
+<div class="intro" id="intro" aria-hidden="true"><div class="intro-logo"><img class="intro-emblem" src="/assets/emblem-lg.webp" alt="" width="520" height="409"><img class="intro-word" src="/assets/wordmark.webp" alt="" width="568" height="150"></div></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
@@ -180,7 +198,7 @@
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="/">Home</a>
-      <a href="/services.html">Treatment</a>
+      <a href="/services.html">Services</a>
       <a href="/what-to-expect.html">What to expect</a>
       <a href="/about.html">Dr. Morales</a>
       <a href="/faq.html" aria-current="page">FAQ</a>
@@ -197,8 +215,10 @@
 </div></div>
 <section>
   <div class="wrap">
+<details><summary>What services do you offer?</summary><p>Hyperbaric oxygen therapy, IV therapy, massage therapy, infrared therapy, Venus Legacy and Botox. Each one has its own consent form, which you sign when you reserve.</p></details>
+<details><summary>When do you open?</summary><p>We open Monday, November 2. You can reserve your first visit now.</p></details>
 <details><summary>Who is Dr. Morales?</summary><p>Dr. Fermin Morales, MD, FACS, is the Founder and Medical Director of OxyLux Solutions and a board-certified surgeon with more than four decades in medicine. A trained attendant runs and monitors each session.</p></details>
-<details><summary>How do I book?</summary><p>Use Reserve now to choose a day and time, then sign your consent form online. Your appointment is confirmed when you submit. You can also call (305) 205-2738.</p></details>
+<details><summary>How do I book?</summary><p>Use Reserve now to choose a day, time and service, then sign the consent form for that service online. Your appointment is confirmed when you submit. You can also call (305) 205-2738.</p></details>
 <details><summary>¿Hablan español?</summary><p>Sí. Dr. Morales and our team speak Spanish.</p></details>
 <details><summary>Does hyperbaric oxygen therapy hurt?</summary><p>No. The most common feeling is pressure in your ears as the chamber pressurizes, similar to a plane landing. Swallowing or yawning clears it, and we can pause at any time.</p></details>
 <details><summary>How long is a session?</summary><p>Most sessions last 60 to 90 minutes, plus time to change and settle in. Plan on about two hours for your first visit.</p></details>
@@ -206,7 +226,7 @@
 <details><summary>Who should not use HBOT?</summary><p>People with certain lung conditions, an untreated collapsed lung, recent ear or sinus surgery, some medications, or who are pregnant may not be able to use the chamber. Our health screening covers this, and we may ask for your doctor’s clearance.</p></details>
 <details><summary>What should I wear?</summary><p>We provide 100% cotton scrubs. Please skip lotions, perfume, hair products and makeup on session days, and remove jewelry and piercings where possible.</p></details>
 <details><summary>Can I bring my phone?</summary><p>No. Phones and other electronics stay outside the chamber for safety. The chamber has an intercom so you can talk with your attendant at any time.</p></details>
-<details><summary>Do you take insurance?</summary><p>Yes. OxyLux accepts most major insurance plans. Coverage for hyperbaric oxygen therapy depends on your plan and diagnosis, so call (305) 205-2738 before your first visit and we will help you check.</p></details>
+<details><summary>Do you take insurance?</summary><p>Yes, for eligible services. OxyLux accepts most major insurance plans. Coverage depends on your plan and diagnosis, and cosmetic services are usually not covered, so call (305) 205-2738 before your first visit and we will help you check.</p></details>
   </div>
 </section>
 <section class="band-navy">
@@ -224,7 +244,7 @@
     <div class="footer-grid">
       <div>
         <h3>OxyLux Solutions</h3>
-        <p>Hyperbaric oxygen therapy in Hialeah, Florida. Se habla español.</p>
+        <p>Hyperbaric oxygen, wellness and aesthetic care in Hialeah, Florida. Se habla español.</p>
         <p><a href="https://maps.google.com/?q=OxyLux+Solutions,+14361+Commerce+Way+Suite+201,+Hialeah,+FL+33016" target="_blank" rel="noopener">14361 Commerce Way, Suite 201<br>Hialeah, FL 33016</a></p>
         <p><a href="tel:+13052052738">(305) 205-2738</a><br><a href="mailto:frontdesk@oxyluxsolutions.com">frontdesk@oxyluxsolutions.com</a></p>
       </div>
@@ -232,7 +252,7 @@
         <h3>Visit</h3>
         <ul>
           <li><a href="/reserve">Reserve a session</a></li>
-          <li><a href="/services.html">Treatment</a></li>
+          <li><a href="/services.html">Services</a></li>
           <li><a href="/what-to-expect.html">What to expect</a></li>
           <li><a href="/consent.html">Consent form</a></li>
           <li><a href="/faq.html">FAQ</a></li>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hyperbaric Oxygen Therapy Consent Form | OxyLux Solutions</title>
-<meta name="description" content="Complete your OxyLux Solutions hyperbaric oxygen therapy consent form online before your visit.">
+<title>Consent Forms | OxyLux Solutions</title>
+<meta name="description" content="Complete your OxyLux Solutions consent form online before your visit.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#f3eee6">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -32,14 +32,14 @@
   <div class="c-paper" id="paper">
     <div class="c-head">
       <img src="/assets/logo-clear.webp" alt="OxyLux Solutions" width="200" height="205" class="c-logo">
-      <h1 id="c-title">Hyperbaric Oxygen Therapy Consent Form</h1>
-      <p class="lede" id="c-lede">Please complete every section before your first session. It takes about 10 minutes. Your answers are only shared with the OxyLux care team.</p>
+      <h1 id="c-title">Consent form</h1>
+      <p class="lede" id="c-lede">Choose your service, then complete every section before your visit. It takes about 10 minutes. Your answers are only shared with the OxyLux care team.</p>
     </div>
 
     <section class="c-book" id="s-time" hidden aria-labelledby="time-title">
-      <div class="c-stepper" aria-hidden="true"><span class="is-on">1 Choose a time</span><span>2 Consent form</span></div>
+      <div class="c-stepper" aria-hidden="true"><span class="is-on">1 Choose a time</span><span>2 Choose a service</span><span>3 Consent form</span></div>
       <h2 id="time-title">Choose your appointment</h2>
-      <p class="c-help">Sessions last 60 to 90 minutes. Times are Eastern. Plan to arrive 15 minutes early for your first visit.</p>
+      <p class="c-help">We open Monday, November 2. Times are Eastern. Plan to arrive 15 minutes early for your first visit.</p>
       <div class="c-days-head">
         <button type="button" class="c-arrow" id="days-prev" aria-label="Earlier dates">‹</button>
         <p class="c-month" id="days-month" aria-live="polite"></p>
@@ -50,13 +50,27 @@
       <p class="c-help" id="slots-msg" role="status"></p>
       <div class="c-book-foot">
         <p class="c-picked" id="picked">Select a date and time.</p>
-        <button type="button" class="btn" id="to-consent" disabled>Continue to consent form</button>
+        <button type="button" class="btn" id="to-consent" disabled>Continue</button>
+      </div>
+    </section>
+
+    <section class="c-book" id="s-service" hidden aria-labelledby="service-title">
+      <div class="c-stepper" id="service-stepper" aria-hidden="true"><span>1 Choose a time</span><span class="is-on">2 Choose a service</span><span>3 Consent form</span></div>
+      <h2 id="service-title">Choose your service</h2>
+      <p class="c-help" id="service-help">Each service has its own consent form.</p>
+      <div class="c-services" id="svc-list" role="radiogroup" aria-labelledby="service-title"></div>
+      <div class="c-book-foot">
+        <button type="button" class="c-link" id="back-time">Back to times</button>
+        <button type="button" class="btn" id="to-form" disabled>Continue to consent form</button>
       </div>
     </section>
 
     <div class="c-apptbar" id="apptbar" hidden>
-      <span>Your appointment: <strong id="apptbar-text"></strong></span>
-      <button type="button" class="c-link" id="change-time">Change time</button>
+      <span id="apptbar-label"></span>
+      <span class="c-apptbar-links">
+        <button type="button" class="c-link" id="change-service">Change service</button>
+        <button type="button" class="c-link" id="change-time">Change time</button>
+      </span>
     </div>
 
     <nav class="c-steps" aria-label="Form sections">
@@ -111,97 +125,22 @@
           </div>
           <label class="c-reveal" id="care-explain" hidden>Please explain<textarea name="care_detail" rows="2"></textarea></label>
         </div>
-
-        <div class="c-q" data-group="rx" data-exclusive>
-          <p class="c-q-title">Are you currently prescribed or taking any of these medications? <span class="c-opt">Select all that apply.</span></p>
-          <div class="c-choices">
-            <label class="c-choice"><input type="checkbox" name="rx" value="Bleomycin"><span>Bleomycin</span></label>
-            <label class="c-choice"><input type="checkbox" name="rx" value="Disulfiram"><span>Disulfiram</span></label>
-            <label class="c-choice"><input type="checkbox" name="rx" value="Mafenide acetate"><span>Mafenide acetate</span></label>
-            <label class="c-choice c-none"><input type="checkbox" name="rx" value="None of these"><span>None of these</span></label>
-          </div>
-        </div>
-
-        <div class="c-q" data-group="dx" data-exclusive>
-          <p class="c-q-title">Have you been diagnosed with, or are you suspected of having, any of the following? <span class="c-opt">Select all that apply.</span></p>
-          <div class="c-choices">
-            <label class="c-choice"><input type="checkbox" name="dx" value="Hereditary spherocytosis"><span>Hereditary spherocytosis</span></label>
-            <label class="c-choice"><input type="checkbox" name="dx" value="Sickle cell anemia"><span>Sickle cell anemia</span></label>
-            <label class="c-choice"><input type="checkbox" name="dx" value="COPD"><span>COPD</span></label>
-            <label class="c-choice c-none"><input type="checkbox" name="dx" value="None of these"><span>None of these</span></label>
-          </div>
-        </div>
+        <div id="svc-screens"></div>
       </fieldset>
 
       <!-- 3. Acknowledgments -->
       <fieldset class="c-section" id="s-ack">
         <legend><span class="c-num">3</span>Acknowledgments</legend>
         <p class="c-help">Read each statement and type your initials to confirm you understand it.</p>
-
-        <div class="c-ack">
-          <h3>About hyperbaric oxygen therapy</h3>
-          <p>Hyperbaric Oxygen Therapy (HBOT) is a therapy that increases the amount of oxygen the body can absorb at a cellular level. The treatment supplies oxygen in a sealed chamber at a higher-than-normal atmospheric pressure, which allows the oxygen to dissolve more easily into liquids such as blood plasma and cerebrospinal fluid. The body’s absorption of the increased oxygen is reported to be beneficial for a wide range of ailments. However, the FDA only approves HBOT for certain specific conditions. Other conditions for which HBOT is often used are considered “off-label.” Although many off-label conditions have been studied with positive results, I understand that no treatment outcome is guaranteed, and the fees I pay are for services rendered, not for any benefits I may receive or expect or hope to receive. I understand it is possible that I may not observe or realize any benefit from the treatment, and that HBOT is not intended as a cure for any condition or disease. I further understand the treatment is not a substitute for other treatment suggested or prescribed by my physician.</p>
-          <label class="c-initial">Initials<input name="i_about" maxlength="4" autocapitalize="characters" required></label>
-        </div>
-
-        <div class="c-ack">
-          <h3>Ear pressure (otic barotrauma)</h3>
-          <p>Possible side effects of HBOT include otic barotrauma: ear pain or damage to the eardrum caused by rapid changes in pressure, such as when a plane descends to land. To keep pressure equal on both sides of the eardrum, air must move freely between the nasopharynx and middle ear. When the chamber is pressurized, I understand that I must be able to equalize the pressure in my ears to avoid possible severe ear discomfort. The most effective method is to hold the nose, close the mouth, and blow gently through the nose. Other methods include yawning, swallowing, and holding the nose while swallowing.</p>
-          <p><strong>If the pressure in my ears fails to equalize using any of these methods, I agree to tell the attendant about any discomfort immediately.</strong> The attendant will adjust the pressure to try to relieve the discomfort, but if the pressure in my ears cannot be equalized, the treatment will be stopped promptly. In that event, I understand no further sessions will be scheduled for me until I have obtained a release from my physician.</p>
-          <label class="c-initial">Initials<input name="i_ear" maxlength="4" autocapitalize="characters" required></label>
-        </div>
-
-        <div class="c-ack">
-          <h3>Gastrointestinal effects</h3>
-          <p>I understand that HBOT may assist my body in detoxifying digestive flora. As a result, I may experience some discomfort within the first 36 hours following a session. Symptoms may include loss of appetite, stomachache, constipation or diarrhea, headache, body aches, irritability, or other emotional upset. I understand that although this is a normal process, if symptoms persist beyond 36 hours, I must consult a physician for evaluation.</p>
-          <label class="c-initial">Initials<input name="i_gi" maxlength="4" autocapitalize="characters" required></label>
-        </div>
-
-        <div class="c-ack">
-          <h3>Drop in blood sugar</h3>
-          <p>Insulin-dependent diabetics may experience a drop in blood sugar while in the chamber. If I take insulin, I understand that I must test my blood sugar before my session and eat a snack if my level is under 150. I must test again when I leave the chamber and eat a snack before leaving the facility if my level is under 150. I agree to tell the attendant immediately if I feel uncomfortable at any time during the session.</p>
-          <label class="c-initial">Initials<input name="i_sugar" maxlength="4" autocapitalize="characters" required></label>
-        </div>
-
-        <div class="c-ack">
-          <h3>Other side effects</h3>
-          <p>Other side effects may include headache, nausea, drowsiness, hyperactivity, dizziness, claustrophobia, or blurred vision.</p>
-          <label class="c-initial">Initials<input name="i_other" maxlength="4" autocapitalize="characters" required></label>
-        </div>
-
-        <div class="c-ack">
-          <h3>Jewelry and sharp objects</h3>
-          <p>Piercings and jewelry will need to be removed where possible. No sharp objects are allowed in the HBOT chamber.</p>
-          <label class="c-initial">Initials<input name="i_jewelry" maxlength="4" autocapitalize="characters" required></label>
-        </div>
-
-        <div class="c-ack">
-          <h3>No guarantee of results</h3>
-          <p>Although hyperbaric therapy has been reported to be beneficial for a wide range of conditions, this therapy is not meant as a cure for any condition or disease, and no therapeutic outcome can be guaranteed. OxyLux Solutions does not in any way recommend HBOT as a substitute for any medical treatment prescribed or suggested by a physician, and makes no guarantee of any results an individual may experience.</p>
-          <label class="c-initial">Initials<input name="i_guarantee" maxlength="4" autocapitalize="characters" required></label>
-        </div>
+        <div id="svc-acks"></div>
       </fieldset>
 
       <!-- 4. Contraindications -->
       <fieldset class="c-section" id="s-contra">
         <legend><span class="c-num">4</span>Contraindications</legend>
         <div class="c-q" data-group="contra" data-exclusive>
-          <p class="c-q-title">I understand I should not undergo treatment if I have any of the following diagnoses or symptoms. Select any that apply to you.</p>
-          <div class="c-choices c-two">
-            <label class="c-choice"><input type="checkbox" name="contra" value="High fever"><span>High fever</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Flown in the last 24 hours"><span>Have flown in the last 24 hours</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Ear infection or blocked ear canal"><span>Ear infection or blocked ear canal</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Optic neuritis"><span>Optic neuritis</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Severe lung or heart disease"><span>Severe lung or heart disease</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Full or partial pneumothorax"><span>Full or partial pneumothorax (collapsed lung)</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Seizure disorder"><span>Seizure disorder</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Emphysema"><span>Emphysema</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Sinus or upper respiratory infection"><span>Sinus or upper respiratory infection</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Glaucoma"><span>Glaucoma</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Aneurysm"><span>Aneurysm</span></label>
-            <label class="c-choice"><input type="checkbox" name="contra" value="Untreated asthma or asthma attack in last 24 hours"><span>Untreated asthma, or an asthma attack in the last 24 hours</span></label>
-            <label class="c-choice c-none c-full"><input type="checkbox" name="contra" value="None of the above apply to me"><span>None of the above apply to me</span></label>
-          </div>
+          <p class="c-q-title" id="contra-title"></p>
+          <div class="c-choices c-two" id="contra-options"></div>
           <p class="c-warn" id="contra-warn" hidden>Thank you for letting us know. You can still submit this form. A member of our team will contact you before your session to talk through whether HBOT is right for you.</p>
         </div>
         <div class="c-ack c-ack-plain">
@@ -212,11 +151,7 @@
       <!-- 5. Consent + signature -->
       <fieldset class="c-section" id="s-sign">
         <legend><span class="c-num">5</span>Waiver and consent to treatment</legend>
-        <div class="c-legal">
-          <p>I, <strong class="c-fill" id="waiver-name">[your name]</strong>, acknowledge that I have read the above information completely. I have received answers to any questions I may have about the treatment. I am fully informed of the possible side effects and complications that may arise from the treatment. Being fully informed, I agree to obtain this treatment, and I hereby release and hold harmless OxyLux Solutions, its employees, agents, representatives, lessees, and assigns from liability for any and all effects or lack thereof, side effects, or complications that may arise as a result of the HBOT treatment.</p>
-          <p>I hereby authorize OxyLux Solutions or its employees to take medical photographs for the purpose of teaching or publication. I understand that I will not be identified by name and that my anonymity will be preserved in any presentation or publication.</p>
-          <p>I consent to the release of information and/or disclosure of any part of my medical record by any physician, hospital, accreditation, or regulatory organization responsible for monitoring or evaluating health facilities, as well as any other facility of which I have been a client.</p>
-        </div>
+        <div class="c-legal" id="svc-legal"></div>
 
         <div class="c-sign">
           <div class="c-sign-head">
@@ -266,6 +201,7 @@
 <div id="record" class="c-record" aria-hidden="true"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="/consent-forms.js" defer></script>
 <script src="/consent.js" defer></script>
 </body>
 </html>

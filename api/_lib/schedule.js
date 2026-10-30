@@ -2,7 +2,8 @@
 export const SCHEDULE = {
   timeZone: 'America/New_York',
   slotMinutes: 90,          // session plus changeover
-  capacity: 1,              // chambers available per slot
+  capacity: 1,              // appointments per service in each slot
+  opensOn: '2026-11-02',    // first bookable day
   minLeadMinutes: 120,      // earliest a slot can be booked from now
   maxDaysAhead: 60,
   // 0 = Sunday ... 6 = Saturday. Matches the Google Business hours: Mon–Fri 8 AM–5 PM.
@@ -41,12 +42,14 @@ export function isBookable(date, time) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) return false;
   if (!slotsForDate(date).includes(time)) return false;
   const now = nowInClinic();
-  if (date < now.date || date > addDays(now.date, SCHEDULE.maxDaysAhead)) return false;
+  if (date < now.date || date < SCHEDULE.opensOn || date > addDays(now.date, SCHEDULE.maxDaysAhead)) return false;
   if (date === now.date && toMin(time) < now.minutes + SCHEDULE.minLeadMinutes) return false;
   return true;
 }
 
 export const slotKey = (date, time) => `${date}T${time.replace(':', '-')}`;
+// Each service is booked separately, so a massage and Botox can share a time.
+export const serviceSlotKey = (date, time, service) => `${slotKey(date, time)}__${service}`;
 export function parseSlotKey(key) {
   const m = /^(\d{4}-\d{2}-\d{2})T(\d{2})-(\d{2})/.exec(key);
   return m ? { date: m[1], time: `${m[2]}:${m[3]}` } : null;

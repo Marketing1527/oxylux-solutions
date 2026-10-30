@@ -1,6 +1,6 @@
 # OxyLux Solutions — full reference
 
-> Hyperbaric oxygen therapy clinic in Hialeah, Florida. This file summarizes the public website so AI assistants can answer questions accurately. It is not medical advice.
+> Clinic in Hialeah, Florida, opening November 2, 2026, offering hyperbaric oxygen therapy, IV therapy, massage therapy, infrared therapy, Venus Legacy and Botox. This file summarizes the public website so AI assistants can answer questions accurately. It is not medical advice.
 
 ## Clinic
 - Name: OxyLux Solutions
@@ -19,11 +19,18 @@ OxyLux uses an Oxycell OxyPro Genesis hard-shell chamber with a padded reclining
 
 HBOT is FDA-cleared for specific conditions, including diabetic and other non-healing wounds and tissue damage after radiation therapy. Other uses are considered off-label. Patients also use HBOT to support recovery before and after surgery or cosmetic procedures, and for sports recovery. No outcome is guaranteed.
 
-## Who should wait or talk to a doctor first
+## Other services
+- IV therapy: fluids and nutrients through an IV, about 45 to 60 minutes, after a health review by a licensed clinician.
+- Massage therapy: therapeutic massage in a private suite, about 60 minutes.
+- Infrared therapy: infrared heat for relaxation and comfort, about 30 to 45 minutes.
+- Venus Legacy: non-invasive multi-polar radio frequency and pulsed electromagnetic fields. The manufacturer reports FDA clearance for moderate to severe facial wrinkles in women with Fitzpatrick skin types I to IV and for temporary reduction in the appearance of cellulite.
+- Botox: Botox Cosmetic injections from a licensed medical professional to temporarily soften certain facial lines. Cosmetic services are usually not covered by insurance.
+
+## Who should wait or talk to a doctor first (hyperbaric oxygen therapy)
 High fever, ear infection or blocked ear canal, sinus or upper respiratory infection, air travel in the last 24 hours, untreated or recent pneumothorax (collapsed lung), severe lung or heart disease, seizure disorder, emphysema, glaucoma, optic neuritis, aneurysm, untreated asthma, certain medications (bleomycin, disulfiram, mafenide acetate) and pregnancy. Every patient completes a consent form and health screening before the first session.
 
 ## Insurance and booking
-OxyLux accepts most major insurance plans. Coverage depends on the patient's plan and diagnosis; patients can call (305) 205-2738 to check before their first visit. Bring a photo ID and insurance card. Booking is online (choose a day and time, then sign the consent form) or by phone.
+OxyLux accepts most major insurance plans for eligible services. Coverage depends on the patient's plan and diagnosis; patients can call (305) 205-2738 to check before their first visit. Bring a photo ID and insurance card. Booking is online (choose a day, time and service, then sign that service's consent form) or by phone.
 
 ## What to expect
 1. Reserve online and sign the consent form.

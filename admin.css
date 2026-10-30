@@ -73,3 +73,6 @@
   .a-dl { grid-template-columns: 1fr; gap: 2px; }
   .a-dl dd { margin-bottom: 8px; }
 }
+
+.a-head-actions select { width: auto; min-width: 200px; }
+.a-note { margin: 18px 0 0; font-size: .9rem; color: var(--ink-soft); max-width: none; }

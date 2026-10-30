@@ -1,9 +1,12 @@
 // OxyLux consent form: validation, signature pad, progress and signed PDF.
-// Nothing is stored in the browser or sent anywhere; the signed copy is a downloaded PDF.
+// Nothing is stored in the browser. Consent text for each service comes from consent-forms.js.
 (function () {
   var form = document.getElementById('consent');
   var $ = function (id) { return document.getElementById(id); };
-  var groups = ['rx', 'dx', 'contra'];
+  var groups = ['contra'];
+  var service = null, SERVICES = window.OXY_SERVICES;
+  var wantService = (/[?&]service=([a-z]+)/.exec(location.search) || [])[1];
+  if (!SERVICES.some(function (s) { return s.id === wantService; })) wantService = null;
 
   document.querySelectorAll('.yr').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
@@ -28,13 +31,15 @@
   $('f-signame').addEventListener('input', function () { sigTouched = true; });
   $('f-name').addEventListener('input', function () {
     var v = this.value.trim();
-    $('waiver-name').textContent = v || '[your name]';
+    if ($('waiver-name')) $('waiver-name').textContent = v || '[your name]';
     if (!sigTouched) $('f-signame').value = v;
   });
 
   // Initials are always uppercase
-  form.querySelectorAll('.c-initial input').forEach(function (i) {
-    i.addEventListener('input', function () { var p = i.selectionStart; i.value = i.value.toUpperCase().replace(/[^A-Z.\- ]/g, ''); i.setSelectionRange(p, p); });
+  form.addEventListener('input', function (e) {
+    var i = e.target;
+    if (!i.closest('.c-initial')) return;
+    var p = i.selectionStart; i.value = i.value.toUpperCase().replace(/[^A-Z.\- ]/g, ''); i.setSelectionRange(p, p);
   });
 
   // "Under medical care" reveals an explanation box
@@ -48,19 +53,41 @@
   });
 
   // "None" options are exclusive within their group
-  groups.forEach(function (g) {
-    var boxes = form.querySelectorAll('input[name="' + g + '"]');
-    boxes.forEach(function (b) {
-      b.addEventListener('change', function () {
-        var isNone = b.closest('.c-none');
-        if (!b.checked) return;
-        boxes.forEach(function (o) {
-          if (o === b) return;
-          if (isNone ? true : o.closest('.c-none')) o.checked = false;
-        });
-      });
+  form.addEventListener('change', function (e) {
+    var b = e.target;
+    if (b.type !== 'checkbox' || !b.checked || groups.indexOf(b.name) === -1) return;
+    var isNone = b.closest('.c-none');
+    form.querySelectorAll('input[name="' + b.name + '"]').forEach(function (o) {
+      if (o !== b && (isNone || o.closest('.c-none'))) o.checked = false;
     });
   });
+
+  // ---------- Service-specific consent ----------
+  function choice(name, o) {
+    return '<label class="c-choice' + (o.none ? ' c-none c-full' : '') + '"><input type="checkbox" name="' + name + '" value="' + esc(o.value) + '"><span>' + o.label + '</span></label>';
+  }
+  function renderService(s) {
+    service = s;
+    groups = s.screens.map(function (g) { return g.name; }).concat('contra');
+    $('svc-screens').innerHTML = s.screens.map(function (g) {
+      return '<div class="c-q" data-group="' + g.name + '" data-title="' + esc(g.title) + '"><p class="c-q-title">' + g.title + ' <span class="c-opt">Select all that apply.</span></p><div class="c-choices">' +
+        g.options.map(function (o) { return choice(g.name, o); }).join('') + '</div></div>';
+    }).join('');
+    $('svc-acks').innerHTML = s.acks.map(function (a) {
+      return '<div class="c-ack"><h3>' + a.title + '</h3>' + a.paras.map(function (p) { return '<p>' + p + '</p>'; }).join('') +
+        '<label class="c-initial">Initials<input name="' + a.id + '" maxlength="4" autocapitalize="characters" required></label></div>';
+    }).join('');
+    $('contra-title').innerHTML = s.contra.title;
+    $('contra-options').innerHTML = s.contra.options.map(function (o) { return choice('contra', o); }).join('');
+    $('contra-warn').hidden = true;
+    $('svc-legal').innerHTML = s.legal.map(function (p) {
+      return '<p>' + p.replace('{{NAME}}', '<strong class="c-fill" id="waiver-name"></strong>') + '</p>';
+    }).join('');
+    $('waiver-name').textContent = form.name.value.trim() || '[your name]';
+    $('c-title').textContent = s.formTitle;
+    update();
+  }
+
   function checked(g) { return Array.prototype.filter.call(form.querySelectorAll('input[name="' + g + '"]'), function (b) { return b.checked; }).map(function (b) { return b.value; }); }
   function contraFlag() {
     var c = checked('contra');
@@ -123,7 +150,6 @@
   form.addEventListener('change', function () { contraFlag(); update(); });
   update();
 
-  // ---------- Validation and submit ----------
   function validate() {
     var bad = [];
     form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
@@ -145,11 +171,12 @@
   function fmtLong(d) { return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
   function slotText() { return slot ? fmtLong(slot.date) + ' at ' + fmtTime(slot.time) : ''; }
 
+  function timeOpen(t) { return wantService ? t.services.indexOf(wantService) !== -1 : t.open; }
   function renderDays() {
     var box = $('days'); box.innerHTML = '';
     var view = dayData.slice(dayStart, dayStart + DAYS_SHOWN);
     view.forEach(function (d) {
-      var open = d.times.some(function (t) { return t.open; });
+      var open = d.times.some(timeOpen);
       var dt = new Date(d.date + 'T12:00:00');
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'c-day'; b.setAttribute('role', 'option');
@@ -173,9 +200,9 @@
     d.times.forEach(function (t) {
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'c-time'; b.setAttribute('role', 'option');
-      b.disabled = !t.open; b.textContent = fmtTime(t.time);
+      b.disabled = !timeOpen(t); b.textContent = fmtTime(t.time);
       b.setAttribute('aria-selected', slot.time === t.time ? 'true' : 'false');
-      if (!t.open) b.title = 'Booked';
+      if (!timeOpen(t)) b.title = 'Booked';
       b.addEventListener('click', function () { slot = { date: date, time: t.time }; selectDay(date); });
       box.appendChild(b);
     });
@@ -187,10 +214,10 @@
     $('slots-msg').textContent = 'Loading available times…';
     return fetch('/api/availability?days=42').then(function (r) { if (!r.ok) throw r; return r.json(); }).then(function (data) {
       // Hide today once its remaining times have passed
-      dayData = data.days.filter(function (d, i) { return i > 0 || d.times.some(function (t) { return t.open; }); });
-      $('slots-msg').textContent = dayData.some(function (d) { return d.times.some(function (t) { return t.open; }); }) ? '' : 'No times are open right now. Please call (305) 205-2738.';
+      dayData = data.days.filter(function (d, i) { return i > 0 || d.times.some(timeOpen); });
+      $('slots-msg').textContent = dayData.some(function (d) { return d.times.some(timeOpen); }) ? '' : 'No times are open right now. Please call (305) 205-2738.';
       if (!keepSlot) slot = null;
-      var firstOpen = dayData.findIndex(function (d) { return d.times.some(function (t) { return t.open; }); });
+      var firstOpen = dayData.findIndex(function (d) { return d.times.some(timeOpen); });
       dayStart = Math.max(0, Math.floor(Math.max(firstOpen, 0) / DAYS_SHOWN) * DAYS_SHOWN);
       renderDays();
       if (slot) selectDay(slot.date);
@@ -199,28 +226,71 @@
       $('slots-msg').textContent = 'Online booking is not available right now. Please call (305) 205-2738 to book.';
     });
   }
+  function openServices() {
+    if (!bookingMode || !slot) return SERVICES.map(function (s) { return s.id; });
+    var day = dayData.filter(function (d) { return d.date === slot.date; })[0];
+    var t = day && day.times.filter(function (x) { return x.time === slot.time; })[0];
+    return t ? t.services : [];
+  }
+  function renderServiceList() {
+    var open = openServices(), box = $('svc-list');
+    if (service && open.indexOf(service.id) === -1) service = null;
+    box.innerHTML = '';
+    SERVICES.forEach(function (s) {
+      var free = open.indexOf(s.id) !== -1;
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'c-service'; b.setAttribute('role', 'radio');
+      b.disabled = !free; b.setAttribute('aria-checked', service && service.id === s.id ? 'true' : 'false');
+      b.innerHTML = '<strong>' + s.name + '</strong><span>' + (free ? s.blurb + '. ' + s.time + '.' : 'Booked at this time') + '</span>';
+      b.addEventListener('click', function () { service = s; renderServiceList(); });
+      box.appendChild(b);
+    });
+    $('to-form').disabled = !service;
+  }
+  function hideAllSteps() { $('s-time').hidden = true; $('s-service').hidden = true; form.hidden = true; $('apptbar').hidden = true; document.querySelector('.c-steps').hidden = true; }
   function showTimeStep() {
-    $('s-time').hidden = false; form.hidden = true; $('apptbar').hidden = true;
-    document.querySelector('.c-steps').hidden = true;
+    hideAllSteps(); $('s-time').hidden = false;
     $('s-time').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+  function showServiceStep() {
+    hideAllSteps(); $('s-service').hidden = false;
+    $('c-title').textContent = bookingMode ? 'Reserve your session' : 'Consent form';
+    $('service-help').textContent = bookingMode ? slotText() + '. Each service has its own consent form.' : 'Each service has its own consent form.';
+    $('service-stepper').hidden = !bookingMode; $('back-time').hidden = !bookingMode;
+    renderServiceList();
+    $('s-service').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   function showFormStep() {
-    $('s-time').hidden = true; form.hidden = false; $('apptbar').hidden = false;
+    if (!form.dataset.service || form.dataset.service !== service.id) { renderService(service); form.dataset.service = service.id; }
+    hideAllSteps(); form.hidden = false; $('apptbar').hidden = false;
     document.querySelector('.c-steps').hidden = false;
-    $('apptbar-text').textContent = slotText();
+    $('apptbar-label').textContent = bookingMode ? service.name + ', ' + slotText() : 'Consent form for ' + service.name;
+    $('change-time').hidden = !bookingMode;
+    resize();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  $('to-form').addEventListener('click', showFormStep);
+  $('back-time').addEventListener('click', showTimeStep);
+  $('change-service').addEventListener('click', showServiceStep);
+  $('change-time').addEventListener('click', showTimeStep);
   if (bookingMode) {
     document.title = 'Reserve a Session | OxyLux Solutions';
     $('c-title').textContent = 'Reserve your session';
-    $('c-lede').textContent = 'Choose a day and time, then complete your consent form. It takes about 10 minutes, and your appointment is confirmed as soon as you sign.';
+    $('c-lede').textContent = 'Choose a day, time and service, then complete the consent form for that service. It takes about 10 minutes, and your appointment is confirmed as soon as you sign.';
     $('days-prev').addEventListener('click', function () { dayStart = Math.max(0, dayStart - DAYS_SHOWN); renderDays(); });
     $('days-next').addEventListener('click', function () { dayStart += DAYS_SHOWN; renderDays(); });
-    $('to-consent').addEventListener('click', showFormStep);
-    $('change-time').addEventListener('click', showTimeStep);
-    form.hidden = true; document.querySelector('.c-steps').hidden = true; $('s-time').hidden = false;
+    $('to-consent').addEventListener('click', function () {
+      if (wantService && openServices().indexOf(wantService) !== -1) {
+        service = SERVICES.filter(function (s) { return s.id === wantService; })[0];
+        showFormStep();
+      } else showServiceStep();
+    });
+    hideAllSteps(); $('s-time').hidden = false;
     loadSlots();
-  }
+  } else if (wantService) {
+    service = SERVICES.filter(function (s) { return s.id === wantService; })[0];
+    showFormStep();
+  } else showServiceStep();
 
   // ---------- Validation and submit ----------
   var submitting = false;
@@ -232,8 +302,12 @@
       else if (el.type === 'radio') { if (el.checked) out[el.name] = el.value; }
       else out[el.name] = el.value;
     });
-    ['rx', 'dx', 'contra'].forEach(function (g) { out[g] = out[g] || []; });
+    groups.forEach(function (g) { out[g] = out[g] || []; });
     return out;
+  }
+  function screening() {
+    return service.screens.map(function (g) { return { title: g.title, selected: checked(g.name) }; })
+      .concat({ title: service.contra.title, selected: checked('contra') });
   }
   function pdfOptions() {
     return {
@@ -282,7 +356,7 @@
     window.html2pdf().set(pdfOptions()).from($('record').firstElementChild).outputPdf('datauristring').then(function (pdf) {
       return fetch('/api/book', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slot: bookingMode ? slot : null, form: formData(), pdf: pdf, website: form.website.value })
+        body: JSON.stringify({ slot: bookingMode ? slot : null, service: service.id, screening: screening(), form: formData(), pdf: pdf, website: form.website.value })
       }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
     }).then(function (res) {
       finish();
@@ -310,7 +384,7 @@
     var f = form, v = function (n) { return esc(f[n].value.trim()); };
     signedAt = new Date();
     var rows = [
-      ['Full legal name', v('name')], ['Date', fmtDate(f.date.value)],
+      ['Service', esc(service.name)], ['Full legal name', v('name')], ['Date', fmtDate(f.date.value)],
     ].concat(bookingMode && slot ? [['Appointment', esc(slotText())]] : []).concat([
       ['Address', v('address') + ', ' + v('city') + ', ' + v('state') + ' ' + v('zip')],
       ['Phone', v('phone')], ['Email', v('email')],
@@ -322,21 +396,20 @@
     var health = [
       ['Current medications', v('medications')], ['Allergies', v('allergies')],
       ['Under medical care', esc(f.care.value) + (f.care.value === 'Yes' ? ': ' + v('care_detail') : '')],
-      ['Bleomycin / Disulfiram / Mafenide acetate', esc(checked('rx').join(', '))],
-      ['Spherocytosis / sickle cell / COPD', esc(checked('dx').join(', '))],
+    ].concat(service.screens.map(function (g) { return [g.title, esc(checked(g.name).join(', '))]; })).concat([
       ['Contraindications', esc(checked('contra').join(', '))]
-    ];
+    ]);
     var acks = Array.prototype.map.call(form.querySelectorAll('.c-ack'), function (a) {
       var h = a.querySelector('h3'), i = a.querySelector('.c-initial input');
       var text = Array.prototype.map.call(a.querySelectorAll('p'), function (p) { return esc(p.textContent.replace(/\s+/g, ' ').trim()); }).join(' ');
-      if (!h) text = 'I understand I should not undergo treatment if I have any of the listed contraindications. Selected: ' + esc(checked('contra').join(', ')) + '.';
+      if (!h) text = 'I reviewed the conditions listed for this treatment. Selected: ' + esc(checked('contra').join(', ')) + '.';
       return '<div class="ack"><div><strong>' + esc(h ? h.textContent : 'Contraindications') + '</strong><p>' + text + '</p></div><b>' + esc(i.value) + '</b></div>';
     }).join('');
     var legal = Array.prototype.map.call(document.querySelectorAll('.c-legal p'), function (p) { return '<p>' + esc(p.textContent.replace(/\s+/g, ' ').trim()) + '</p>'; }).join('');
     var table = function (r) { return '<table>' + r.map(function (x) { return '<tr><td class="k">' + x[0] + '</td><td>' + x[1] + '</td></tr>'; }).join('') + '</table>'; };
     $('record').innerHTML =
       '<div class="rec">' +
-      '<div class="rec-head"><img src="/assets/logo-clear.png" alt="OxyLux Solutions"><div><h1>Hyperbaric Oxygen Therapy Consent Form</h1><p>OxyLux Solutions · Signed electronically</p></div></div>' +
+      '<div class="rec-head"><img src="/assets/logo-clear.png" alt="OxyLux Solutions"><div><h1>' + esc(service.formTitle) + '</h1><p>OxyLux Solutions · Signed electronically</p></div></div>' +
       '<h2>Client information</h2>' + table(rows) +
       '<h2>Health history</h2>' + table(health) +
       '<h2>Acknowledgments (initialed)</h2>' + acks +
@@ -350,7 +423,7 @@
 
   function fileName() {
     var last = form.name.value.trim().split(/\s+/).pop().replace(/[^A-Za-z-]/g, '') || 'Client';
-    return 'OxyLux-Consent-' + last + '-' + today() + '.pdf';
+    return 'OxyLux-' + service.id + '-Consent-' + last + '-' + today() + '.pdf';
   }
 
   $('dl-pdf').addEventListener('click', function () {
@@ -374,7 +447,7 @@
       'UID:' + start + '-' + Math.random().toString(36).slice(2) + '@oxyluxsolutions.com',
       'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
       'DTSTART;TZID=America/New_York:' + start, 'DTEND;TZID=America/New_York:' + end,
-      'SUMMARY:Hyperbaric oxygen session at OxyLux', 'LOCATION:14361 Commerce Way\\, Suite 201\\, Hialeah\\, FL 33016',
+      'SUMMARY:' + service.name + ' at OxyLux Solutions', 'LOCATION:14361 Commerce Way\\, Suite 201\\, Hialeah\\, FL 33016',
       'DESCRIPTION:Please arrive 15 minutes early. Questions? Call (305) 205-2738.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     var a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
@@ -384,10 +457,10 @@
   // Clears everything so the next client starts fresh on a shared iPad
   $('new-form').addEventListener('click', function () {
     form.reset(); strokes = []; sigTouched = false; $('record').innerHTML = '';
-    $('waiver-name').textContent = '[your name]'; $('care-explain').hidden = true; $('contra-warn').hidden = true;
+    service = null; delete form.dataset.service; $('care-explain').hidden = true; $('contra-warn').hidden = true;
     form.care_detail.required = false; setDates();
     $('done').hidden = true; $('done-appt').hidden = true; $('ics').hidden = true; $('pdf-status').textContent = '';
-    if (bookingMode) { slot = null; loadSlots(); showTimeStep(); } else { form.hidden = false; document.querySelector('.c-steps').hidden = false; }
-    resize(); update(); window.scrollTo({ top: 0 });
+    if (bookingMode) { slot = null; loadSlots(); showTimeStep(); } else showServiceStep();
+    update(); window.scrollTo({ top: 0 });
   });
 })();
