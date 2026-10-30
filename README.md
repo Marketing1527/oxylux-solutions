@@ -80,5 +80,6 @@ The site launched on Oct 29, 2026: the coming-soon page was removed (it is in gi
 - Medical Director and attorney review of the IV, massage, infrared, Venus Legacy and Botox consent drafts in `consent-forms.js`
 - Florida massage establishment (MM) and therapist (MA) license numbers must appear in massage advertising
 - Medical Director approval of the IV drip menu names, uses and ingredients on `iv-therapy.html`
-- Replace stock photos (Pexels license) with real photos; `assets/services/`
+- Service images are custom AI-generated scenes with the real logo added; replace with real photos of the rooms and equipment when available (`assets/services/`)
+- Images must not imply a specific drug product or device brand; the Venus Legacy and Botox images use generic items
 - Real photos of the space (only the chamber and Dr. Morales are photos today)
