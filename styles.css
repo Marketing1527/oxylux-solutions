@@ -335,3 +335,18 @@ html:not(.no-intro) .waves-hero path { animation-delay: 2.9s; }
 html:not(.no-intro) .waves-hero path:nth-child(2) { animation-delay: 3.1s; }
 html:not(.no-intro) .waves-hero path:nth-child(3) { animation-delay: 3.3s; }
 .opening:focus { outline: none; }
+
+/* ---------- IV drip menu ---------- */
+.drip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.4vw, 26px); margin-top: 40px; }
+.drip { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
+.drip img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--plaster-deep); }
+.drip-body { display: flex; flex-direction: column; flex: 1; padding: 22px 22px 24px; }
+.drip h3 { font-size: 1.7rem; margin-bottom: 10px; }
+.drip dl { margin: 0 0 20px; flex: 1; }
+.drip dt { font-weight: 500; color: var(--walnut); font-size: .92rem; margin-top: 12px; }
+.drip dt:first-child { margin-top: 0; }
+.drip dd { margin: 2px 0 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.5; }
+.drip .btn { width: 100%; }
+.drip-note { margin-top: 24px; font-size: .9rem; color: var(--ink-soft); max-width: none; }
+@media (max-width: 900px) { .drip-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .drip-grid { grid-template-columns: 1fr; } }

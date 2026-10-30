@@ -108,7 +108,7 @@
       badges += '<span class="a-status ' + esc(r.status) + '">' + esc(r.status.replace('-', ' ')) + '</span>';
       html += '<button class="a-row" type="button" data-id="' + esc(r.id) + '">' +
         '<span class="a-time">' + (r.slot ? esc(fmtTime(r.slot.time)) : esc(fmtStamp(r.createdAt).split(', ').pop())) + '</span>' +
-        '<span class="a-who"><strong>' + esc(r.patient.name) + '</strong><span>' + esc(r.serviceName || 'Hyperbaric Oxygen Therapy') + (r.patient.dob ? ', DOB ' + esc(fmtDate(r.patient.dob)) : '') + '</span></span>' +
+        '<span class="a-who"><strong>' + esc(r.patient.name) + '</strong><span>' + esc(r.serviceName || 'Hyperbaric Oxygen Therapy') + (r.form && r.form.drip ? ' (' + esc(r.form.drip) + ')' : '') + (r.patient.dob ? ', DOB ' + esc(fmtDate(r.patient.dob)) : '') + '</span></span>' +
         '<span class="a-contact">' + esc(r.patient.phone) + '<br>' + esc(r.patient.email) + '</span>' +
         '<span class="a-badges">' + badges + '</span></button>';
     });
@@ -137,7 +137,7 @@
     if (!r) return closeDrawer();
     openId = id; lastFocus = document.activeElement;
     var f = r.form || {};
-    $('d-when').textContent = (r.serviceName || 'Hyperbaric Oxygen Therapy') + ', ' + (r.slot ? fmtDay(r.slot.date) + ' at ' + fmtTime(r.slot.time) : 'consent form submitted ' + fmtStamp(r.createdAt));
+    $('d-when').textContent = (r.serviceName || 'Hyperbaric Oxygen Therapy') + (f.drip ? ' (' + f.drip + ')' : '') + ', ' + (r.slot ? fmtDay(r.slot.date) + ' at ' + fmtTime(r.slot.time) : 'consent form submitted ' + fmtStamp(r.createdAt));
     $('d-name').textContent = r.patient.name;
     $('d-status').className = 'a-status ' + r.status; $('d-status').textContent = r.status.replace('-', ' ');
     var body = '';

@@ -7,6 +7,8 @@
   var service = null, SERVICES = window.OXY_SERVICES;
   var wantService = (/[?&]service=([a-z]+)/.exec(location.search) || [])[1];
   if (!SERVICES.some(function (s) { return s.id === wantService; })) wantService = null;
+  var drip = wantService === 'iv' ? window.OXY_DRIPS[(/[?&]drip=([a-z]+)/.exec(location.search) || [])[1]] || '' : '';
+  function serviceLabel() { return service.id === 'iv' && drip ? service.name + ' (' + drip + ')' : service.name; }
 
   document.querySelectorAll('.yr').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
@@ -264,7 +266,7 @@
     if (!form.dataset.service || form.dataset.service !== service.id) { renderService(service); form.dataset.service = service.id; }
     hideAllSteps(); form.hidden = false; $('apptbar').hidden = false;
     document.querySelector('.c-steps').hidden = false;
-    $('apptbar-label').textContent = bookingMode ? service.name + ', ' + slotText() : 'Consent form for ' + service.name;
+    $('apptbar-label').textContent = bookingMode ? serviceLabel() + ', ' + slotText() : 'Consent form for ' + serviceLabel();
     $('change-time').hidden = !bookingMode;
     resize();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -303,6 +305,7 @@
       else out[el.name] = el.value;
     });
     groups.forEach(function (g) { out[g] = out[g] || []; });
+    if (service.id === 'iv' && drip) out.drip = drip;
     return out;
   }
   function screening() {
@@ -384,7 +387,7 @@
     var f = form, v = function (n) { return esc(f[n].value.trim()); };
     signedAt = new Date();
     var rows = [
-      ['Service', esc(service.name)], ['Full legal name', v('name')], ['Date', fmtDate(f.date.value)],
+      ['Service', esc(serviceLabel())], ['Full legal name', v('name')], ['Date', fmtDate(f.date.value)],
     ].concat(bookingMode && slot ? [['Appointment', esc(slotText())]] : []).concat([
       ['Address', v('address') + ', ' + v('city') + ', ' + v('state') + ' ' + v('zip')],
       ['Phone', v('phone')], ['Email', v('email')],
@@ -447,7 +450,7 @@
       'UID:' + start + '-' + Math.random().toString(36).slice(2) + '@oxyluxsolutions.com',
       'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
       'DTSTART;TZID=America/New_York:' + start, 'DTEND;TZID=America/New_York:' + end,
-      'SUMMARY:' + service.name + ' at OxyLux Solutions', 'LOCATION:14361 Commerce Way\\, Suite 201\\, Hialeah\\, FL 33016',
+      'SUMMARY:' + serviceLabel() + ' at OxyLux Solutions', 'LOCATION:14361 Commerce Way\\, Suite 201\\, Hialeah\\, FL 33016',
       'DESCRIPTION:Please arrive 15 minutes early. Questions? Call (305) 205-2738.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     var a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));

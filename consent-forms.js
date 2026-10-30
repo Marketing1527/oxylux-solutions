@@ -282,5 +282,6 @@
     legal: legal('Botox treatment')
   };
 
+  window.OXY_DRIPS = { hydration: 'Pure Hydration', energy: 'Daily Energy', immune: 'Immune Support', glow: 'Skin Glow', recovery: 'Active Recovery', calm: 'Deep Calm' };
   window.OXY_SERVICES = [hbot, iv, massage, infrared, venus, botox];
 })();
