@@ -4,11 +4,10 @@
 
   function store(key, val) { try { return val === undefined ? sessionStorage.getItem(key) : sessionStorage.setItem(key, val); } catch (e) { return null; } }
 
-  // Logo intro: plays once per visit; click or tap skips it. The fade-out itself is CSS, so it can never get stuck.
+  // Logo intro: plays on every arrival or refresh, not when moving between pages; click or tap skips it. The fade-out itself is CSS, so it can never get stuck.
   var intro = document.getElementById('intro');
   var introPlaying = intro && !document.documentElement.classList.contains('no-intro');
   if (introPlaying) {
-    store('oxl-intro', '1');
     intro.addEventListener('click', function () { intro.classList.add('is-done'); });
     intro.addEventListener('animationend', function (e) { if (e.target === intro) intro.classList.add('is-done'); });
   }

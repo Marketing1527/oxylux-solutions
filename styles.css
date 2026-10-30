@@ -285,7 +285,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--o
 @media (max-width: 400px) { .brand { font-size: 1.12rem; gap: 8px; } .brand img { width: 44px; } }
 .brand-name { word-spacing: -0.12em; }
 
-/* ---------- Logo intro (plays once per visit) ---------- */
+/* ---------- Logo intro (plays on every arrival or refresh) ---------- */
 @property --sweep { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 .intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--plaster) var(--plaster-tex); animation: introOut .7s cubic-bezier(.6, 0, .3, 1) 2.5s forwards; cursor: pointer; }
 .no-intro .intro, .intro.is-done { display: none; }

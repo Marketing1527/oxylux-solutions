@@ -57,7 +57,7 @@ Run it again any time to change the password.
 
 ## Opening popup and logo intro
 - Popup: in `site.js`; stops showing automatically after Nov 2, 2026 (Eastern).
-- Logo intro: `.intro` in `styles.css`, plays once per browser session on public pages.
+- Logo intro: `.intro` in `styles.css`. Plays on every arrival or refresh on public pages, and skips when moving between pages on the site (script in each page's `<head>`).
 
 ## SEO and search files
 - Structured data (JSON-LD `@graph`) on every public page: MedicalClinic (address, geo, hours, phone, Google Maps link, languages, reserve action), WebSite, Physician (Dr. Morales), MedicalTherapy (HBOT), FAQPage, ContactPage, ProfilePage, BreadcrumbList. Generated once; edit the JSON in each page's `<head>`.
