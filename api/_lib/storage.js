@@ -99,7 +99,7 @@ function gdrive() {
     if (token && Date.now() < tokenExp - 60_000) return token;
     const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
     const now = Math.floor(Date.now() / 1000);
-    const unsigned = b64({ alg: 'RS256', typ: 'JWT' }) + '.' + b64({ iss: email, scope: 'https://www.googleapis.com/auth/drive', aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 });
+    const unsigned = b64({ alg: 'RS256', typ: 'JWT' }) + '.' + b64({ iss: email, ...(process.env.GOOGLE_IMPERSONATE_USER ? { sub: process.env.GOOGLE_IMPERSONATE_USER } : {}), scope: 'https://www.googleapis.com/auth/drive', aud: 'https://oauth2.googleapis.com/token', iat: now, exp: now + 3600 });
     const sig = createSign('RSA-SHA256').update(unsigned).sign(key).toString('base64url');
     const r = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

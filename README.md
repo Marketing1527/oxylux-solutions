@@ -40,10 +40,9 @@ Patient health information must be stored with a provider that has signed a BAA.
    create a **service account**, and add a JSON key.
 4. Add the service account's email to the Shared drive as **Content manager**.
 5. Copy the Shared drive's folder ID from its URL (`drive.google.com/drive/folders/<ID>`).
-6. Add the three variables in Vercel → Project → Settings → Environment Variables (Production):
-   `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY` (the `private_key` value from the JSON), `GOOGLE_DRIVE_FOLDER_ID`.
-7. Redeploy. Files land in `slots/`, `bookings/` and `consents/` folders inside the Shared drive.
-8. Remove the demo store: `vercel blob delete-store` (after deleting any test bookings).
+6. Run `npm run setup-drive` in this folder. It asks for the JSON key file and the Shared drive link, tests a real read and write, and only then saves the settings to Vercel.
+7. Run `vercel --prod`. Files land in `slots/`, `bookings/` and `consents/` folders inside the Shared drive.
+8. Delete the JSON key file from your computer, then remove the demo store: `vercel blob delete-store` (after deleting any test bookings).
 
 ## Admin login
 The login is stored only as a hash in Vercel environment variables. It is never in the code, which is public.
