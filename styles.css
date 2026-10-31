@@ -354,13 +354,13 @@ html:not(.no-intro) .waves-hero path:nth-child(3) { animation-delay: 3.3s; }
 /* ---------- Help chat ---------- */
 .help { position: fixed; right: 12px; bottom: 0; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; font-family: var(--sans); pointer-events: none; }
 .help > * { pointer-events: auto; }
-.help-btn { position: relative; display: block; width: 124px; height: 104px; padding: 0; border: 0; background: none; overflow: hidden; cursor: pointer; transition: height .55s cubic-bezier(.2, .9, .25, 1.15); }
+.help-btn { position: relative; display: block; width: 124px; height: 152px; padding: 0; border: 0; background: none; overflow: hidden; cursor: pointer; transition: height .55s cubic-bezier(.2, .9, .25, 1.15); }
 .help-btn img { position: absolute; top: 2px; left: 50%; width: 118px; height: auto; transform: translateX(-50%); filter: drop-shadow(0 8px 14px rgba(46, 35, 25, .35)); }
 .help-btn span { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); min-width: 84px; padding: 11px 18px; border: 1px solid var(--gold-soft); border-radius: 999px; background: var(--navy); color: var(--white); font: 500 1rem/1 var(--sans); text-align: center; box-shadow: 0 10px 22px -10px rgba(46, 35, 25, .7); }
 .help-btn:hover span { background: var(--walnut-deep); color: var(--gold-soft); }
-.help-btn:hover, .help.is-out .help-btn { height: 170px; }
+.help-btn:hover, .help.is-out .help-btn { height: 176px; }
 .help-btn:focus-visible { outline-offset: -3px; }
-.help-bubble { position: absolute; right: 118px; bottom: 112px; width: max-content; max-width: 190px; margin: 0; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: var(--white); border: 1px solid var(--line); color: var(--navy); font-size: .95rem; box-shadow: 0 14px 26px -14px rgba(46, 35, 25, .6); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; pointer-events: none !important; }
+.help-bubble { position: absolute; right: 118px; bottom: 124px; width: max-content; max-width: 190px; margin: 0; padding: 10px 14px; border-radius: 16px 16px 4px 16px; background: var(--white); border: 1px solid var(--line); color: var(--navy); font-size: .95rem; box-shadow: 0 14px 26px -14px rgba(46, 35, 25, .6); opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; pointer-events: none !important; }
 .help.is-out .help-bubble { opacity: 1; transform: none; }
 .help.is-compact .help-btn { width: auto; height: auto; overflow: visible; margin-bottom: 14px; }
 .help.is-compact .help-btn img { display: none; }
@@ -387,11 +387,11 @@ html:not(.no-intro) .waves-hero path:nth-child(3) { animation-delay: 3.3s; }
 .help-note { margin: 0; padding: 0 12px 10px; font-size: .78rem; line-height: 1.35; color: var(--ink-soft); max-width: none; flex: none; }
 @media (max-width: 560px) {
   .help { right: 6px; }
-  .help-btn { width: 100px; height: 84px; }
+  .help-btn { width: 100px; height: 122px; }
   .help-btn img { width: 94px; }
   .help-btn span { min-width: 72px; padding: 9px 14px; font-size: .95rem; bottom: 8px; }
-  .help-btn:hover, .help.is-out .help-btn { height: 136px; }
-  .help-bubble { right: 96px; bottom: 92px; }
+  .help-btn:hover, .help.is-out .help-btn { height: 140px; }
+  .help-bubble { right: 96px; bottom: 100px; }
   .help-panel { width: calc(100vw - 12px); height: min(620px, calc(100dvh - 12px)); margin-bottom: 6px; }
 }
 @media (prefers-reduced-motion: reduce) { .help-btn, .help-bubble { transition: none; } }
