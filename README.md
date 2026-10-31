@@ -60,6 +60,7 @@ Run it again any time to change the password.
 - Logo intro: `.intro` in `styles.css`. Plays on every arrival or refresh on public pages, and skips when moving between pages on the site (script in each page's `<head>`).
 
 ## Help chat
+- Lux is an original illustrated AI assistant (`assets/assistant/`), not a real staff member.
 - `chat.js` (widget), `api/chat.js` (Claude with availability and booking tools), `api/_lib/assistant.js` (everything the assistant knows; update this when services change).
 - Needs the `ANTHROPIC_API_KEY` environment variable in Vercel. Without it, the widget offers the phone number.
 - Chat bookings appear in `/admin` as "Consent needed", with a private consent link. Conversations themselves are not saved.

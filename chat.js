@@ -4,9 +4,11 @@
   var root = document.createElement('div');
   root.className = 'help';
   root.innerHTML =
-    '<button class="help-btn" type="button" aria-expanded="false" aria-controls="help-panel">Help</button>' +
+    '<p class="help-bubble" aria-hidden="true">Hi, I’m Lux! Need help?</p>' +
+    '<button class="help-btn" type="button" aria-expanded="false" aria-controls="help-panel" aria-label="Open help chat with Lux, the OxyLux AI assistant">' +
+      '<img src="/assets/assistant/lux.webp" alt="" width="320" height="420"><span>Help</span></button>' +
     '<section class="help-panel" id="help-panel" role="dialog" aria-label="OxyLux help chat" hidden>' +
-      '<header class="help-head"><div><strong>OxyLux help</strong><span>Ask a question or book a visit</span></div>' +
+      '<header class="help-head"><img src="/assets/assistant/lux-face.webp" alt="" width="46" height="46"><div><strong>Lux</strong><span>OxyLux AI assistant</span></div>' +
       '<button class="help-close" type="button" aria-label="Close chat">×</button></header>' +
       '<div class="help-log" id="help-log" role="log" aria-live="polite"></div>' +
       '<form class="help-form"><label class="skip" for="help-input">Your message</label>' +
@@ -19,6 +21,19 @@
 
   var btn = root.querySelector('.help-btn'), panel = root.querySelector('.help-panel'), log = root.querySelector('.help-log');
   var form = root.querySelector('.help-form'), input = root.querySelector('textarea');
+
+  // She pops out once, says hi, then settles back. Forms stay clear on booking pages.
+  var compact = /consent|reserve/.test(location.pathname);
+  if (compact) root.classList.add('is-compact');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var introOn = document.getElementById('intro') && !document.documentElement.classList.contains('no-intro');
+  if (!compact && !still) {
+    setTimeout(function () {
+      if (!panel.hidden) return;
+      root.classList.add('is-out');
+      setTimeout(function () { root.classList.remove('is-out'); }, 6500);
+    }, introOn ? 5200 : 2200);
+  }
 
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function linkify(s) {
@@ -36,7 +51,7 @@
   function toggle(open) {
     panel.hidden = !open; btn.hidden = open; btn.setAttribute('aria-expanded', open);
     if (open) {
-      if (!log.children.length) add('bot', 'Hi, welcome to OxyLux. I can answer questions about our services or book an appointment for you. How can I help?');
+      if (!log.children.length) add('bot', 'Hi, I’m Lux, the OxyLux AI assistant. I can answer questions about our services or book an appointment for you. How can I help?');
       input.focus();
     } else btn.focus();
   }
