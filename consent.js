@@ -8,6 +8,7 @@
   var wantService = (/[?&]service=([a-z]+)/.exec(location.search) || [])[1];
   if (!SERVICES.some(function (s) { return s.id === wantService; })) wantService = null;
   var drip = wantService === 'iv' ? window.OXY_DRIPS[(/[?&]drip=([a-z]+)/.exec(location.search) || [])[1]] || '' : '';
+  var bookingId = (/[?&]booking=([a-f0-9]{12})/.exec(location.search) || [])[1] || null;
   function serviceLabel() { return service.id === 'iv' && drip ? service.name + ' (' + drip + ')' : service.name; }
 
   document.querySelectorAll('.yr').forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -359,7 +360,7 @@
     window.html2pdf().set(pdfOptions()).from($('record').firstElementChild).outputPdf('datauristring').then(function (pdf) {
       return fetch('/api/book', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slot: bookingMode ? slot : null, service: service.id, screening: screening(), form: formData(), pdf: pdf, website: form.website.value })
+        body: JSON.stringify({ bookingId: bookingId, slot: bookingMode ? slot : null, service: service.id, screening: screening(), form: formData(), pdf: pdf, website: form.website.value })
       }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
     }).then(function (res) {
       finish();

@@ -48,7 +48,7 @@ export function isBookable(date, time) {
 }
 
 export const slotKey = (date, time) => `${date}T${time.replace(':', '-')}`;
-// Each service is booked separately, so a massage and Botox can share a time.
+// Each service is booked separately, so a lymphatic massage and Botox can share a time.
 export const serviceSlotKey = (date, time, service) => `${slotKey(date, time)}__${service}`;
 export function parseSlotKey(key) {
   const m = /^(\d{4}-\d{2}-\d{2})T(\d{2})-(\d{2})/.exec(key);

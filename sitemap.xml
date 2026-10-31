@@ -51,16 +51,10 @@
     <image:image><image:loc>https://www.oxyluxsolutions.com/assets/services/iv-bag.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://www.oxyluxsolutions.com/massage-therapy.html</loc>
+    <loc>https://www.oxyluxsolutions.com/lymphatic-massage.html</loc>
     <lastmod>2026-10-30</lastmod>
     <priority>0.9</priority>
-    <image:image><image:loc>https://www.oxyluxsolutions.com/assets/services/massage-custom.webp</image:loc></image:image>
-  </url>
-  <url>
-    <loc>https://www.oxyluxsolutions.com/infrared-therapy.html</loc>
-    <lastmod>2026-10-30</lastmod>
-    <priority>0.9</priority>
-    <image:image><image:loc>https://www.oxyluxsolutions.com/assets/services/infrared-custom.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.oxyluxsolutions.com/assets/services/lymphatic.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.oxyluxsolutions.com/venus-legacy.html</loc>

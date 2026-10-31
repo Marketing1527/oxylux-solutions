@@ -220,35 +220,20 @@
     legal: legal('IV therapy')
   };
 
-  var massage = {
-    id: 'massage', name: 'Massage Therapy', formTitle: 'Massage Therapy Consent Form', blurb: 'Therapeutic massage in a private suite', time: '60 minutes',
+  var lymphatic = {
+    id: 'lymphatic', name: 'Lymphatic Massage', formTitle: 'Lymphatic Massage Consent Form', blurb: 'Gentle massage that encourages lymph flow', time: '60 minutes',
     screens: [],
-    contra: { title: 'Massage may need to be changed or postponed if any of the following apply. Select any that apply to you.', options: list([
-      'Fever or contagious illness', 'Blood clot or history of deep vein thrombosis', 'Taking blood thinners or a bleeding disorder', 'Recent surgery or injury', 'Pregnant', 'Cancer or current cancer treatment', 'Heart disease or uncontrolled high blood pressure', 'Skin infection, rash or open wound', 'Osteoporosis or recent fracture', 'Numbness or nerve condition'
+    contra: { title: 'Lymphatic massage may need to be changed, postponed or cleared by my physician if any of the following apply. Select any that apply to you.', options: list([
+      'Fever or active infection', 'Blood clot or history of deep vein thrombosis', 'Congestive heart failure or serious heart disease', 'Kidney failure or kidney disease', 'Cancer or current cancer treatment', 'Lymphedema', 'Taking blood thinners or a bleeding disorder', 'Surgery in the last 6 weeks', 'Pregnant', 'Skin infection, rash or open wound in the treatment area', 'Thyroid condition that is not controlled'
     ]) },
     acks: [
-      { id: 'i_about', title: 'About massage therapy', paras: ['Massage therapy is manual work on the muscles and soft tissue to support relaxation and ease tension. I understand that massage therapists do not diagnose illness or injury, and that massage does not replace medical care.'] },
-      { id: 'i_effects', title: 'Possible effects', paras: ['I may feel soreness, tenderness, light bruising, fatigue or lightheadedness during or after a massage. Hot stones or other heat can irritate or burn the skin. I will tell my therapist right away if the pressure, temperature or any technique is uncomfortable, and the therapist will adjust or stop.'] },
+      { id: 'i_about', title: 'About lymphatic massage', paras: ['Lymphatic massage is a gentle, rhythmic hands-on technique that encourages the movement of lymph fluid through the body. I understand that massage therapists do not diagnose illness or injury, and that lymphatic massage does not replace medical care.'] },
+      { id: 'i_effects', title: 'Possible effects', paras: ['After a session I may feel tired, lightheaded or thirsty, or need to urinate more often. Mild soreness or tenderness is possible. Moving fluid can place extra demand on the heart and kidneys, which is why I have listed my health conditions. I will tell my therapist right away if anything is uncomfortable, and the therapist will adjust or stop.'] },
+      { id: 'i_surgery', title: 'After surgery', paras: ['If I had a recent surgery or cosmetic procedure, I will tell my therapist the date and type of procedure and follow my surgeon\u2019s instructions. I understand my therapist may ask for my surgeon\u2019s clearance before treating me.'] },
       { id: 'i_comfort', title: 'Comfort and boundaries', paras: ['I will be properly draped at all times, and I can ask that any area be left untreated. I can end the session at any time for any reason. I understand massage at OxyLux is strictly therapeutic.'] },
-      { id: 'i_disclose', title: 'Keeping my therapist informed', paras: ['I have listed all of my known health conditions and medications, and I will update my therapist if anything changes before a future session.'] },
-      noGuarantee('massage therapy')
+      noGuarantee('lymphatic massage')
     ],
-    legal: legal('massage therapy')
-  };
-
-  var infrared = {
-    id: 'infrared', name: 'Infrared Therapy', formTitle: 'Infrared Therapy Consent Form', blurb: 'Soothing infrared heat session', time: '30 to 45 minutes',
-    screens: [],
-    contra: { title: 'I understand infrared heat may not be safe for me if any of the following apply. Select any that apply to you.', options: list([
-      'Pregnant or trying to become pregnant', 'Pacemaker, defibrillator or other implanted device', 'Metal or silicone implants', 'Heart disease or high or low blood pressure', 'Fever or acute illness', 'Bleeding disorder or recent bleeding', 'Multiple sclerosis or another heat-sensitive condition', 'Reduced feeling in my skin, including from diabetes', 'Taking diuretics, beta-blockers, blood thinners or barbiturates', 'Recent injury or swelling in a joint'
-    ]) },
-    acks: [
-      { id: 'i_about', title: 'About infrared therapy', paras: ['Infrared therapy uses infrared heat to warm the body. It is offered for relaxation and comfort, and it is not intended to diagnose, treat or cure any disease.'] },
-      { id: 'i_heat', title: 'Heat, dehydration and fainting', paras: ['Heat exposure can cause dehydration, dizziness, lightheadedness, nausea, fainting, skin irritation or, rarely, burns. I will drink water before and after my session. I will not use alcohol or recreational drugs before a session. I will leave the session and tell a team member right away if I feel unwell.'] },
-      { id: 'i_medical', title: 'Medications and devices', paras: ['Some medications affect how the body handles heat, and magnets or heat may affect implanted devices. I have listed my medications and implants on this form, and I will check with my physician if I am unsure whether infrared heat is safe for me.'] },
-      noGuarantee('infrared therapy')
-    ],
-    legal: legal('infrared therapy')
+    legal: legal('lymphatic massage')
   };
 
   var venus = {
@@ -283,5 +268,5 @@
   };
 
   window.OXY_DRIPS = { hydration: 'Pure Hydration', energy: 'Daily Energy', immune: 'Immune Support', glow: 'Skin Glow', recovery: 'Active Recovery', calm: 'Deep Calm' };
-  window.OXY_SERVICES = [hbot, iv, massage, infrared, venus, botox];
+  window.OXY_SERVICES = [hbot, iv, lymphatic, venus, botox];
 })();

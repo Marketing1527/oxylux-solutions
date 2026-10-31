@@ -10,6 +10,7 @@
     "setup-admin": "node scripts/setup-admin.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
     "@vercel/blob": "^2.8.2"
   },
   "overrides": {

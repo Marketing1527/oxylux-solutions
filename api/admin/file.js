@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   try {
     const found = await getRecord(String(query(req).id || ''));
     if (!found) return send(res, 404, { error: 'Consent form not found.' });
-    const pdf = await storage().read(found.record.pdf);
+    const pdf = found.record.pdf ? await storage().read(found.record.pdf) : null;
     if (!pdf) return send(res, 404, { error: 'Consent form file not found.' });
     const name = found.record.patient.name.replace(/[^A-Za-z -]/g, '').trim().replace(/\s+/g, '-') || 'Client';
     res.statusCode = 200;

@@ -1,6 +1,6 @@
 # OxyLux Solutions — full reference
 
-> Clinic in Hialeah, Florida, opening November 2, 2026, offering hyperbaric oxygen therapy, IV therapy, massage therapy, infrared therapy, Venus Legacy and Botox. This file summarizes the public website so AI assistants can answer questions accurately. It is not medical advice.
+> Clinic in Hialeah, Florida, opening November 2, 2026, offering hyperbaric oxygen therapy, IV therapy, lymphatic massage, Venus Legacy and Botox. This file summarizes the public website so AI assistants can answer questions accurately. It is not medical advice.
 
 ## Clinic
 - Name: OxyLux Solutions
@@ -21,8 +21,7 @@ HBOT is FDA-cleared for specific conditions, including diabetic and other non-he
 
 ## Other services
 - IV therapy: fluids and nutrients through an IV, about 45 to 60 minutes, after a health review by a licensed clinician.
-- Massage therapy: therapeutic massage in a private suite, about 60 minutes.
-- Infrared therapy: infrared heat for relaxation and comfort, about 30 to 45 minutes.
+- Lymphatic massage: gentle rhythmic massage that encourages lymph flow, about 60 minutes.
 - Venus Legacy: non-invasive multi-polar radio frequency and pulsed electromagnetic fields. The manufacturer reports FDA clearance for moderate to severe facial wrinkles in women with Fitzpatrick skin types I to IV and for temporary reduction in the appearance of cellulite.
 - Botox: Botox Cosmetic injections from a licensed medical professional to temporarily soften certain facial lines. Cosmetic services are usually not covered by insurance.
 

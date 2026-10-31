@@ -2,8 +2,7 @@
 export const SERVICES = {
   hbot: 'Hyperbaric Oxygen Therapy',
   iv: 'IV Therapy',
-  massage: 'Massage Therapy',
-  infrared: 'Infrared Therapy',
+  lymphatic: 'Lymphatic Massage',
   venus: 'Venus Legacy',
   botox: 'Botox',
 };

@@ -24,6 +24,16 @@
       "source": "/home",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/massage-therapy.html",
+      "destination": "/lymphatic-massage.html",
+      "permanent": true
+    },
+    {
+      "source": "/infrared-therapy.html",
+      "destination": "/services.html",
+      "permanent": true
     }
   ],
   "headers": [
@@ -97,5 +107,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 60
+    }
+  }
 }

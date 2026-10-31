@@ -104,7 +104,8 @@
     list.forEach(function (r) {
       var day = r.slot ? r.slot.date : r.createdAt.slice(0, 10);
       if (day !== lastDay) { html += '<h2 class="a-day">' + esc(day === today ? 'Today · ' + fmtDay(day) : fmtDay(day)) + '</h2>'; lastDay = day; }
-      var badges = (r.flags || []).length ? '<span class="a-badge warn">' + r.flags.length + ' health flag' + (r.flags.length > 1 ? 's' : '') + '</span>' : '';
+      var pending = r.consent === 'pending' ? '<span class="a-badge warn">Consent needed</span>' : '';
+      var badges = pending + ((r.flags || []).length ? '<span class="a-badge warn">' + r.flags.length + ' health flag' + (r.flags.length > 1 ? 's' : '') + '</span>' : '');
       badges += '<span class="a-status ' + esc(r.status) + '">' + esc(r.status.replace('-', ' ')) + '</span>';
       html += '<button class="a-row" type="button" data-id="' + esc(r.id) + '">' +
         '<span class="a-time">' + (r.slot ? esc(fmtTime(r.slot.time)) : esc(fmtStamp(r.createdAt).split(', ').pop())) + '</span>' +
@@ -141,16 +142,17 @@
     $('d-name').textContent = r.patient.name;
     $('d-status').className = 'a-status ' + r.status; $('d-status').textContent = r.status.replace('-', ' ');
     var body = '';
+    if (r.consent === 'pending') body += '<p class="a-alert"><strong>Consent needed:</strong> booked through the help chat. The patient must sign before treatment. Consent link: ' + esc(location.origin + '/consent.html?service=' + r.service + '&booking=' + r.id) + '</p>';
     if ((r.flags || []).length) body += '<p class="a-alert"><strong>Review before session:</strong> ' + esc(r.flags.join(', ')) + '</p>';
     body += '<h3>Contact</h3>' + dl([['Phone', f.phone], ['Email', f.email], ['Address', [f.address, f.city, f.state, f.zip].filter(Boolean).join(', ')], ['Emergency contact', [f.ec_name, f.ec_phone].filter(Boolean).join(', ')]]);
-    body += '<h3>Patient</h3>' + dl([['Date of birth', fmtDate(f.dob) + (f.age ? ' (age ' + f.age + ')' : '')], ['Height / weight', [f.height, f.weight].filter(Boolean).join(' / ')], ['Referred by', f.referral], ['Heard about us', f.heard]]);
-    body += '<h3>Health history</h3>' + dl([['Medications', f.medications], ['Allergies', f.allergies], ['Under medical care', f.care + (f.care === 'Yes' && f.care_detail ? ': ' + f.care_detail : '')]].concat(screenRows(r)));
-    body += '<h3>Consent</h3>' + dl([['Signed by', f.sig_name], ['Signed on', fmtDate(f.sig_date)], ['E-signature agreement', f.esign === 'true' || f.esign === true ? 'Accepted' : '']]);
+    body += '<h3>Patient</h3>' + dl([['Date of birth', f.dob ? fmtDate(f.dob) + (f.age ? ' (age ' + f.age + ')' : '') : ''], ['Height / weight', [f.height, f.weight].filter(Boolean).join(' / ')], ['Referred by', f.referral], ['Heard about us', f.heard]]);
+    if (r.consent !== 'pending') body += '<h3>Health history</h3>' + dl([['Medications', f.medications], ['Allergies', f.allergies], ['Under medical care', f.care ? f.care + (f.care === 'Yes' && f.care_detail ? ': ' + f.care_detail : '') : '']].concat(screenRows(r)));
+    if (r.pdf) body += '<h3>Consent</h3>' + dl([['Signed by', f.sig_name], ['Signed on', fmtDate(f.sig_date)], ['E-signature agreement', f.esign === 'true' || f.esign === true ? 'Accepted' : '']]);
     body += '<p class="a-note">Practice Fusion: download the PDF, then upload it to the patient’s chart.</p>';
     body += '<h3>History</h3><ul class="a-history">' + (r.history || []).map(function (h) { return '<li>' + esc(fmtStamp(h.at)) + ' · ' + esc(h.action) + (h.by ? ' by ' + esc(h.by) : '') + '</li>'; }).join('') + '</ul>';
     $('d-body').innerHTML = body;
 
-    var acts = '<a class="btn" href="/api/admin/file?id=' + encodeURIComponent(r.id) + '">Download consent PDF</a>' +
+    var acts = !r.pdf ? '' : '<a class="btn" href="/api/admin/file?id=' + encodeURIComponent(r.id) + '">Download consent PDF</a>' +
       '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a><button class="btn btn-ghost" data-print="1">Print</button>';
     if (r.type === 'booking') {
       if (r.status === 'confirmed') acts += '<button class="btn btn-ghost" data-act="complete">Mark completed</button><button class="btn btn-ghost" data-act="noshow">No-show</button><button class="btn btn-danger" data-act="cancel">Cancel appointment</button>';
@@ -158,7 +160,7 @@
       else acts += '<button class="btn btn-ghost" data-act="confirm">Mark as confirmed</button>';
     }
     $('d-actions').innerHTML = acts;
-    $('d-actions').querySelector('[data-print]').addEventListener('click', function () { printPdf(r.id); });
+    if (r.pdf) $('d-actions').querySelector('[data-print]').addEventListener('click', function () { printPdf(r.id); });
     $('d-actions').querySelectorAll('[data-act]').forEach(function (b) {
       b.addEventListener('click', function () {
         var act = b.dataset.act;

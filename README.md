@@ -11,7 +11,7 @@ Static site plus a few Vercel serverless functions for booking. No build step.
 |---|---|
 | `/` | Homepage (full site, launched Oct 29, 2026) |
 | Other pages | Treatment, What to expect, Dr. Morales, FAQ, Contact, Privacy |
-| `/services.html` | Services hub; each service has its own page (hyperbaric-oxygen-therapy, iv-therapy, massage-therapy, infrared-therapy, venus-legacy, botox) |
+| `/services.html` | Services hub; each service has its own page (hyperbaric-oxygen-therapy, iv-therapy, lymphatic-massage, venus-legacy, botox) |
 | `/reserve` | Booking: choose a day and time, then a service, then sign that service's consent form. `?service=botox` preselects a service |
 | `/consent.html` | Consent form on its own: pick a service first (already-booked clients, in-clinic iPad) |
 | `/admin` | Front-desk dashboard: appointments, patient info, signed PDFs |
@@ -59,6 +59,11 @@ Run it again any time to change the password.
 - Popup: in `site.js`; stops showing automatically after Nov 2, 2026 (Eastern).
 - Logo intro: `.intro` in `styles.css`. Plays on every arrival or refresh on public pages, and skips when moving between pages on the site (script in each page's `<head>`).
 
+## Help chat
+- `chat.js` (widget), `api/chat.js` (Claude with availability and booking tools), `api/_lib/assistant.js` (everything the assistant knows; update this when services change).
+- Needs the `ANTHROPIC_API_KEY` environment variable in Vercel. Without it, the widget offers the phone number.
+- Chat bookings appear in `/admin` as "Consent needed", with a private consent link. Conversations themselves are not saved.
+
 ## SEO and search files
 - Structured data (JSON-LD `@graph`) on every public page: MedicalClinic (address, geo, hours, phone, Google Maps link, languages, reserve action), WebSite, Physician (Dr. Morales), MedicalTherapy (HBOT), FAQPage, ContactPage, ProfilePage, BreadcrumbList. Generated once; edit the JSON in each page's `<head>`.
 - `sitemap.xml` (with image entries), `robots.txt` (search engines and AI crawlers allowed, `/api/` blocked), `llms.txt` and `llms-full.txt` (summaries for AI assistants), `site.webmanifest`, `favicon.ico`, custom `404.html`.
@@ -77,7 +82,7 @@ The site launched on Oct 29, 2026: the coming-soon page was removed (it is in gi
 ## Still to confirm with the owner
 - Attorney review of the consent form wording (rebranded from the Moreau PT template; the "no insurance" line was removed because OxyLux accepts insurance)
 - Which insurance plans are accepted (site says "most major insurance plans")
-- Medical Director and attorney review of the IV, massage, infrared, Venus Legacy and Botox consent drafts in `consent-forms.js`
+- Medical Director and attorney review of the IV, lymphatic massage, Venus Legacy and Botox consent drafts in `consent-forms.js`
 - Florida massage establishment (MM) and therapist (MA) license numbers must appear in massage advertising
 - Medical Director approval of the IV drip menu names, uses and ingredients on `iv-therapy.html`
 - Service images are custom AI-generated scenes with the real logo added; replace with real photos of the rooms and equipment when available (`assets/services/`)
