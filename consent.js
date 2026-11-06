@@ -6,6 +6,7 @@
   var groups = ['contra'];
   var service = null, SERVICES = window.OXY_SERVICES;
   var wantService = (/[?&]service=([a-z]+)/.exec(location.search) || [])[1];
+  if (wantService === 'lymphatic') wantService = 'postsurgical'; // renamed Nov 2026
   if (!SERVICES.some(function (s) { return s.id === wantService; })) wantService = null;
   var drip = wantService === 'iv' ? window.OXY_DRIPS[(/[?&]drip=([a-z]+)/.exec(location.search) || [])[1]] || '' : '';
   var bookingId = (/[?&]booking=([a-f0-9]{12})/.exec(location.search) || [])[1] || null;
@@ -218,7 +219,7 @@
     return fetch('/api/availability?days=42').then(function (r) { if (!r.ok) throw r; return r.json(); }).then(function (data) {
       // Hide today once its remaining times have passed
       dayData = data.days.filter(function (d, i) { return i > 0 || d.times.some(timeOpen); });
-      $('slots-msg').textContent = dayData.some(function (d) { return d.times.some(timeOpen); }) ? '' : 'No times are open right now. Please call (305) 205-2738.';
+      $('slots-msg').textContent = dayData.some(function (d) { return d.times.some(timeOpen); }) ? '' : 'No times are open right now. Please call (353) 465-0532.';
       if (!keepSlot) slot = null;
       var firstOpen = dayData.findIndex(function (d) { return d.times.some(timeOpen); });
       dayStart = Math.max(0, Math.floor(Math.max(firstOpen, 0) / DAYS_SHOWN) * DAYS_SHOWN);
@@ -226,7 +227,7 @@
       if (slot) selectDay(slot.date);
       else if (firstOpen >= 0) selectDay(dayData[firstOpen].date);
     }).catch(function () {
-      $('slots-msg').textContent = 'Online booking is not available right now. Please call (305) 205-2738 to book.';
+      $('slots-msg').textContent = 'Online booking is not available right now. Please call (353) 465-0532 to book.';
     });
   }
   function openServices() {
@@ -372,11 +373,11 @@
       }
       if (!bookingMode) return showDone(false);
       err.hidden = false;
-      err.textContent = (res.body && res.body.error) || 'We could not complete your booking. Please try again or call (305) 205-2738.';
+      err.textContent = (res.body && res.body.error) || 'We could not complete your booking. Please try again or call (353) 465-0532.';
     }).catch(function () {
       finish();
       if (!bookingMode) return showDone(false);
-      err.hidden = false; err.textContent = 'We could not reach OxyLux. Check your connection and try again, or call (305) 205-2738.';
+      err.hidden = false; err.textContent = 'We could not reach OxyLux. Check your connection and try again, or call (353) 465-0532.';
     });
   });
 
@@ -452,7 +453,7 @@
       'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
       'DTSTART;TZID=America/New_York:' + start, 'DTEND;TZID=America/New_York:' + end,
       'SUMMARY:' + serviceLabel() + ' at OxyLux Solutions', 'LOCATION:14361 Commerce Way\\, Suite 201\\, Hialeah\\, FL 33016',
-      'DESCRIPTION:Please arrive 15 minutes early. Questions? Call (305) 205-2738.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+      'DESCRIPTION:Please arrive 15 minutes early. Questions? Call (353) 465-0532.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     var a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
     a.download = 'OxyLux-appointment.ics'; document.body.appendChild(a); a.click(); a.remove();

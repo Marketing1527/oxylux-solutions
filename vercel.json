@@ -26,8 +26,13 @@
       "permanent": true
     },
     {
+      "source": "/lymphatic-massage.html",
+      "destination": "/post-surgical-massage.html",
+      "permanent": true
+    },
+    {
       "source": "/massage-therapy.html",
-      "destination": "/lymphatic-massage.html",
+      "destination": "/post-surgical-massage.html",
       "permanent": true
     },
     {

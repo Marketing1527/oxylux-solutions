@@ -2,8 +2,11 @@
 export const SERVICES = {
   hbot: 'Hyperbaric Oxygen Therapy',
   iv: 'IV Therapy',
-  lymphatic: 'Lymphatic Massage',
+  postsurgical: 'Post-Surgical Massage',
+  peptide: 'Peptide Therapy',
+  weight: 'Weight Management',
   venus: 'Venus Legacy',
-  botox: 'Botox',
+  prp: 'PRP Therapy',
+  botox: 'Botox Injections',
 };
 export const SERVICE_IDS = Object.keys(SERVICES);

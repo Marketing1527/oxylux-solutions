@@ -4,14 +4,14 @@ Static site plus a few Vercel serverless functions for booking. No build step.
 
 - Live: https://www.oxyluxsolutions.com (bare domain redirects to www)
 - Repo: Marketing1527/oxylux-solutions. Every push to `main` deploys automatically.
-- Clinic: 14361 Commerce Way, Suite 201, Hialeah, FL 33016 · (305) 205-2738 · frontdesk@oxyluxsolutions.com · Mon–Fri 8–5
+- Clinic: 14361 Commerce Way, Suite 201, Miami Lakes, FL 33016 · (353) 465-0532 · frontdesk@oxyluxsolutions.com · Mon–Fri 8–5
 
 ## Pages
 | Path | What it is |
 |---|---|
 | `/` | Homepage (full site, launched Oct 29, 2026) |
 | Other pages | Treatment, What to expect, Dr. Morales, FAQ, Contact, Privacy |
-| `/services.html` | Services hub; each service has its own page (hyperbaric-oxygen-therapy, iv-therapy, lymphatic-massage, venus-legacy, botox) |
+| `/services.html` | Services hub; each service has its own page grouped as Signature Therapies. Wellness & Recovery: hyperbaric-oxygen-therapy, iv-therapy, post-surgical-massage, peptide-therapy, weight-management. Aesthetic Treatments: venus-legacy, prp-therapy, botox. `/lymphatic-massage.html` redirects to post-surgical-massage |
 | `/reserve` | Booking: choose a day and time, then a service, then sign that service's consent form. `?service=botox` preselects a service |
 | `/consent.html` | Consent form on its own: pick a service first (already-booked clients, in-clinic iPad) |
 | `/admin` | Front-desk dashboard: appointments, patient info, signed PDFs |
@@ -82,9 +82,10 @@ The site launched on Oct 29, 2026: the coming-soon page was removed (it is in gi
 ## Still to confirm with the owner
 - Attorney review of the consent form wording (rebranded from the Moreau PT template; the "no insurance" line was removed because OxyLux accepts insurance)
 - Which insurance plans are accepted (site says "most major insurance plans")
-- Medical Director and attorney review of the IV, lymphatic massage, Venus Legacy and Botox consent drafts in `consent-forms.js`
+- Medical Director and attorney review of the IV, post-surgical massage, peptide, weight management, Venus Legacy, PRP and Botox consent drafts in `consent-forms.js`
 - Florida massage establishment (MM) and therapist (MA) license numbers must appear in massage advertising
-- Medical Director approval of the IV drip menu names, uses and ingredients on `iv-therapy.html`
+- IV kits (Healing Post-Op, Immunity, Recovery & Performance, Timeless, Brainstorm, NAD+ low concentration): the site lists no ingredients; add them on `iv-therapy.html` once the Medical Director confirms
+- Messaging: slogan "Personalized care. Elevated wellness."; the owner asked that the site say all treatments are supervised by a board-certified surgeon
 - Service images are custom AI-generated scenes with the real logo added; replace with real photos of the rooms and equipment when available (`assets/services/`)
 - Images must not imply a specific drug product or device brand; the Venus Legacy and Botox images use generic items
 - Real photos of the space (only the chamber and Dr. Morales are photos today)

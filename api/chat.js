@@ -7,7 +7,7 @@ import { SCHEDULE, nowInClinic, addDays, slotsForDate, isBookable } from './_lib
 import { takenSlots, isTaken, createChatBooking } from './_lib/records.js';
 
 const SITE = 'https://www.oxyluxsolutions.com';
-const FALLBACK = 'I can’t complete that right now. Please call us at (305) 205-2738 and we’ll help you.';
+const FALLBACK = 'I can’t complete that right now. Please call us at (353) 465-0532 and we’ll help you.';
 const hits = new Map();
 
 function rateLimited(ip) {
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
   if (!allow(req, res, ['POST'])) return;
   if (!process.env.ANTHROPIC_API_KEY) return send(res, 503, { error: 'Chat is not available right now.' });
   const ip = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '').split(',')[0].trim();
-  if (rateLimited(ip)) return send(res, 429, { error: 'Too many messages. Please call us at (305) 205-2738.' });
+  if (rateLimited(ip)) return send(res, 429, { error: 'Too many messages. Please call us at (353) 465-0532.' });
   try {
     const body = await readJson(req, 40_000);
     if (body.website) return send(res, 200, { reply: '' }); // honeypot
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
     const client = new Anthropic({ timeout: 50_000, maxRetries: 1 });
     const system = [
       { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
-      { type: 'text', text: `Today in Hialeah is ${nowInClinic().date}.` },
+      { type: 'text', text: `Today in Miami Lakes is ${nowInClinic().date}.` },
     ];
     let booked = false;
     for (let turn = 0; turn < 6; turn++) {
@@ -97,7 +97,7 @@ export default async function handler(req, res) {
     }
     send(res, 200, { reply: FALLBACK, booked });
   } catch (e) {
-    if (e instanceof Anthropic.RateLimitError) return send(res, 200, { reply: 'We’re a little busy right now. Please try again in a minute or call (305) 205-2738.' });
+    if (e instanceof Anthropic.RateLimitError) return send(res, 200, { reply: 'We’re a little busy right now. Please try again in a minute or call (353) 465-0532.' });
     if (e.status === 400 && !(e instanceof Anthropic.APIError)) return send(res, 400, { error: e.message });
     console.error(e);
     send(res, 200, { reply: FALLBACK });

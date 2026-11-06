@@ -213,27 +213,73 @@
     acks: [
       { id: 'i_about', title: 'About IV therapy', paras: ['IV therapy delivers fluids, vitamins, minerals or other ingredients directly into a vein through a small catheter. A licensed clinician will review my health history and decide whether IV therapy is appropriate for me and what it should contain. I understand that many IV wellness ingredients have not been evaluated by the FDA for wellness purposes.'] },
       { id: 'i_placement', title: 'IV placement risks', paras: ['Placing an IV may cause pain, bruising, swelling, or bleeding at the site. Less commonly, fluid can leak into the surrounding tissue (infiltration), the vein can become inflamed (phlebitis), a clot can form, a nerve can be irritated, or the site can become infected. More than one attempt may be needed. I will tell the clinician right away if I feel pain, burning or swelling.'] },
-      { id: 'i_reaction', title: 'Reactions and fluid overload', paras: ['Possible reactions include flushing, a warm sensation, nausea, headache, dizziness, an unusual taste in the mouth, or fainting. Rarely, serious allergic reactions can occur and may be life-threatening. Too much fluid can strain the heart and lungs, which is a greater risk for people with heart or kidney disease. I will tell the clinician right away if I have chest pain, shortness of breath, rash, itching, or swelling of my face or throat.'] },
+      { id: 'i_reaction', title: 'Reactions and fluid overload', paras: ['Possible reactions include flushing, a warm sensation, chest or stomach tightness (especially with NAD+), nausea, headache, dizziness, an unusual taste in the mouth, or fainting. Rarely, serious allergic reactions can occur and may be life-threatening. Too much fluid can strain the heart and lungs, which is a greater risk for people with heart or kidney disease. I will tell the clinician right away if I have chest pain, shortness of breath, rash, itching, or swelling of my face or throat.'] },
       { id: 'i_aftercare', title: 'After my visit', paras: ['I will watch the IV site for redness, warmth, swelling, drainage or increasing pain, and I will call OxyLux or seek medical care if any of these occur. If I have trouble breathing, chest pain, or swelling of my face or throat, I will call 911.'] },
       noGuarantee('IV therapy')
     ],
     legal: legal('IV therapy')
   };
 
-  var lymphatic = {
-    id: 'lymphatic', name: 'Lymphatic Massage', formTitle: 'Lymphatic Massage Consent Form', blurb: 'Gentle massage that encourages lymph flow', time: '60 minutes',
+  var postsurgical = {
+    id: 'postsurgical', name: 'Post-Surgical Massage', formTitle: 'Post-Surgical Massage Consent Form', blurb: 'Gentle lymphatic massage for recovery after surgery', time: '60 minutes',
     screens: [],
-    contra: { title: 'Lymphatic massage may need to be changed, postponed or cleared by my physician if any of the following apply. Select any that apply to you.', options: list([
+    contra: { title: 'Post-surgical massage may need to be changed, postponed or cleared by my surgeon or physician if any of the following apply. Select any that apply to you.', options: list([
       'Fever or active infection', 'Blood clot or history of deep vein thrombosis', 'Congestive heart failure or serious heart disease', 'Kidney failure or kidney disease', 'Cancer or current cancer treatment', 'Lymphedema', 'Taking blood thinners or a bleeding disorder', 'Surgery in the last 6 weeks', 'Pregnant', 'Skin infection, rash or open wound in the treatment area', 'Thyroid condition that is not controlled'
     ]) },
     acks: [
-      { id: 'i_about', title: 'About lymphatic massage', paras: ['Lymphatic massage is a gentle, rhythmic hands-on technique that encourages the movement of lymph fluid through the body. I understand that massage therapists do not diagnose illness or injury, and that lymphatic massage does not replace medical care.'] },
+      { id: 'i_about', title: 'About post-surgical massage', paras: ['Post-surgical massage uses gentle, rhythmic lymphatic drainage techniques that encourage the movement of lymph fluid through the body during recovery from surgery or a cosmetic procedure. I understand that massage therapists do not diagnose illness or injury, and that post-surgical massage does not replace care from my surgeon.'] },
       { id: 'i_effects', title: 'Possible effects', paras: ['After a session I may feel tired, lightheaded or thirsty, or need to urinate more often. Mild soreness or tenderness is possible. Moving fluid can place extra demand on the heart and kidneys, which is why I have listed my health conditions. I will tell my therapist right away if anything is uncomfortable, and the therapist will adjust or stop.'] },
       { id: 'i_surgery', title: 'After surgery', paras: ['If I had a recent surgery or cosmetic procedure, I will tell my therapist the date and type of procedure and follow my surgeon\u2019s instructions. I understand my therapist may ask for my surgeon\u2019s clearance before treating me.'] },
       { id: 'i_comfort', title: 'Comfort and boundaries', paras: ['I will be properly draped at all times, and I can ask that any area be left untreated. I can end the session at any time for any reason. I understand massage at OxyLux is strictly therapeutic.'] },
-      noGuarantee('lymphatic massage')
+      noGuarantee('post-surgical massage')
     ],
-    legal: legal('lymphatic massage')
+    legal: legal('post-surgical massage')
+  };
+
+
+  var peptide = {
+    id: 'peptide', name: 'Peptide Therapy', formTitle: 'Peptide Therapy Consent Form', blurb: 'Provider-prescribed peptide protocols', time: 'About 30 minutes',
+    screens: [],
+    contra: { title: 'Peptide therapy may not be safe for me if any of the following apply. Select any that apply to you.', options: list([
+      'Pregnant, breastfeeding or trying to become pregnant', 'Current cancer, or a history of cancer', 'Diabetes, or taking insulin or blood sugar medicine', 'Kidney or liver disease', 'Heart disease or uncontrolled high blood pressure', 'Taking hormones or other injectable medications', 'Allergy to any peptide, medication or preservative', 'Under 18 years old'
+    ]) },
+    acks: [
+      { id: 'i_about', title: 'About peptide therapy', paras: ['Peptide therapy uses prescription peptides chosen by a licensed provider after reviewing my health history. I understand that some peptides are not FDA-approved for the use they are prescribed for, that some are prepared by compounding pharmacies and are not FDA-approved products, and that research on some peptides is limited.'] },
+      { id: 'i_effects', title: 'Possible side effects', paras: ['Possible side effects include redness, itching, swelling or bruising at the injection site, nausea, headache, flushing, dizziness, fatigue, changes in appetite, blood sugar or blood pressure, and allergic reactions, which can rarely be serious. Long-term effects of some peptides are not known. I will tell OxyLux right away about any side effect, and I will call 911 for trouble breathing, chest pain or swelling of my face or throat.'] },
+      { id: 'i_use', title: 'Using my peptides safely', paras: ['I will use my peptides exactly as prescribed, store them as instructed, and not share them with anyone. I will keep my follow-up visits and any lab work my provider requests, and I will tell my other doctors that I am using peptide therapy.'] },
+      noGuarantee('peptide therapy')
+    ],
+    legal: legal('peptide therapy')
+  };
+
+  var weight = {
+    id: 'weight', name: 'Weight Management', formTitle: 'Medical Weight Management Consent Form', blurb: 'Personalized, medically guided weight loss', time: 'About 45 minutes',
+    screens: [],
+    contra: { title: 'Some weight management medicines may not be safe for me if any of the following apply. Select any that apply to you.', options: list([
+      'Pregnant, breastfeeding or trying to become pregnant', 'Personal or family history of medullary thyroid cancer or MEN 2', 'History of pancreatitis', 'Gallbladder disease', 'Type 1 diabetes, or taking insulin or sulfonylureas', 'Kidney disease', 'History of an eating disorder', 'Severe stomach or digestive disease, including gastroparesis', 'Diabetic eye disease (retinopathy)'
+    ]) },
+    acks: [
+      { id: 'i_about', title: 'About medical weight management', paras: ['My program is personalized by a licensed provider and may include nutrition and activity guidance, lab work, and, when appropriate, prescription medication such as a GLP-1 medicine. Some medications may be compounded, and compounded medications are not FDA-approved products. My provider will explain the plan and any medication before I start.'] },
+      { id: 'i_effects', title: 'Medication side effects', paras: ['Common side effects of weight loss medications include nausea, vomiting, diarrhea, constipation, stomach pain, reduced appetite and fatigue. Less common but serious risks include dehydration, low blood sugar, gallbladder problems, pancreatitis and kidney problems. Some GLP-1 medicines caused thyroid tumors in animal studies. I will stop and seek medical care right away for severe stomach pain, persistent vomiting, a lump in my neck, or trouble swallowing or breathing.'] },
+      { id: 'i_followup', title: 'Follow-up and honesty', paras: ['I will attend my follow-up visits, report changes in my health and medicines, and use any medication only as prescribed. I understand my provider may change or stop my plan if it is not safe for me.'] },
+      noGuarantee('medical weight management')
+    ],
+    legal: legal('medical weight management')
+  };
+
+  var prp = {
+    id: 'prp', name: 'PRP Therapy', formTitle: 'PRP Therapy Consent Form', blurb: 'Platelet-rich plasma from your own blood', time: '45 to 60 minutes',
+    screens: [],
+    contra: { title: 'PRP therapy may not be safe for me if any of the following apply. Select any that apply to you.', options: list([
+      'Bleeding disorder, or low platelets', 'Taking blood thinners', 'Anemia', 'Active infection or open wound in the treatment area', 'Current cancer or cancer treatment', 'Pregnant or breastfeeding', 'Fever or acute illness', 'Skin condition in the treatment area, such as a cold sore', 'Took aspirin or anti-inflammatory medicine in the last week'
+    ]) },
+    acks: [
+      { id: 'i_about', title: 'About PRP therapy', paras: ['Platelet-rich plasma (PRP) is made from a small sample of my own blood, which is spun in a centrifuge to concentrate the platelets and then applied to or injected into the treatment area. I understand that many cosmetic uses of PRP are not FDA-approved, that results vary from person to person, and that a series of treatments is usually recommended.'] },
+      { id: 'i_effects', title: 'Possible side effects', paras: ['The blood draw and treatment may cause pain, bruising, swelling, redness, tenderness or temporary lumps. Less commonly, infection, lightheadedness or fainting during the blood draw, skin discoloration, nerve irritation or an allergic reaction to numbing medicine can occur. I will tell my provider right away if anything is uncomfortable.'] },
+      { id: 'i_aftercare', title: 'Before and after treatment', paras: ['I will follow the instructions I am given, including avoiding aspirin and anti-inflammatory medicines before and after treatment if my provider asks. I will contact OxyLux if I notice increasing pain, redness, warmth, drainage or fever.'] },
+      noGuarantee('PRP therapy')
+    ],
+    legal: legal('PRP therapy')
   };
 
   var venus = {
@@ -252,7 +298,7 @@
   };
 
   var botox = {
-    id: 'botox', name: 'Botox', formTitle: 'Botox Cosmetic Consent Form', blurb: 'Injections to soften facial lines', time: '30 minutes',
+    id: 'botox', name: 'Botox Injections', formTitle: 'Botox Cosmetic Consent Form', blurb: 'Injections to soften facial lines', time: '30 minutes',
     screens: [],
     contra: { title: 'I understand Botox may not be safe for me if any of the following apply. Select any that apply to you.', options: list([
       'Allergy to any botulinum toxin product or ingredient', 'Infection at the injection site', 'Pregnant, breastfeeding or trying to become pregnant', 'Myasthenia gravis, Lambert-Eaton syndrome or ALS', 'Trouble swallowing or breathing', 'Taking aminoglycoside antibiotics or muscle relaxants', 'Bleeding disorder or taking blood thinners', 'Botulinum toxin injection in the last 3 months', 'Drooping eyelid or brow', 'Facial surgery or weakness in the facial muscles'
@@ -267,6 +313,6 @@
     legal: legal('Botox treatment')
   };
 
-  window.OXY_DRIPS = { hydration: 'Pure Hydration', energy: 'Daily Energy', immune: 'Immune Support', glow: 'Skin Glow', recovery: 'Active Recovery', calm: 'Deep Calm' };
-  window.OXY_SERVICES = [hbot, iv, lymphatic, venus, botox];
+  window.OXY_DRIPS = { postop: 'Healing Post-Op IV Kit', immunity: 'Immunity IV Kit', recovery: 'Recovery and Performance IV Kit', timeless: 'Timeless IV Kit', brainstorm: 'Brainstorm IV Kit', nad: 'NAD+ Low Concentration' };
+  window.OXY_SERVICES = [hbot, iv, postsurgical, peptide, weight, venus, prp, botox];
 })();

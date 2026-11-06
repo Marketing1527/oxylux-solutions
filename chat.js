@@ -39,7 +39,7 @@
   function linkify(s) {
     return esc(s)
       .replace(/https:\/\/www\.oxyluxsolutions\.com[^\s<)]*/g, function (u) { return '<a href="' + u + '">' + (u.indexOf('consent.html') !== -1 ? 'Sign your consent form' : u) + '</a>'; })
-      .replace(/\(305\) 205-2738/g, '<a href="tel:+13052052738">(305) 205-2738</a>');
+      .replace(/\(305\) 205-2738/g, '<a href="tel:+13534650532">(353) 465-0532</a>');
   }
   function add(role, text) {
     var p = document.createElement('p');
@@ -72,11 +72,11 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, body: j }; }); })
       .then(function (res) {
         wait.remove();
-        var reply = res.ok && res.body.reply ? res.body.reply : 'Chat isn’t available right now. Please call us at (305) 205-2738 or email frontdesk@oxyluxsolutions.com.';
+        var reply = res.ok && res.body.reply ? res.body.reply : 'Chat isn’t available right now. Please call us at (353) 465-0532 or email frontdesk@oxyluxsolutions.com.';
         add('bot', reply);
         if (res.ok) history.push({ role: 'assistant', content: reply }); else history.pop();
       })
-      .catch(function () { wait.remove(); history.pop(); add('bot', 'We couldn’t connect. Check your connection, or call us at (305) 205-2738.'); })
+      .catch(function () { wait.remove(); history.pop(); add('bot', 'We couldn’t connect. Check your connection, or call us at (353) 465-0532.'); })
       .then(function () { busy = false; input.focus(); });
   });
 })();

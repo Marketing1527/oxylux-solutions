@@ -1,11 +1,11 @@
 # OxyLux Solutions — full reference
 
-> Clinic in Hialeah, Florida, opening November 2, 2026, offering hyperbaric oxygen therapy, IV therapy, lymphatic massage, Venus Legacy and Botox. This file summarizes the public website so AI assistants can answer questions accurately. It is not medical advice.
+> Clinic in Miami Lakes, Florida, open since November 2, 2026, offering hyperbaric oxygen therapy, IV therapy, post-surgical massage, peptide therapy and weight management (Wellness and Recovery), plus Venus Legacy, PRP therapy and Botox injections (Aesthetic Treatments). All treatments are supervised by a board-certified surgeon. This file summarizes the public website so AI assistants can answer questions accurately. It is not medical advice.
 
 ## Clinic
 - Name: OxyLux Solutions
-- Address: 14361 Commerce Way, Suite 201, Hialeah, FL 33016
-- Phone: (305) 205-2738 · Email: frontdesk@oxyluxsolutions.com
+- Address: 14361 Commerce Way, Suite 201, Miami Lakes, FL 33016
+- Phone: (353) 465-0532 · Email: frontdesk@oxyluxsolutions.com
 - Hours: Monday to Friday 8 AM–5 PM Eastern; closed weekends
 - Languages: English and Spanish (se habla español)
 - Website: https://www.oxyluxsolutions.com
@@ -20,16 +20,19 @@ OxyLux uses an Oxycell OxyPro Genesis hard-shell chamber with a padded reclining
 HBOT is FDA-cleared for specific conditions, including diabetic and other non-healing wounds and tissue damage after radiation therapy. Other uses are considered off-label. Patients also use HBOT to support recovery before and after surgery or cosmetic procedures, and for sports recovery. No outcome is guaranteed.
 
 ## Other services
-- IV therapy: fluids and nutrients through an IV, about 45 to 60 minutes, after a health review by a licensed clinician.
-- Lymphatic massage: gentle rhythmic massage that encourages lymph flow, about 60 minutes.
+- IV therapy: fluids and nutrients through an IV, about 45 to 60 minutes, after a health review by a licensed clinician. IV kits: Healing Post-Op, Immunity, Recovery and Performance, Timeless, Brainstorm, and NAD+ at a low concentration.
+- Post-surgical massage: gentle lymphatic drainage massage to support recovery after surgery or a cosmetic procedure, about 60 minutes, with the surgeon's approval.
+- Peptide therapy: peptide protocols prescribed by a licensed provider after a health review; some peptides are not FDA-approved for the uses they are prescribed for.
+- Weight management: medically guided weight loss with a consultation, possible lab work, nutrition and activity guidance and, when appropriate, prescription medication such as a GLP-1 medicine.
 - Venus Legacy: non-invasive multi-polar radio frequency and pulsed electromagnetic fields. The manufacturer reports FDA clearance for moderate to severe facial wrinkles in women with Fitzpatrick skin types I to IV and for temporary reduction in the appearance of cellulite.
-- Botox: Botox Cosmetic injections from a licensed medical professional to temporarily soften certain facial lines. Cosmetic services are usually not covered by insurance.
+- PRP therapy: platelet-rich plasma from the patient's own blood, applied to or injected into the face or scalp; many cosmetic uses are not FDA-approved.
+- Botox injections: Botox Cosmetic injections from a licensed medical professional to temporarily soften certain facial lines. Cosmetic services are usually not covered by insurance.
 
 ## Who should wait or talk to a doctor first (hyperbaric oxygen therapy)
 High fever, ear infection or blocked ear canal, sinus or upper respiratory infection, air travel in the last 24 hours, untreated or recent pneumothorax (collapsed lung), severe lung or heart disease, seizure disorder, emphysema, glaucoma, optic neuritis, aneurysm, untreated asthma, certain medications (bleomycin, disulfiram, mafenide acetate) and pregnancy. Every patient completes a consent form and health screening before the first session.
 
 ## Insurance and booking
-OxyLux accepts most major insurance plans for eligible services. Coverage depends on the patient's plan and diagnosis; patients can call (305) 205-2738 to check before their first visit. Bring a photo ID and insurance card. Booking is online (choose a day, time and service, then sign that service's consent form) or by phone.
+OxyLux accepts most major insurance plans for eligible services. Coverage depends on the patient's plan and diagnosis; patients can call (353) 465-0532 to check before their first visit. Bring a photo ID and insurance card. Booking is online (choose a day, time and service, then sign that service's consent form) or by phone.
 
 ## What to expect
 1. Reserve online and sign the consent form.

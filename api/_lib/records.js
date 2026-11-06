@@ -77,7 +77,7 @@ export async function createRecord({ slot, service, screening, form, pdfBase64, 
   // Signing from the private link on a chat booking: attach to that booking.
   if (bookingId) {
     const found = await getRecord(String(bookingId));
-    if (!found || found.record.consent !== 'pending' || found.record.service !== service) throw httpError(400, 'This consent link is no longer valid. Please call (305) 205-2738.');
+    if (!found || found.record.consent !== 'pending' || found.record.service !== service) throw httpError(400, 'This consent link is no longer valid. Please call (353) 465-0532.');
     const r = found.record, stamp = new Date().toISOString();
     const pdfPath = `consents/${r.slot.date}_${clean(f.name, 80).replace(/[^A-Za-z -]/g, '').trim().replace(/\s+/g, '-') || 'Client'}_${service}_${r.id}.pdf`;
     await s.write(pdfPath, pdf, 'application/pdf');

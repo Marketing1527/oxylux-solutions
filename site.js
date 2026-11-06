@@ -20,7 +20,7 @@
       d.className = 'opening'; d.setAttribute('aria-labelledby', 'opening-title');
       d.innerHTML = '<button class="opening-close" type="button" aria-label="Close">×</button><div class="opening-body">' +
         '<img src="/assets/emblem.webp" alt="" width="256" height="198"><h2 id="opening-title">Opening November 2</h2>' +
-        '<p>OxyLux Solutions opens its doors in Hialeah on Monday, November 2. Reserve your first visit today.</p>' +
+        '<p>OxyLux Solutions opens its doors in Miami Lakes on Monday, November 2. Reserve your first visit today.</p>' +
         '<a class="btn" href="/reserve">Reserve now</a></div>';
       document.body.appendChild(d);
       var close = function () { d.close(); };
