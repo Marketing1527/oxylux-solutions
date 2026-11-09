@@ -148,12 +148,12 @@
     body += '<h3>Patient</h3>' + dl([['Date of birth', f.dob ? fmtDate(f.dob) + (f.age ? ' (age ' + f.age + ')' : '') : ''], ['Height / weight', [f.height, f.weight].filter(Boolean).join(' / ')], ['Referred by', f.referral], ['Heard about us', f.heard]]);
     if (r.consent !== 'pending') body += '<h3>Health history</h3>' + dl([['Medications', f.medications], ['Allergies', f.allergies], ['Under medical care', f.care ? f.care + (f.care === 'Yes' && f.care_detail ? ': ' + f.care_detail : '') : '']].concat(screenRows(r)));
     if (r.pdf) body += '<h3>Consent</h3>' + dl([['Signed by', f.sig_name], ['Signed on', fmtDate(f.sig_date)], ['E-signature agreement', f.esign === 'true' || f.esign === true ? 'Accepted' : '']]);
-    body += '<p class="a-note">Practice Fusion: download the PDF, then upload it to the patient’s chart.</p>';
+    body += '<p class="a-note">Practice Fusion: download or email the PDF, then upload it to the patient’s chart.</p>';
     body += '<h3>History</h3><ul class="a-history">' + (r.history || []).map(function (h) { return '<li>' + esc(fmtStamp(h.at)) + ' · ' + esc(h.action) + (h.by ? ' by ' + esc(h.by) : '') + '</li>'; }).join('') + '</ul>';
     $('d-body').innerHTML = body;
 
     var acts = !r.pdf ? '' : '<a class="btn" href="/api/admin/file?id=' + encodeURIComponent(r.id) + '">Download consent PDF</a>' +
-      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a><button class="btn btn-ghost" data-print="1">Print</button>';
+      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a><button class="btn btn-ghost" data-print="1">Print</button><button class="btn btn-ghost" data-email="1">Email to front desk</button>';
     if (r.type === 'booking') {
       if (r.status === 'confirmed') acts += '<button class="btn btn-ghost" data-act="complete">Mark completed</button><button class="btn btn-ghost" data-act="noshow">No-show</button><button class="btn btn-danger" data-act="cancel">Cancel appointment</button>';
       else if (r.status === 'cancelled') acts += '<button class="btn btn-ghost" data-act="confirm">Restore appointment</button>';
@@ -161,6 +161,16 @@
     }
     $('d-actions').innerHTML = acts;
     if (r.pdf) $('d-actions').querySelector('[data-print]').addEventListener('click', function () { printPdf(r.id); });
+    if (r.pdf) $('d-actions').querySelector('[data-email]').addEventListener('click', function () {
+      var b = this;
+      if (!confirm('Email ' + r.patient.name + '’s signed consent PDF to the front desk?')) return;
+      b.disabled = true; b.textContent = 'Sending…';
+      api('/api/email-consent', { method: 'POST', body: JSON.stringify({ id: r.id }) }).then(function (res) {
+        if (res.status !== 200) { b.disabled = false; b.textContent = 'Email to front desk'; alert(res.body.error || 'The email could not be sent.'); return; }
+        records = records.map(function (x) { return x.id === r.id ? res.body.record : x; });
+        render(); openDrawer(r.id);
+      });
+    });
     $('d-actions').querySelectorAll('[data-act]').forEach(function (b) {
       b.addEventListener('click', function () {
         var act = b.dataset.act;

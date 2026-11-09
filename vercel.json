@@ -11,34 +11,19 @@
   ],
   "redirects": [
     {
-      "source": "/book",
+      "source": "/",
       "destination": "/reserve",
       "permanent": false
     },
     {
-      "source": "/home.html",
-      "destination": "/",
-      "permanent": true
+      "source": "/:page(index|services|about|faq|contact|what-to-expect|hyperbaric-oxygen-therapy|iv-therapy|post-surgical-massage|peptide-therapy|weight-management|venus-legacy|prp-therapy|botox|lymphatic-massage|massage-therapy|infrared-therapy|home)(\\.html)?",
+      "destination": "/reserve",
+      "permanent": false
     },
     {
-      "source": "/home",
-      "destination": "/",
-      "permanent": true
-    },
-    {
-      "source": "/lymphatic-massage.html",
-      "destination": "/post-surgical-massage.html",
-      "permanent": true
-    },
-    {
-      "source": "/massage-therapy.html",
-      "destination": "/post-surgical-massage.html",
-      "permanent": true
-    },
-    {
-      "source": "/infrared-therapy.html",
-      "destination": "/services.html",
-      "permanent": true
+      "source": "/book",
+      "destination": "/reserve",
+      "permanent": false
     }
   ],
   "headers": [
