@@ -297,7 +297,7 @@
   } else showServiceStep();
 
   // ---------- Validation and submit ----------
-  var submitting = false, savedId = null;
+  var submitting = false;
   function formData() {
     var out = {};
     Array.prototype.forEach.call(form.elements, function (el) {
@@ -335,7 +335,6 @@
     } else if (!sent) {
       $('done-text').innerHTML = 'Thank you, ' + esc(form.name.value.trim().split(/\s+/)[0]) + '. We could not send your form online, so please download it and bring it to your visit, or email it to <a href="mailto:frontdesk@oxyluxsolutions.com">frontdesk@oxyluxsolutions.com</a>.';
     }
-    $('email-pdf').hidden = !(sent && savedId); $('email-pdf').disabled = false;
     $('done').hidden = false; $('done').focus();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -366,7 +365,7 @@
       }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); });
     }).then(function (res) {
       finish();
-      if (res.status === 201) { savedId = res.body.id || null; return showDone(true); }
+      if (res.status === 201) return showDone(true);
       if (res.status === 409 && bookingMode) {
         err.hidden = false; err.textContent = res.body.error;
         loadSlots(false).then(showTimeStep);
@@ -444,17 +443,6 @@
     });
   });
   $('print').addEventListener('click', function () { window.print(); });
-  $('email-pdf').addEventListener('click', function () {
-    var status = $('pdf-status'), btn = this;
-    if (!savedId) return;
-    btn.disabled = true; status.textContent = 'Sending your signed form to the OxyLux front desk…';
-    fetch('/api/email-consent', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: savedId }) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; }); })
-      .then(function (res) {
-        if (res.status === 200) { status.textContent = 'Sent to the OxyLux front desk.'; return; }
-        btn.disabled = false; status.textContent = res.body.error || 'The email could not be sent. Please download the PDF instead.';
-      }).catch(function () { btn.disabled = false; status.textContent = 'The email could not be sent. Check your connection and try again.'; });
-  });
   $('ics').addEventListener('click', function () {
     if (!slot) return;
     var start = slot.date.replace(/-/g, '') + 'T' + slot.time.replace(':', '') + '00';
@@ -476,7 +464,7 @@
     form.reset(); strokes = []; sigTouched = false; $('record').innerHTML = '';
     service = null; delete form.dataset.service; $('care-explain').hidden = true; $('contra-warn').hidden = true;
     form.care_detail.required = false; setDates();
-    savedId = null; $('done').hidden = true; $('done-appt').hidden = true; $('ics').hidden = true; $('pdf-status').textContent = '';
+    $('done').hidden = true; $('done-appt').hidden = true; $('ics').hidden = true; $('pdf-status').textContent = '';
     if (bookingMode) { slot = null; loadSlots(); showTimeStep(); } else showServiceStep();
     update(); window.scrollTo({ top: 0 });
   });

@@ -153,7 +153,7 @@
     $('d-body').innerHTML = body;
 
     var acts = !r.pdf ? '' : '<a class="btn" href="/api/admin/file?id=' + encodeURIComponent(r.id) + '">Download consent PDF</a>' +
-      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a><button class="btn btn-ghost" data-print="1">Print</button><button class="btn btn-ghost" data-email="1">Email to front desk</button>';
+      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="/api/admin/file?inline=1&id=' + encodeURIComponent(r.id) + '">View PDF</a><button class="btn btn-ghost" data-print="1">Print</button><button class="btn btn-ghost" data-email="1">Resend email to front desk</button>';
     if (r.type === 'booking') {
       if (r.status === 'confirmed') acts += '<button class="btn btn-ghost" data-act="complete">Mark completed</button><button class="btn btn-ghost" data-act="noshow">No-show</button><button class="btn btn-danger" data-act="cancel">Cancel appointment</button>';
       else if (r.status === 'cancelled') acts += '<button class="btn btn-ghost" data-act="confirm">Restore appointment</button>';
@@ -163,10 +163,10 @@
     if (r.pdf) $('d-actions').querySelector('[data-print]').addEventListener('click', function () { printPdf(r.id); });
     if (r.pdf) $('d-actions').querySelector('[data-email]').addEventListener('click', function () {
       var b = this;
-      if (!confirm('Email ' + r.patient.name + '’s signed consent PDF to the front desk?')) return;
+      if (!confirm('Email ' + r.patient.name + '’s signed consent PDF to the front desk again?')) return;
       b.disabled = true; b.textContent = 'Sending…';
       api('/api/email-consent', { method: 'POST', body: JSON.stringify({ id: r.id }) }).then(function (res) {
-        if (res.status !== 200) { b.disabled = false; b.textContent = 'Email to front desk'; alert(res.body.error || 'The email could not be sent.'); return; }
+        if (res.status !== 200) { b.disabled = false; b.textContent = 'Resend email to front desk'; alert(res.body.error || 'The email could not be sent.'); return; }
         records = records.map(function (x) { return x.id === r.id ? res.body.record : x; });
         render(); openDrawer(r.id);
       });

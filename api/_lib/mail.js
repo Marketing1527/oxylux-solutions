@@ -5,6 +5,8 @@
 //   MAIL_TO               comma-separated recipients
 import nodemailer from 'nodemailer';
 import { httpError } from './http.js';
+import { storage } from './storage.js';
+import { getRecord } from './records.js';
 
 export const mailConfigured = () => Boolean(process.env.SMTP_USER && process.env.SMTP_PASS);
 export const recipients = () => (process.env.MAIL_TO || 'frontdesk@oxyluxsolutions.com,liz.lago@oxyluxsolutions.com')
@@ -49,4 +51,17 @@ export function lineFor(record) {
 export function pdfName(record) {
   const name = (record.patient?.name || 'Client').replace(/[^A-Za-z -]/g, '').trim().replace(/\s+/g, '-') || 'Client';
   return `OxyLux-${record.service}-Consent-${name}-${record.createdAt.slice(0, 10)}.pdf`;
+}
+
+// Emails a saved record's PDF and notes it in the record's history. Returns the updated record.
+export async function emailRecord(record, by) {
+  if (!mailConfigured()) throw httpError(503, 'Email is not set up yet. Run npm run setup-email.');
+  const pdf = record.pdf ? await storage().read(record.pdf) : null;
+  if (!pdf) throw httpError(404, 'Signed form file not found.');
+  await sendConsents({ patient: record.patient.name, lines: [lineFor(record)], attachments: [{ filename: pdfName(record), content: pdf }] });
+  const found = await getRecord(record.id);
+  if (!found) return record;
+  found.record.history.push({ at: new Date().toISOString(), action: 'emailed to ' + recipients().join(', '), ...(by ? { by } : {}) });
+  await storage().write(found.path, JSON.stringify(found.record, null, 2), 'application/json');
+  return found.record;
 }
