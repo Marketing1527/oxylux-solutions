@@ -6,8 +6,8 @@ export const SCHEDULE = {
   opensOn: '2026-11-02',    // first bookable day
   minLeadMinutes: 120,      // earliest a slot can be booked from now
   maxDaysAhead: 60,
-  // 0 = Sunday ... 6 = Saturday. Matches the Google Business hours: Mon–Fri 8 AM–5 PM.
-  hours: { 1: ['08:00', '17:00'], 2: ['08:00', '17:00'], 3: ['08:00', '17:00'], 4: ['08:00', '17:00'], 5: ['08:00', '17:00'] },
+  // 0 = Sunday ... 6 = Saturday. Open every day, 8 AM–5 PM (weekends added Nov 2026).
+  hours: { 0: ['08:00', '17:00'], 1: ['08:00', '17:00'], 2: ['08:00', '17:00'], 3: ['08:00', '17:00'], 4: ['08:00', '17:00'], 5: ['08:00', '17:00'], 6: ['08:00', '17:00'] },
   closedDates: [],          // e.g. '2026-12-25'
 };
 
