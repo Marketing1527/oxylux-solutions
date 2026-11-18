@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto';
 import { storage, ExistsError } from './storage.js';
-import { slotKey, serviceSlotKey, isBookable } from './schedule.js';
+import { slotKey, serviceSlotKey, isBookable, overlapping } from './schedule.js';
 import { httpError } from './http.js';
 import { SERVICES } from './services.js';
 
@@ -12,9 +12,10 @@ export async function takenSlots() {
   return new Set(files.map((f) => f.slice('slots/'.length)));
 }
 
+// A time is taken when the same service is booked at it or at any overlapping start time (5:00 and 6:00 PM overlap).
 // Bookings made before services existed have no suffix and were all HBOT.
 export function isTaken(taken, date, time, service) {
-  return taken.has(serviceSlotKey(date, time, service)) || (service === 'hbot' && taken.has(slotKey(date, time)));
+  return overlapping(date, time).some((t) => taken.has(serviceSlotKey(date, t, service)) || (service === 'hbot' && taken.has(slotKey(date, t))));
 }
 
 async function findPath(id) {

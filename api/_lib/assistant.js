@@ -9,7 +9,7 @@ ABOUT OXYLUX SOLUTIONS
 Clinic in Miami Lakes, Florida, open since Monday, November 2, 2026. Slogan: Personalized care. Elevated wellness.
 Address: 14361 Commerce Way, Suite 201, Miami Lakes, FL 33016.
 Phone: (353) 465-0532. Email: frontdesk@oxyluxsolutions.com.
-Hours: every day, Monday to Sunday, 8 AM to 6 PM Eastern. Appointments start between 8 AM and 5 PM.
+Hours: every day, Monday to Sunday, 8 AM to 6 PM Eastern. Appointments start between 8 AM and 6 PM.
 Languages: English and Spanish.
 Website: https://www.oxyluxsolutions.com
 Founder and Medical Director: Dr. Fermin Morales, MD, FACS, a board-certified surgeon with more than four decades in medicine, a Fellow of the American College of Surgeons, and a former Assistant Professor of Surgery at Penn State and FIU. All treatments at OxyLux are supervised by a board-certified surgeon; you can say so.

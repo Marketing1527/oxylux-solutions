@@ -6,9 +6,9 @@ export const SCHEDULE = {
   opensOn: '2026-11-02',    // first bookable day
   minLeadMinutes: 120,      // earliest a slot can be booked from now
   maxDaysAhead: 60,
-  // 0 = Sunday ... 6 = Saturday. Open every day. The end time is when the last 90-minute slot finishes:
-  // 18:30 gives a last appointment at 5:00 PM, so the evening runs until about 6 PM.
+  // 0 = Sunday ... 6 = Saturday. Open every day. The end time is when the last 90-minute slot finishes.
   hours: { 0: ['08:00', '18:30'], 1: ['08:00', '18:30'], 2: ['08:00', '18:30'], 3: ['08:00', '18:30'], 4: ['08:00', '18:30'], 5: ['08:00', '18:30'], 6: ['08:00', '18:30'] },
+  extraTimes: ['18:00'],    // off-grid start times added to every open day (last appointment 6 PM)
   closedDates: [],          // e.g. '2026-12-25'
 };
 
@@ -36,7 +36,13 @@ export function slotsForDate(date) {
   if (!h) return [];
   const out = [];
   for (let m = toMin(h[0]); m + SCHEDULE.slotMinutes <= toMin(h[1]); m += SCHEDULE.slotMinutes) out.push(toTime(m));
-  return out;
+  return [...new Set([...out, ...SCHEDULE.extraTimes])].sort();
+}
+
+// Start times on the same day whose 90-minute window overlaps this one (including itself).
+export function overlapping(date, time) {
+  const t = toMin(time);
+  return slotsForDate(date).filter((x) => Math.abs(toMin(x) - t) < SCHEDULE.slotMinutes);
 }
 
 export function isBookable(date, time) {
