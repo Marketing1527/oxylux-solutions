@@ -18,7 +18,7 @@ Static site plus a few Vercel serverless functions for booking. No build step.
 
 ## How booking works
 1. Patient picks a slot on `/reserve` (`/api/availability`). Schedule lives in `api/_lib/schedule.js`:
-   every day 8 AM–5 PM, 90-minute slots, one appointment per service per slot, first bookable day Nov 2, 2026.
+   every day, appointments 8 AM–5 PM (open until about 6 PM), 90-minute slots, one appointment per service per slot, first bookable day Nov 2, 2026.
    Services are in `api/_lib/services.js`; consent text is in `consent-forms.js`.
 2. They complete and sign the consent form. The browser builds the signed PDF.
 3. `/api/book` reserves the slot (no double booking), stores the PDF and a JSON record.

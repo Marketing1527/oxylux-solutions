@@ -6,8 +6,9 @@ export const SCHEDULE = {
   opensOn: '2026-11-02',    // first bookable day
   minLeadMinutes: 120,      // earliest a slot can be booked from now
   maxDaysAhead: 60,
-  // 0 = Sunday ... 6 = Saturday. Open every day, 8 AM–5 PM (weekends added Nov 2026).
-  hours: { 0: ['08:00', '17:00'], 1: ['08:00', '17:00'], 2: ['08:00', '17:00'], 3: ['08:00', '17:00'], 4: ['08:00', '17:00'], 5: ['08:00', '17:00'], 6: ['08:00', '17:00'] },
+  // 0 = Sunday ... 6 = Saturday. Open every day. The end time is when the last 90-minute slot finishes:
+  // 18:30 gives a last appointment at 5:00 PM, so the evening runs until about 6 PM.
+  hours: { 0: ['08:00', '18:30'], 1: ['08:00', '18:30'], 2: ['08:00', '18:30'], 3: ['08:00', '18:30'], 4: ['08:00', '18:30'], 5: ['08:00', '18:30'], 6: ['08:00', '18:30'] },
   closedDates: [],          // e.g. '2026-12-25'
 };
 
